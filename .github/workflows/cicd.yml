@@ -13,19 +13,26 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v4
-      - name: Setup node env 🏗
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'pnpm'
+          node-version: 20
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
       - name: Install dependencies 👨🏻‍💻
         run: pnpm i
       - name: build
         run: pnpm run build
       - name: GCP Auth
-        uses: 'google-github-actions/auth@v2'
+        uses: "google-github-actions/auth@v2"
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
       - name: Setup gcloud CLI
         uses: google-github-actions/setup-gcloud@v2
       - name: GCP Docker Auth
@@ -37,7 +44,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: '${{ env.IMAGE_NAME }}:latest'
+          tags: "${{ env.IMAGE_NAME }}:latest"
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Deploy Docker image to Cloud Run
