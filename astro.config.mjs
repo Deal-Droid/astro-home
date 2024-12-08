@@ -6,7 +6,8 @@ import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://astroship-pro.web3templates.com",
+  site: "https://deal-droid.github.io",
+  base: "/astro-home",
   image: {
     domains: ["source.unsplash.com", "images.unsplash.com"],
   },
