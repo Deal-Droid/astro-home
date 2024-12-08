@@ -7,7 +7,7 @@ import icon from "astro-icon";
 // https://astro.build/config
 export default defineConfig({
   site: "https://deal-droid.github.io",
-  base: "/astro-home",
+  base: "/",
   image: {
     domains: ["source.unsplash.com", "images.unsplash.com"],
   },
