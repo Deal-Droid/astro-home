@@ -1,8 +1,32 @@
 ---
-import { Image, Picture } from "astro:assets";
-import heroImage from "../assets/hero-screenshot.png";
-import Link from "@components/ui/link.astro";
-import Container from "@components/container.astro";
+import { Image, Picture } from 'astro:assets';
+import heroImage from '../assets/hero-screenshot.png';
+import Link from '@components/ui/link.astro';
+import Container from '@components/container.astro';
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+} from '../i18n/utils';
+
+import type { UILanguages } from '../i18n/ui';
+
+const page_ui: UILanguages = {
+  en: {
+    'hero.h1': 'How Social Seller increase Conversion',
+    'hero.description':
+      'The chatbot platform to Open sales, Support, Close sales, Upsale an Upsell for your business.',
+  },
+  th: {
+    'hero.h1': 'แม่ค้าบนโซเชียวจะเพิ่มยอดได้อย่างไร',
+    'hero.description':
+      'จบในระบบเดียว ทั้งเปิดการขาย แนะนำสินค้า ปิดการขาย ขายเพิ่ม รวมถึงตอบคำถามแทนได้',
+  },
+} as const;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 ---
 
 <div class="overflow-x-clip">
@@ -18,12 +42,11 @@ import Container from "@components/container.astro";
       <div class="max-w-sm md:max-w-max lg:col-span-2">
         <h1
           class="text-3xl lg:text-4xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter [text-wrap:balance] text-center lg:text-start">
-          Create websites with Astroship™
+          {p('hero.h1')}
         </h1>
         <p
           class="text-lg mt-4 max-w-lg text-slate-600 [text-wrap:balance] text-center lg:text-start">
-          Pro version of popular Astroship starter template made for startups.
-          Built with Astro and Tailwind CSS.
+          {p('hero.description')}
         </p>
         <div
           class="mt-6 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
@@ -49,7 +72,7 @@ import Container from "@components/container.astro";
         <Picture
           src={heroImage}
           alt="Astronaut in the air"
-          formats={["avif", "webp"]}
+          formats={['avif', 'webp']}
           sizes="(max-width: 1024px) 100vw, 50vw"
           widths={[240, 540, 720, heroImage.width]}
           loading="eager"

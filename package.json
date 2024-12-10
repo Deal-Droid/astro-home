@@ -17,6 +17,7 @@
     "@astrojs/vercel": "^8.0.0",
     "@iconify-json/bx": "^1.1.10",
     "@iconify-json/fluent": "^1.1.47",
+    "@iconify-json/mdi": "^1.2.1",
     "@iconify-json/ph": "^1.1.10",
     "@iconify-json/uil": "^1.1.8",
     "astro": "^5.0.3",

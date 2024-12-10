@@ -11,5 +11,9 @@ export default defineConfig({
   image: {
     domains: ["source.unsplash.com", "images.unsplash.com"],
   },
+  i18n:{
+    locales:['en','th'],
+    defaultLocale: 'en',
+  },
   integrations: [tailwind(), mdx(), icon(), sitemap()],
 });
