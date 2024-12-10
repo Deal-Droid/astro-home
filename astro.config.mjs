@@ -12,8 +12,11 @@ export default defineConfig({
     domains: ["source.unsplash.com", "images.unsplash.com"],
   },
   i18n:{
-    locales:['en','th'],
     defaultLocale: 'en',
+    locales:['en','th'],
+    routing: {
+      prefixDefaultLocale: false
+    }
   },
   integrations: [tailwind(), mdx(), icon(), sitemap()],
 });
