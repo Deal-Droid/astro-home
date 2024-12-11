@@ -13,18 +13,18 @@ import type { UILanguages } from '../i18n/ui';
 
 const page_ui: UILanguages = {
   en: {
-    'hero.h1': 'How Social Seller increase Conversion',
+    'hero.h1': 'Assis Social Seller to increase Conversion',
     'hero.description':
       'The chatbot platform to Open sales, Support, Close sales, Upsale an Upsell for your business.',
-    'hero.cta': 'Schedule a demo',
+    'hero.cta': ' ☕️ Email me',
     'hero.register': 'Free Register',
   },
   th: {
-    'hero.h1': 'แม่ค้าบนโซเชียวจะเพิ่มยอดได้อย่างไร',
+    'hero.h1': 'ระบบ facebook chat ที่ช่วยแม่ค้าเพิ่มยอดขาย',
     'hero.description':
       'จบในระบบเดียว ทั้งเปิดการขาย แนะนำสินค้า ปิดการขาย ขายเพิ่ม รวมถึงตอบคำถามแทนได้',
     'hero.cta': 'นัดหมายพูดคุย',
-    'heor.register': 'ลงทะเบียนฟรี',
+    'hero.register': 'ลงทะเบียนฟรี',
   },
 } as const;
 
@@ -55,20 +55,20 @@ const p = usePageTranslations(lang, page_ui);
         <div
           class="mt-6 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
           <Link
-            href="https://web3templates.com/templates/astroship-pro-astro-saas-website-template"
+            href="https://app.dealdroid.net"
             target="_blank"
             class="flex gap-1 items-center justify-center"
             rel="noopener">
-            {p('hero.cta')}
+            {p('hero.register')}
           </Link>
           <Link
             size="lg"
             style="outline"
             rel="noopener"
-            href="https://github.com/surjithctly/astroship"
+            href="mailto:apirakb@gmail.com"
             class="flex gap-1 items-center justify-center"
             target="_blank">
-            {p('hero.register')}
+            {p('hero.cta')}
           </Link>
         </div>
       </div>
