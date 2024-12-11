@@ -1,9 +1,10 @@
 ---
 import Container from '@components/container.astro';
 import Link from '@components/ui/link.astro';
-import logoImage from '../../assets/logo.svg';
 import Dropdown from './dropdown.astro';
 import { StickyHeader, Astronav, MenuItems, MenuIcon } from 'astro-navbar';
+import { Image } from 'astro:assets';
+import logoImage from '../../assets/logo.svg';
 
 import {
   getLangFromUrl,
@@ -13,7 +14,6 @@ import {
 } from '../../i18n/utils';
 
 import type { UILanguages } from '../../i18n/ui';
-import Picture from 'astro/components/Picture.astro';
 
 const page_ui: UILanguages = {
   en: {
@@ -100,10 +100,9 @@ const menuitems: MenuItem[] = [
           <a
             href="/"
             class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
-            <Picture
+            <Image
               src={logoImage}
-              alt="Astronaut in the air"
-              formats={['svg']}
+              alt="Dealdroid logo"
               class="w-8 h-8 mr-1"
               loading="eager"
               fetchpriority="high"
