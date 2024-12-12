@@ -1,5 +1,40 @@
 ---
-import Button from "./ui/button.astro";
+import Button from './ui/button.astro';
+
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+} from '../i18n/utils';
+
+import type { UILanguages } from '../i18n/ui';
+
+const page_ui: UILanguages = {
+  en: {
+    'contact.fullname': 'Full Name',
+    'contact.email': 'Email Address',
+    'contact.invalid-email': 'Please provide a valid email address.',
+    'contact.empty-emial': 'Please provide your email address.',
+    'contact.empty-fullname': 'Please provide your full name.',
+    'contact.empty-message': 'Please enter your message.',
+    'contact.your-message': 'Your Message',
+    'contact.send-message': 'Send Message',
+  },
+  th: {
+    'contact.fullname': 'ชื่อ-นามสกุล',
+    'contact.email': 'อีเมล',
+    'contact.invalid-email': 'กรุณากรอกที่อยู่อีเมลที่ถูกต้อง',
+    'contact.empty-emial': 'กรุณากรอกที่อยู่อีเมลของคุณ',
+    'contact.empty-fullname': 'กรุณากรอกชื่อ-นามสกุลของคุณ',
+    'contact.empty-message': 'กรุณากรอกข้อความของคุณ',
+    'contact.your-message': 'ข้อความของคุณ',
+    'contact.send-message': 'ส่งข้อความ',
+  },
+} as const;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 ---
 
 <!-- // This is a working contact form //
@@ -12,50 +47,71 @@ import Button from "./ui/button.astro";
   class="needs-validation"
   data-astro-reload
   novalidate>
-  <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE" />
+  <input
+    type="hidden"
+    name="access_key"
+    value="21a79bd3-7788-4c48-8aac-cae50f4a6781"
+  />
   <!-- Create your free access key from https://web3forms.com/ -->
-  <input type="checkbox" class="hidden" style="display:none" name="botcheck" />
+  <input
+    type="checkbox"
+    class="hidden"
+    style="display:none"
+    name="botcheck"
+  />
   <div class="mb-5">
     <input
       type="text"
-      placeholder="Full Name"
+      placeholder={p('contact.fullname')}
       required
       class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
       name="name"
     />
     <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
-      Please provide your full name.
+      {p('contact.empty-fullname')}
     </div>
   </div>
   <div class="mb-5">
-    <label for="email_address" class="sr-only">Email Address</label><input
+    <label
+      for="email_address"
+      class="sr-only"
+      >{p('contact.email')}</label
+    ><input
       id="email_address"
       type="email"
-      placeholder="Email Address"
+      placeholder={p('contact.email')}
       name="email"
       required
       class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
     />
     <div class="empty-feedback text-red-400 text-sm mt-1">
-      Please provide your email address.
+      {p('contact.empty-emial')}
     </div>
     <div class="invalid-feedback text-red-400 text-sm mt-1">
-      Please provide a valid email address.
+      {p('contact.invalid-email')}
     </div>
   </div>
   <div class="mb-3">
     <textarea
       name="message"
       required
-      placeholder="Your Message"
+      placeholder={p('contact.your-message')}
       class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none h-36 focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
     ></textarea>
     <div class="empty-feedback invalid-feedback text-red-400 text-sm mt-1">
-      Please enter your message.
+      {p('contact.empty-message')}
     </div>
   </div>
-  <Button type="submit" size="lg" block>Send Message</Button>
-  <div id="result" class="mt-3 text-center"></div>
+  <Button
+    type="submit"
+    size="lg"
+    block
+    >{p('contact.send-message')}</Button
+  >
+  <div
+    id="result"
+    class="mt-3 text-center">
+  </div>
 </form>
 
 <style>
@@ -83,56 +139,56 @@ import Button from "./ui/button.astro";
   // use DOMContentLoaded event if you are not using View Transitions
 
   document.addEventListener(
-    "astro:page-load",
+    'astro:page-load',
     () => {
-      const form = document.getElementById("form");
-      const result = document.getElementById("result");
+      const form = document.getElementById('form');
+      const result = document.getElementById('result');
 
-      form.addEventListener("submit", function (e) {
+      form.addEventListener('submit', function (e) {
         e.preventDefault();
-        form.classList.add("was-validated");
+        form.classList.add('was-validated');
         if (!form.checkValidity()) {
-          form.querySelectorAll(":invalid")[0].focus();
+          form.querySelectorAll(':invalid')[0].focus();
           return;
         }
         const formData = new FormData(form);
         const object = Object.fromEntries(formData);
         const json = JSON.stringify(object);
 
-        result.innerHTML = "Sending...";
+        result.innerHTML = 'Sending...';
 
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           body: json,
         })
           .then(async (response) => {
             let json = await response.json();
             if (response.status == 200) {
-              result.classList.add("text-green-500");
+              result.classList.add('text-green-500');
               result.innerHTML = json.message;
             } else {
               console.log(response);
-              result.classList.add("text-red-500");
+              result.classList.add('text-red-500');
               result.innerHTML = json.message;
             }
           })
           .catch((error) => {
             console.log(error);
-            result.innerHTML = "Something went wrong!";
+            result.innerHTML = 'Something went wrong!';
           })
           .then(function () {
             form.reset();
-            form.classList.remove("was-validated");
+            form.classList.remove('was-validated');
             setTimeout(() => {
-              result.style.display = "none";
+              result.style.display = 'none';
             }, 5000);
           });
       });
     },
-    { once: true },
+    { once: true }
   );
 </script>
