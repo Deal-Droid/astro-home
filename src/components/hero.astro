@@ -84,11 +84,11 @@ const heroImage = heroImages[lang];
           src={heroImage}
           alt="Astronaut in the air"
           formats={['avif', 'webp']}
-          sizes="(max-width: 1024px) 100vw, 50vw"
+          sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 50vw"
           widths={[480, 960, 1440, 1920, heroImage.width]}
           loading="eager"
           fetchpriority="high"
-          quality={95}
+          quality={80}
         />
       </div>
     </main>
