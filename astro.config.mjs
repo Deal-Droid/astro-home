@@ -4,9 +4,8 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import icon from "astro-icon";
 
-// https://astro.build/config
 export default defineConfig({
-  site: "https://deal-droid.github.io",
+  site: "https://www.dealdroid.net",
   base: "/",
   image: {
     domains: ["source.unsplash.com", "images.unsplash.com"],

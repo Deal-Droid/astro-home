@@ -1,28 +1,124 @@
 ---
-import Badge from "@components/ui/badge.astro";
-import { Picture } from "astro:assets";
-import FeatureImg1 from "../assets/features/6.png";
-import FeatureImg2 from "../assets/features/2.png";
-import { Icon } from "astro-icon/components";
-import Link from "@components/ui/link.astro";
+import Badge from '@components/ui/badge.astro';
+import { Picture } from 'astro:assets';
+import FeatureImg1 from '../assets/features/6.png';
+import FeatureImg2 from '../assets/features/2.png';
+import { Icon } from 'astro-icon/components';
+import Link from '@components/ui/link.astro';
 
 const { nomargin } = Astro.props;
+
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+  useTranslatedPath,
+} from '../i18n/utils';
+
+import type { UILanguages } from '../i18n/ui';
+
+const mainFeature = {
+  th: {
+    'feature.tag': 'ทำไมต้อง Deal Droid',
+    'feature.title': 'ระบบ AI Chat bot ที่แก้สถานการณ์เองได้',
+    'feature.description':
+      'ระบบ AI ยุคใหม่ที่ไม่เพียงเข้าใจคำพูดของผู้ใช้ ' +
+      'แต่สามารถวเข้าใจบทสนทนาที่ผ่านมา ' +
+      'วิเคาะห์ออกมาเป็นความต้องการ เปรียบเทียบสินค้าที่ร้านค้ามี ' +
+      'และประมวลออกมา เป็นคำตอบสำหรับลูกค้าแต่ละคนได้โดยอัตโนมัติ',
+  },
+  en: {
+    'feature.tag': 'Why Deal Droid?',
+    'feature.title': 'Smart AI Chatbot That Thinks For Itself',
+    'feature.description':
+      "Our modern AI doesn't just understand what customers say - " +
+      'it remembers past chats, figures out what they need, ' +
+      'looks at your products, and gives each customer ' +
+      'the right answers automatically.',
+  },
+};
+
+const feature1 = {
+  th: {
+    'feature_1.tag': 'New Feature',
+    'feature_1.title':
+      'ลดความซับซ้อนในการตั้งค่าให้กับ Chat bot เจ้าของร้านสามารถปรับแต่ได้ด้วยตนเอง',
+    'feature_1.description':
+      'ระบบของเราต่างจาก Chat bot ดั้งเดิมที่ต้องคิด ' +
+      'Flow ล่วงหน้าไว้ทั้งหมด ระบบใหม่เจ้าของร้านแค่สร้างตัวอย่างบทสนทนาเอาไว้ ' +
+      'แล้วเจ้า AI จะเรียบรู้และเรียบเรียงคำตอบให้กับลูกค้าด้วยตนเอง',
+    'feature_1.first': 'เรียนรู้สินค้า ปรับคำตอบเองตามที่ลูกค้าถาม',
+    'feature_1.second': 'กำหนดนิสัยให้ Bot ตรงตามแบรนของร้าน',
+    'feature_1.third': 'เปิดใช้งานเฉพาะคำถามบางประเภทได้ ไม่ต้องเปิดทั้งหมด',
+  },
+  en: {
+    'feature_1.tag': 'New Feature',
+    'feature_1.title': 'Easy Setup - No Tech Skills Needed',
+    'feature_1.description':
+      'Unlike old chatbots that need complex setup, our system is simple. ' +
+      'Just show it some example chats, and it learns how to talk to your ' +
+      'customers on its own.',
+    'feature_1.first': 'Learns your products and answers questions naturally',
+    'feature_1.second': "Talks in your brand's style",
+    'feature_1.third': 'Turn on just the features you need',
+  },
+};
+
+const feature2 = {
+  th: {
+    'feature_2.tag': 'New Benefit',
+    'feature_2.title':
+      'เพิ่มการปิดการขาย ด้วยการตอบที่รวดเร็ว ปรับตัวตามผู้ใช้ และทำงาน 24 ชั่วโมง',
+    'feature_2.description':
+      'ถ้าโฆษณาของเราตรงใจกลุ่มเป้าหมาย ยอดการทักก็จะพุงสูงจนพนักงานตอบไม่ทัน ทำให้คุณภาพการตอบคำถามลดลง และทำให้การปิดการขายน้อยลงไปด้วย',
+    'feature_2.first': 'รองรับลูกค้าที่มีความต้องการหลากหลาย',
+    'feature_2.second': 'ตอบคำถามยาก เกี่ยวกับสินค้าได้ด้วย',
+    'feature_2.third': 'ปรับคำตอบตามเทศการ ให้ลูกค้าซื้อของได้สนุกขึ้น',
+  },
+  en: {
+    'feature_2.tag': 'New Benefit',
+    'feature_2.title': 'Sell More With 24/7 Smart Support',
+    'feature_2.description':
+      'When your ads work well, you get lots of messages. Instead of missing sales because your team is too busy, let our AI help handle the rush.',
+    'feature_2.first': 'Helps all kinds of customers',
+    'feature_2.second': 'Handles tough product questions',
+    'feature_2.third': 'Makes seasonal shopping fun with timely responses',
+  },
+};
+
+const page_ui: UILanguages = {
+  th: {
+    ...mainFeature.th,
+    ...feature1.th,
+    ...feature2.th,
+    'feature.cta': 'ทดสอบระบบ ฟรี',
+    'feature.contact': 'ติดต่อฝ่ายขาย',
+  },
+  en: {
+    ...mainFeature.en,
+    ...feature1.en,
+    ...feature2.en,
+    'feature.cta': 'Try for Free',
+    'feature.contact': 'Contact Sales',
+  },
+} as const;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 ---
 
 <div
   class:list={[
-    "max-w-4xl mx-auto flex flex-col items-center justify-center",
-    !nomargin && "mt-24",
+    'max-w-4xl mx-auto flex flex-col items-center justify-center',
+    !nomargin && 'mt-24',
   ]}>
-  <Badge color="purple">TWO-COL FEATURES</Badge>
+  <Badge color="purple">{p('feature.tag')}</Badge>
   <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-4 text-center">
-    Supercharge Your Workflows
+    {p('feature.title')}
   </h2>
   <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]">
-    Unlock your team's true potential with our state-of-the-art SaaS platform.
-    From intelligent task management to real-time collaboration and top-notch
-    data security, we have everything you need to streamline your workflows and
-    achieve high productivity.
+    {p('feature.description')}
   </p>
 </div>
 
@@ -31,46 +127,59 @@ const { nomargin } = Astro.props;
     <Picture
       src={FeatureImg1}
       alt="Feature Image"
-      formats={["avif", "webp"]}
+      formats={['avif', 'webp']}
       loading="lazy"
     />
   </div>
 
   <div class="grid place-items-center">
     <div class="max-w-lg">
-      <Badge color="purple" class="-ml-px">Simplified Workflows</Badge>
+      <Badge
+        color="purple"
+        class="-ml-px"
+        >{p('feature_1.tag')}</Badge
+      >
       <h3 class="text-2xl font-medium mt-4 [text-wrap:balance]">
-        Experience the Ultimate Boost in Productivity with Our Intuitive
-        Platform
+        {p('feature_1.title')}
       </h3>
       <p class="mt-4 text-slate-600 [text-wrap:balance]">
-        Streamline your tasks and collaborate seamlessly with our cutting-edge
-        SaaS startup platform. Unlock the potential of your team and take
-        productivity to new heights.
+        {p('feature_1.description')}
       </p>
 
       <ul class="grid mt-6 text-left gap-y-4">
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Intelligent Task Management</span>
+          <span class="text-sm">{p('feature_1.first')}</span>
         </li>
 
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Real-time Collaboration</span>
+          <span class="text-sm">{p('feature_1.second')}</span>
         </li>
 
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Data Security & Privacy</span>
+          <span class="text-sm">{p('feature_1.third')}</span>
         </li>
       </ul>
       <div class="flex items-center gap-4 mt-6">
-        <Link href="#" size="sm" class="inline-flex items-center group gap-px">
-          <span>Start 14-day trial</span>
+        <Link
+          href="https://app.dealdroid.net/register/"
+          size="sm"
+          class="inline-flex items-center group gap-px">
+          <span>{p('feature.cta')}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -79,13 +188,14 @@ const { nomargin } = Astro.props;
             <path
               fill-rule="evenodd"
               d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clip-rule="evenodd"></path>
+              clip-rule="evenodd"
+            ></path>
           </svg>
         </Link>
         <a
-          href="#"
+          href="mailto:apirakb@gmail.com"
           class="text-sm px-2 transition py-1 text-slate-600 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full">
-          Contact Sales</a
+          {p('feature.contact')}</a
         >
       </div>
     </div>
@@ -97,42 +207,56 @@ const { nomargin } = Astro.props;
     <Picture
       src={FeatureImg2}
       alt="Feature Image"
-      formats={["avif", "webp"]}
+      formats={['avif', 'webp']}
       loading="lazy"
     />
   </div>
 
   <div class="grid place-items-center">
     <div class="max-w-lg">
-      <Badge color="purple" class="-ml-px">AI-Powered Insights</Badge>
+      <Badge
+        color="purple"
+        class="-ml-px"
+        >{p('feature_2.tag')}</Badge
+      >
       <h3 class="text-2xl font-medium mt-4 [text-wrap:balance]">
-        Supercharge Your Marketing Strategy with Advanced Analytics
+        {p('feature_2.title')}
       </h3>
       <p class="mt-4 text-slate-600 [text-wrap:balance]">
-        Harness the potential of AI-driven marketing analytics to optimize your
-        campaigns, understand your audience better, and achieve unprecedented
-        growth.
+        {p('feature_2.description')}
       </p>
       <ul class="grid mt-6 text-left gap-y-4">
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Smart Audience Segmentation</span>
+          <span class="text-sm">{p('feature_2.first')}</span>
         </li>
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Predictive Campaign Performance</span>
+          <span class="text-sm">{p('feature_2.second')}</span>
         </li>
         <li class="flex items-center gap-3 text-neutral-800">
-          <Icon name="ph:check-circle-fill" class="w-5 h-5" />
+          <Icon
+            name="ph:check-circle-fill"
+            class="w-5 h-5"
+          />
 
-          <span class="text-sm">Real-time Data Visualization</span>
+          <span class="text-sm">{p('feature_2.third')}</span>
         </li>
       </ul>
       <div class="flex items-center gap-4 mt-6">
-        <Link href="#" size="sm" class="inline-flex items-center group gap-px">
-          <span>Start 14-day trial</span>
+        <Link
+          href="https://app.dealdroid.net/register/"
+          size="sm"
+          class="inline-flex items-center group gap-px">
+          <span>{p('feature.cta')}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -141,13 +265,14 @@ const { nomargin } = Astro.props;
             <path
               fill-rule="evenodd"
               d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clip-rule="evenodd"></path>
+              clip-rule="evenodd"
+            ></path>
           </svg>
         </Link>
         <a
-          href="#"
+          href="mailto:apirakb@gmail.com"
           class="text-sm px-2 transition py-1 text-slate-600 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full"
-          >Contact Sales</a
+          >{p('feature.contact')}</a
         >
       </div>
     </div>
