@@ -26,7 +26,7 @@ const page_ui: UILanguages = {
     'hero.register': 'Free Register',
   },
   th: {
-    'hero.h1': 'ระบบ chat bot ที่ช่วยแม่ค้าเพิ่มยอดขาย',
+    'hero.h1': 'ระบบ chat bot ที่ติดตั้งได้ด้วยตนเอง',
     'hero.description':
       'จบในระบบเดียว ทั้งเปิดการขาย แนะนำสินค้า ปิดการขาย ขายเพิ่ม รวมถึงตอบคำถามแทนได้',
     'hero.cta': 'นัดหมายพูดคุย',
@@ -52,7 +52,9 @@ const heroImage = heroImages[lang];
 
       <div class="max-w-sm md:max-w-max lg:col-span-2">
         <h1
-          class="text-3xl lg:text-4xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter [text-wrap:balance] text-center lg:text-start">
+          class={`text-3xl lg:text-4xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter [text-wrap:balance] text-center lg:text-start ${
+            lang === 'th' ? 'leading-snug xl:leading-snug' : ''
+          }`}>
           {p('hero.h1')}
         </h1>
         <p
