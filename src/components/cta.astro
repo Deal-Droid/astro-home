@@ -1,17 +1,47 @@
 ---
-import Link from "./ui/link.astro";
+import Link from './ui/link.astro';
+
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+} from '../i18n/utils';
+
+import type { UILanguages } from '../i18n/ui';
+
+const page_ui: UILanguages = {
+  en: {
+    'cta.h1': 'Build No Code Chatbot',
+    'cta.description':
+      'The chatbot platform to Open sales, Support, Close sales, Upsale an Upsell for your business.',
+    'cta.cta': 'Sing up for free',
+  },
+  th: {
+    'cta.h1': 'สร้าง Chat bot ได้ด้วยตัวเอง',
+    'cta.description':
+      'แพลตฟอร์มแชทบอทสำหรับเปิดการขาย ให้บริการลูกค้า ปิดการขาย และนำเสนอสินค้าเพิ่มเติมสำหรับธุรกิจของคุณ',
+    'cta.cta': 'ลงทะเบียนใช้งาน ฟรี 🎉',
+  },
+} as const;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 ---
 
 <div
   class="bg-gradient-to-bl from-indigo-900 to-indigo-700 p-8 md:px-20 md:py-20 mt-20 flex flex-col items-center text-center">
   <h2 class="text-white text-4xl md:text-6xl tracking-tight">
-    Build faster websites.
+    {p('cta.h1')}
   </h2>
   <p class="text-white/70 mt-4 text-lg md:text-xl">
-    Pull content from anywhere and serve it fast with Astro's next-gen island
-    architecture.
+    {p('cta.description')}
   </p>
   <div class="flex mt-5">
-    <Link href="#" style="inverted">Sign up for a 14-day Trial</Link>
+    <Link
+      href="https://app.dealdroid.net/register"
+      style="inverted"
+      >{p('cta.cta')}</Link
+    >
   </div>
 </div>

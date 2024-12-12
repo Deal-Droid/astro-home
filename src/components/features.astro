@@ -2,6 +2,31 @@
 // @ts-ignore
 import Badge from '@components/ui/badge.astro';
 import { Icon } from 'astro-icon/components';
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+} from '../i18n/utils';
+import type { UILanguages } from '../i18n/ui';
+
+const page_ui: UILanguages = {
+  en: {
+    'feature.tag': 'More Features',
+    'feature.h1': "We've got you covered",
+    'feature.description':
+      "We strive to make our chat bot comprehensive, covering all the needs of online sellers. If there's anything we don't have yet, please don't hesitate to contact us.",
+  },
+  th: {
+    'feature.tag': 'More Features',
+    'feature.h1': 'ความสามารถครบวงจร',
+    'feature.description':
+      'เราพยายามทำ chat bot ให้มีความสามารถครอบคลุม ทุกความต้องการของแม่ค้าออนไลน์ หากยังมีอะไรที่เราไม่มี โปรดอย่าเกรงใจสามารถติดต่อหาเราได้เลย',
+  },
+} as const;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 
 const features_th = [
   {
@@ -40,48 +65,53 @@ const features_th = [
       'Bot สามารถทำงานได้ตลอด 24 ขั่วโมงโดยไม่หยุดพัก และคุณภาพไม่ลดลง ช่วยให้แม่ค้าสามารถรักษาความต่อเนื่องในการคุยกับลูกค้าได้ ลดความเสี่ยงในการเสียลูกค้าไป',
     icon: 'fluent:clock-toolbox-24-regular',
   },
-];
+] as const;
 
 const features_en = [
   {
-    title: 'Bring Your Own Framework',
+    title: 'Smart Cart Summary',
     description:
-      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
-    icon: 'fluent:document-javascript-24-regular',
+      'The Bot understands entire conversations and can instantly summarize them into a shopping cart. Users can simply say "add 1 piece" or "one more in red" for seamless ordering.',
+    icon: 'fluent:cart-24-regular',
   },
   {
-    title: '100% Static HTML, No JS',
+    title: 'Sales History Tracking',
     description:
-      'Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.',
-    icon: 'fluent:trophy-24-regular',
+      'The system can export daily sales data to Excel, showing customer interactions, products sold, and contact timestamps - enabling shop owners to analyze business performance.',
+    icon: 'fluent:chat-24-regular',
   },
   {
-    title: 'On-Demand Components',
+    title: 'Customizable Bot Responses',
     description:
-      'Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ',
-    icon: 'fluent:box-24-regular',
+      'Shop owners can choose which types of questions the Bot should answer. Start with basic greetings and gradually enable more complex responses as needed.',
+    icon: 'fluent:checkbox-checked-24-regular',
   },
   {
-    title: 'Broad Integration',
+    title: 'Keyword Response System',
     description:
-      'Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.',
-    icon: 'fluent:box-multiple-24-regular',
+      'Stores can set up custom keyword triggers with automated responses. Quick-select options can also be configured for faster ordering process.',
+    icon: 'fluent:tag-24-regular',
   },
   {
-    title: 'SEO Enabled',
+    title: 'Multilingual Support',
     description:
-      'Automatic sitemaps, RSS feeds, pagination and collections take the pain out of SEO and syndication. It just works!',
-    icon: 'fluent:book-search-24-regular',
+      "The Bot responds in the customer's language, supporting Thai, Chinese, English, and many other languages. Shop owners can configure preferred response languages.",
+    icon: 'fluent:translate-24-regular',
   },
   {
-    title: 'Community',
+    title: '24/7 Operation',
     description:
-      'Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.',
-    icon: 'fluent:people-community-24-regular',
+      'The Bot operates round-the-clock without breaks or quality degradation, maintaining consistent customer communication and reducing the risk of losing potential sales.',
+    icon: 'fluent:clock-toolbox-24-regular',
   },
-];
+] as const;
 
-const features = features_th;
+const features_all = {
+  en: features_en,
+  th: features_th,
+} as const;
+
+const features = features_all[lang];
 ---
 
 <!-- <div class="mt-16">
@@ -93,14 +123,12 @@ const features = features_th;
   </p>
 </div> -->
 <div class="mt-24 max-w-3xl mx-auto flex flex-col items-center justify-center">
-  <Badge color="purple">MORE FEATURES</Badge>
+  <Badge color="purple">{p('feature.tag')}</Badge>
   <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-4 text-center">
-    We've got you covered
+    {p('feature.h1')}
   </h2>
   <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]">
-    Our template covers all things SAAS. If you don't find what you're looking
-    for, contact us and we'll either help you or steer you in the right
-    direction.
+    {p('feature.description')}
   </p>
 </div>
 
