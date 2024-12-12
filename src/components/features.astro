@@ -1,46 +1,87 @@
 ---
 // @ts-ignore
-import Badge from "@components/ui/badge.astro";
-import { Icon } from "astro-icon/components";
+import Badge from '@components/ui/badge.astro';
+import { Icon } from 'astro-icon/components';
 
-const features = [
+const features_th = [
   {
-    title: "Bring Your Own Framework",
+    title: 'สรุปตะกร้าสินค้า',
     description:
-      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
-    icon: "fluent:document-javascript-24-regular",
+      "Bot สามารถเข้าใจบทสนทนาทั้งหมด แล้วนำมาสรุปเป็นตะกร้าสินค้าได้ทันที ดังนั้นผู้ใช้สามารถสั่ง 'เพิ่ม 1 ชิน' หรือสั่ง 'เอาสีแดงอีก 1' ได้เลย",
+    icon: 'fluent:cart-24-regular',
   },
   {
-    title: "100% Static HTML, No JS",
+    title: 'รวบรวมประวัติการขาย',
     description:
-      "Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.",
-    icon: "fluent:trophy-24-regular",
+      'ระบบสามารถสรุปออกมาเป็น excel ได้ว่าวันนี้ขายกับลูกค้าคนไหนบ้าง มีสินค้าอะไรบ้าง ลูกค้าติดต่อเข้ามาเวลาไหนบ้าง เพื่อให้เจ้าของร้านนำมาวิเคราะห์ในภายหลัง',
+    icon: 'fluent:chat-24-regular',
   },
   {
-    title: "On-Demand Components",
+    title: 'เลือกคำถามที่ให้ Bot ตอบได้',
     description:
-      "Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ",
-    icon: "fluent:box-24-regular",
+      'ไม่จำเป็นต้องให้ Bot ตอบทุกคำถาม เจ้าของร้านสามารถเลือกชนิดของคำถามที่อยากให้ Bot ตอบหรือไม่ตอบก็ได้ หรือในช่วงแรกอาจจะให้ตอบเฉพาะทำทักทาย แล้วช่วงหลังค่อยให้ตอบสิ่งที่ซับซ้อนมากขึ้นก็ได้.',
+    icon: 'fluent:checkbox-checked-24-regular',
   },
   {
-    title: "Broad Integration",
+    title: 'ระบบตอบตาม keyword',
     description:
-      "Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.",
-    icon: "fluent:box-multiple-24-regular",
+      'ร้านค้่าสามารถตั้ง keyword ให้ระบบตอบตามที่ตั้งเอาไว้ได้ นอกจากนั้นยังสามารถตั้งตัวเลือกให้ผู้ใช้เลือกได้อีกด้วย ทำให้การสั่งซื้อสามารถทำแบบรวดเร็วได้ด้วย',
+    icon: 'fluent:tag-24-regular',
   },
   {
-    title: "SEO Enabled",
+    title: 'รองรับหลายภาษา',
     description:
-      "Automatic sitemaps, RSS feeds, pagination and collections take the pain out of SEO and syndication. It just works!",
-    icon: "fluent:book-search-24-regular",
+      'Bot จะพยายามตอบเป็นภาษาเดียวกับที่ลูกค้าถาม โดยระบบรองรับทั้งภาษาไทย ภาษาจีน ภาษาอังกฤษ และอีกหลายภาษา เจ้าของร้านสามารถตั้งได้ว่าจะให้ตอบในภาษาอะไร',
+    icon: 'fluent:translate-24-regular',
   },
   {
-    title: "Community",
+    title: 'ทำงาน 24 ชั่วโมง',
     description:
-      "Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.",
-    icon: "fluent:people-community-24-regular",
+      'Bot สามารถทำงานได้ตลอด 24 ขั่วโมงโดยไม่หยุดพัก และคุณภาพไม่ลดลง ช่วยให้แม่ค้าสามารถรักษาความต่อเนื่องในการคุยกับลูกค้าได้ ลดความเสี่ยงในการเสียลูกค้าไป',
+    icon: 'fluent:clock-toolbox-24-regular',
   },
 ];
+
+const features_en = [
+  {
+    title: 'Bring Your Own Framework',
+    description:
+      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
+    icon: 'fluent:document-javascript-24-regular',
+  },
+  {
+    title: '100% Static HTML, No JS',
+    description:
+      'Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.',
+    icon: 'fluent:trophy-24-regular',
+  },
+  {
+    title: 'On-Demand Components',
+    description:
+      'Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ',
+    icon: 'fluent:box-24-regular',
+  },
+  {
+    title: 'Broad Integration',
+    description:
+      'Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.',
+    icon: 'fluent:box-multiple-24-regular',
+  },
+  {
+    title: 'SEO Enabled',
+    description:
+      'Automatic sitemaps, RSS feeds, pagination and collections take the pain out of SEO and syndication. It just works!',
+    icon: 'fluent:book-search-24-regular',
+  },
+  {
+    title: 'Community',
+    description:
+      'Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.',
+    icon: 'fluent:people-community-24-regular',
+  },
+];
+
+const features = features_th;
 ---
 
 <!-- <div class="mt-16">
@@ -68,10 +109,14 @@ const features = [
     features.map((item) => (
       <div class="flex flex-col gap-4 items-start group hover:bg-slate-50 hover:border-slate-100 border border-transparent rounded-lg transition-all md:-m-5 p-5">
         <div class="mt-1 bg-indigo-50 border shadow shadow-indigo-100/50 border-indigo-100 transition-colors rounded-lg grid place-items-center  p-2 w-10 h-10 shrink-0">
-          <Icon class="text-indigo-500" name={item.icon} size="24" />
+          <Icon
+            class="text-indigo-500"
+            name={item.icon}
+            size="24"
+          />
         </div>
         <div>
-          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
+          <h3 class="font-semibold text-lg">{item.title}</h3>{' '}
           <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
         </div>
       </div>
