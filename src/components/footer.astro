@@ -2,48 +2,64 @@
 import Container from '@components/container.astro';
 import { Icon } from 'astro-icon/components';
 import { languages } from 'i18n/ui';
-import { getLangFromUrl, useTranslatedPath } from 'i18n/utils';
+
+import {
+  getLangFromUrl,
+  useTranslations,
+  usePageTranslations,
+  useTranslatedPath,
+} from '../i18n/utils';
+import type { UILanguages } from '../i18n/ui';
 
 const { margin } = Astro.props;
 
+const page_ui: UILanguages = {
+  en: {
+    'footer.company': 'Company',
+    'footer.document': 'Documents',
+    'footer.document.home': 'Home',
+    'footer.document.getting_started': 'Getting Started',
+    'footer.description':
+      'Dealdroid is a SaaS and startups chatbot platform. Built with lastes AI Technologoy.',
+  },
+  th: {
+    'footer.company': 'บริษัท',
+    'footer.document': 'คู่มือ',
+    'footer.document.home': 'หน้าหลัก',
+    'footer.document.getting_started': 'การเริ่มต้น',
+    'footer.description':
+      'Dealdroid เป็นระบบแชทบอทสำหรับปิดการขาย พัฒนาบนเทคโนโลยี AI ล่าสุด โดยมีเป้าหมายให้เจ้าของธุรกิจสามารถใช้งานง่ายๆ ด้วยตนเอง',
+  },
+} as const;
+
 const lang = getLangFromUrl(Astro.url);
 const translatePath = useTranslatedPath(lang);
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
 
 const footermenu = {
   company: [
     {
-      title: 'About',
-      path: '/about',
+      title: t('general.home'),
+      path: translatePath('/'),
     },
     {
-      title: 'Careers',
-      path: '#',
-    },
-    {
-      title: 'Blog',
+      title: t('general.blog'),
       path: '/blog',
     },
     {
-      title: 'Contact',
-      path: '/contact',
+      title: t('general.contact'),
+      path: translatePath('/contact'),
     },
   ],
   product: [
     {
-      title: 'For Startups',
-      path: '#',
+      title: p('footer.document.home'),
+      path: 'http://doc.dealdroid.net',
     },
     {
-      title: 'Features',
-      path: '#',
-    },
-    {
-      title: 'Pricing',
-      path: '/pricing',
-    },
-    {
-      title: 'Integrations',
-      path: '#',
+      title: p('footer.document.getting_started'),
+      path: 'http://doc.dealdroid.net',
     },
   ],
   resources: [
@@ -78,17 +94,16 @@ const footermenu = {
         <a
           href="/"
           class="text-lg flex items-center"
-          ><span class="font-bold text-indigo-600">Astro</span><span
-            class="text-slate-600">ship</span
+          ><span class="font-bold text-indigo-600">Deal</span><span
+            class="text-slate-600">droid</span
           >
-          <span
+          <!-- <span
             class="uppercase mt-0.5 leading-none text-[10px] ml-1 font-bold bg-gray-200 text-slate-700 px-2 py-1 rounded-md"
             >PRO</span
-          >
+          > -->
         </a>
         <p class="mt-4 text-sm text-slate-700 max-w-xs">
-          Astroship Pro is a premium astro website template made for saas &
-          startups. Built with Astro and Tailwind CSS.
+          {p('footer.description')}
         </p>
         <div class="flex gap-3 mt-4 items-center">
           <a
@@ -125,7 +140,9 @@ const footermenu = {
         </div>
       </div>
       <div>
-        <h3 class="font-medium text-sm text-slate-800">Company</h3>
+        <h3 class="font-medium text-sm text-slate-800">
+          {p('footer.company')}
+        </h3>
         <div class="flex flex-col mt-3">
           {
             footermenu.company.map((item) => (
@@ -139,7 +156,9 @@ const footermenu = {
         </div>
       </div>
       <div>
-        <h3 class="font-medium text-sm text-slate-800">Product</h3>
+        <h3 class="font-medium text-sm text-slate-800">
+          {p('footer.document')}
+        </h3>
         <div class="flex flex-col mt-3">
           {
             footermenu.product.map((item) => (
@@ -176,15 +195,15 @@ const footermenu = {
     <div class="mt-14 pt-8 px-5 border-t border-slate-200">
       <Container>
         <p class="text-center text-sm text-slate-600 [text-wrap:balance]">
-          Copyright © {new Date().getFullYear()} Astroship. All rights reserved.
+          Copyright © {new Date().getFullYear()} Dealdroid. All rights reserved.
         </p>
         <p class="text-center text-xs text-slate-600 mt-2">
           <a
-            href="/terms"
+            href="#"
             class="hover:text-indigo-500">
             Terms</a
           > ・ <a
-            href="/privacy"
+            href="#"
             class="hover:text-indigo-500">
             Privacy</a
           >

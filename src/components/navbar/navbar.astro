@@ -18,18 +18,10 @@ import { Icon } from 'astro-icon/components';
 
 const page_ui: UILanguages = {
   en: {
-    'nav.home': 'H️ome',
-    'nav.blog': 'Blog',
-    'nav.document': 'Document',
-    'nav.contact': 'Contact',
     'nav.login': 'Login',
     'nav.cta': 'Try for Free',
   },
   th: {
-    'nav.home': 'หน้าหลัก',
-    'nav.blog': 'บล็อก',
-    'nav.document': 'คู่มือ',
-    'nav.contact': 'ติดต่อเรา',
     'nav.login': 'เข้าสู่ระบบ',
     'nav.cta': 'ทดสอบระบบ ฟรี',
   },
@@ -70,20 +62,20 @@ const translatedPath = useTranslatedPath(lang);
 
 const menuitems: MenuItem[] = [
   {
-    title: p('nav.home'),
+    title: t('general.home'),
     path: translatedPath('/'),
   },
   {
-    title: p('nav.blog'),
+    title: t('general.blog'),
     path: '/blog',
   },
   {
-    title: p('nav.document'),
+    title: t('general.document'),
     path: 'http://doc.dealdroid.net',
     isExternal: true,
   },
   {
-    title: p('nav.contact'),
+    title: t('general.contact'),
     path: translatedPath('/contact'),
   },
 ];
