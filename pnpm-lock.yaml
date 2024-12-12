@@ -41,6 +41,9 @@ importers:
       astro-feather-icons:
         specifier: ^1.0.2
         version: 1.0.2
+      astro-i18n:
+        specifier: ^2.2.4
+        version: 2.2.4(esbuild@0.24.0)
       astro-icon:
         specifier: ^1.0.4
         version: 1.1.4
@@ -958,6 +961,12 @@ packages:
 
   astro-feather-icons@1.0.2:
     resolution: {integrity: sha512-3goz21oOAdMtISBRUvVvNY2V9WcOo67FH+US/G7BUfhLlmhVE8bBpNYRrc+v5dloGCQIzXlKryWNDZLapaHmlw==}
+
+  astro-i18n@2.2.4:
+    resolution: {integrity: sha512-vhvxBtStNLLghtl63aGhBEtU1DqlYz0D3ggz5Nh2QZok36s9Ss3v9b4txN3mH/OZ90JUwkII13CYQL9wozjXBQ==}
+    hasBin: true
+    peerDependencies:
+      esbuild: 0.x
 
   astro-icon@1.1.4:
     resolution: {integrity: sha512-sMLkQaevIQLv38WBzb/RDbsmxhg5+X+KcNmpTi9cE6MLurNWU1MPnlO87d9Vwg4HxTenKpDlYp81A3syXFW/gw==}
@@ -3596,6 +3605,10 @@ snapshots:
   astring@1.9.0: {}
 
   astro-feather-icons@1.0.2: {}
+
+  astro-i18n@2.2.4(esbuild@0.24.0):
+    dependencies:
+      esbuild: 0.24.0
 
   astro-icon@1.1.4:
     dependencies:

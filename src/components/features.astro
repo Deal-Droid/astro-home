@@ -2,11 +2,7 @@
 // @ts-ignore
 import Badge from '@components/ui/badge.astro';
 import { Icon } from 'astro-icon/components';
-import {
-  getLangFromUrl,
-  useTranslations,
-  usePageTranslations,
-} from '../i18n/utils';
+import { useTranslations, usePageTranslations } from '../i18n/utils';
 import type { UILanguages } from '../i18n/ui';
 
 const page_ui: UILanguages = {
@@ -24,7 +20,7 @@ const page_ui: UILanguages = {
   },
 } as const;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = Astro.currentLocale || 'en';
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 
