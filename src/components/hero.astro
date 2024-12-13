@@ -4,7 +4,11 @@ import heroImageEn from '../assets/hero-screenshot-en.png';
 import heroImageTh from '../assets/hero-screenshot-th.png';
 import Link from '@components/ui/link.astro';
 import Container from '@components/container.astro';
-import { useTranslations, usePageTranslations } from '../i18n/utils';
+import {
+  useTranslations,
+  usePageTranslations,
+  useTranslatedPath,
+} from '../i18n/utils';
 
 import type { UILanguages } from '../i18n/ui';
 
@@ -33,6 +37,7 @@ const page_ui: UILanguages = {
 const lang = Astro.currentLocale || 'en';
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
+const translatedPath = useTranslatedPath(lang);
 const heroImage = heroImages[lang];
 ---
 
@@ -70,7 +75,7 @@ const heroImage = heroImages[lang];
             size="lg"
             style="outline"
             rel="noopener"
-            href="mailto:apirakb@gmail.com"
+            href={translatedPath('/contact')}
             class="flex gap-1 items-center justify-center"
             target="_blank">
             {p('hero.cta')}
