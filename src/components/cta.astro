@@ -2,6 +2,7 @@
 import Link from './ui/link.astro';
 
 import { useTranslations, usePageTranslations } from '../i18n/utils';
+import { config } from '../config.ts';
 
 import type { UILanguages } from '../i18n/ui';
 
@@ -10,13 +11,13 @@ const page_ui: UILanguages = {
     'cta.h1': 'Build No Code Chatbot',
     'cta.description':
       'The chatbot platform to Open sales, Support, Close sales, Upsale an Upsell for your business.',
-    'cta.cta': 'Sing up for free',
+    'cta.cta': 'Sign up for waiting list 🎉',
   },
   th: {
     'cta.h1': 'สร้าง Chat bot ได้ด้วยตัวเอง',
     'cta.description':
       'แพลตฟอร์มแชทบอทสำหรับเปิดการขาย ให้บริการลูกค้า ปิดการขาย และนำเสนอสินค้าเพิ่มเติมสำหรับธุรกิจของคุณ',
-    'cta.cta': 'ลงทะเบียนใช้งาน ฟรี 🎉',
+    'cta.cta': 'ลงชื่อเพื่อใช้งาน 🎉',
   },
 } as const;
 
@@ -35,7 +36,7 @@ const p = usePageTranslations(lang, page_ui);
   </p>
   <div class="flex mt-5">
     <Link
-      href="https://app.dealdroid.net/register"
+      href={config.urls.register}
       style="inverted"
       >{p('cta.cta')}</Link
     >

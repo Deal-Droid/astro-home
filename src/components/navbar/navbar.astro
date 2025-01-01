@@ -5,6 +5,7 @@ import Dropdown from './dropdown.astro';
 import { StickyHeader, Astronav, MenuItems, MenuIcon } from 'astro-navbar';
 import { Image } from 'astro:assets';
 import logoImage from '../../assets/logo.svg';
+import { config } from '../../config.ts';
 
 import {
   useTranslations,
@@ -159,7 +160,7 @@ const menuitems: MenuItem[] = [
               >{p('nav.login')}</Link
             >
             <Link
-              href="https://app.dealdroid.net/register/"
+              href={config.urls.register}
               size="md"
               block
               >{p('nav.cta')}</Link
@@ -175,7 +176,7 @@ const menuitems: MenuItem[] = [
             >{p('nav.login')}</a
           >
           <Link
-            href="https://app.dealdroid.net/register/"
+            href={config.urls.register}
             size="sm"
             class="inline-flex items-center group gap-px">
             <span>{p('nav.cta')}</span>

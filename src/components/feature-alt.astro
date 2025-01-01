@@ -5,6 +5,7 @@ import FeatureImg1 from '../assets/features/6.png';
 import FeatureImg2 from '../assets/features/2.png';
 import { Icon } from 'astro-icon/components';
 import Link from '@components/ui/link.astro';
+import { config } from '../config.ts';
 
 const { nomargin } = Astro.props;
 
@@ -161,7 +162,7 @@ const p = usePageTranslations(lang, page_ui);
       </ul>
       <div class="flex items-center gap-4 mt-6">
         <Link
-          href="https://app.dealdroid.net/register/"
+          href={config.urls.register}
           size="sm"
           class="inline-flex items-center group gap-px">
           <span>{p('feature.cta')}</span>
@@ -238,7 +239,7 @@ const p = usePageTranslations(lang, page_ui);
       </ul>
       <div class="flex items-center gap-4 mt-6">
         <Link
-          href="https://app.dealdroid.net/register/"
+          href={config.urls.register}
           size="sm"
           class="inline-flex items-center group gap-px">
           <span>{p('feature.cta')}</span>

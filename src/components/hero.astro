@@ -11,6 +11,7 @@ import {
 } from '../i18n/utils';
 
 import type { UILanguages } from '../i18n/ui';
+import { config } from '../config.ts';
 
 const heroImages = {
   en: heroImageEn,
@@ -23,7 +24,7 @@ const page_ui: UILanguages = {
     'hero.description':
       'Handle customer inquiries 24/7, close more sales, and grow your business effortlessly—no coding required!',
     'hero.cta': ' ☕️ Email me',
-    'hero.register': 'Free Register',
+    'hero.register': 'Register for Waitlist 🎉',
   },
   th: {
     'hero.h1': 'เพิ่มยอดขายง่าย ๆ ด้วย AI Chatbot สำหรับแม่ค้าออนไลน์',
@@ -65,7 +66,7 @@ const heroImage = heroImages[lang];
         <div
           class="mt-6 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
           <Link
-            href="https://app.dealdroid.net/register"
+            href={config.urls.register}
             target="_blank"
             class="flex gap-1 items-center justify-center"
             rel="noopener">
