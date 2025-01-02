@@ -2,55 +2,99 @@
 layout: ../layouts/MdLayout.astro
 title: "Privacy Policy"
 author: "Matthew Phillips"
-date: "09 Aug 2023"
+date: "1 jan 2025"
 ---
 
-At Astroship, we value your privacy and are committed to protecting your personal information. This Privacy Policy outlines how we collect, use, and safeguard your data when you use our Software-as-a-Service (SaaS) platform.
+**Effective Date:** 1 Jan 2025
 
-By using Astroship, you consent to the practices described in this Privacy Policy. If you do not agree with any part of this policy, please refrain from using Astroship.
+Dealdroid (“we,” “our,” or “us”) is committed to protecting the privacy of our users. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our platform, services, and website (“Services”). By accessing or using our Services, you agree to the terms of this Privacy Policy.
 
-## 1. Information We Collect
+---
 
-1.1. **Personal Information**: When you create an account or use certain features of Astroship, we may collect personal information such as your name, email address, and other contact details.
+### 1. Information We Collect
 
-1.2. **Usage Data**: We may collect data about how you use Astroship, including your interactions with the platform and the features you access.
+We collect information to provide, improve, and personalize our Services. This includes:
 
-1.3. **Cookies and Similar Technologies**: Astroship may use cookies and similar tracking technologies to enhance your experience and gather information about your usage patterns.
+#### 1.1 Information You Provide to Us
+- **Account Information:** Name, email address, phone number, and business details when you register or contact us.
+- **Chatbot Data:** Information provided to the chatbot by you or your customers during interactions.
 
-## 2. How We Use Your Information
+#### 1.2 Automatically Collected Information
+- **Usage Data:** IP address, browser type, device information, and access times when using our Services.
+- **Cookies and Tracking Technologies:** Information collected through cookies and similar technologies to enhance user experience.
 
-2.1. We use the information collected to provide, maintain, and improve Astroship's services and user experience.
+#### 1.3 Third-Party Information
+We may receive information from third-party services you integrate with Dealdroid, such as social media platforms or e-commerce tools.
 
-2.2. Your personal information may be used to communicate with you regarding important updates, announcements, or other relevant information.
+---
 
-2.3. We may use aggregated and anonymized data for analytical and statistical purposes.
+### 2. How We Use Your Information
 
-## 3. Data Sharing and Disclosure
+We use your information to:
+- Provide, maintain, and improve our Services.
+- Respond to customer inquiries and support requests.
+- Customize user experiences.
+- Analyze usage patterns to enhance our offerings.
+- Comply with legal obligations and enforce our terms of service.
 
-3.1. Astroship will not sell, rent, or lease your personal information to third parties.
+---
 
-3.2. We may share your information with trusted service providers who assist us in operating and maintaining Astroship, but they will be bound by confidentiality obligations.
+### 3. How We Share Your Information
 
-3.3. We may disclose your information if required by law or when we believe such action is necessary to protect our rights or comply with legal proceedings.
+We do not sell or rent your personal information. However, we may share your information in the following cases:
 
-## 4. Data Security
+- **Service Providers:** With trusted third-party service providers who assist us in delivering our Services.
+- **Legal Requirements:** To comply with applicable laws, regulations, or legal processes.
+- **Business Transfers:** In connection with a merger, sale, or transfer of assets.
 
-4.1. Astroship implements industry-standard security measures to protect your personal information from unauthorized access, loss, misuse, or alteration.
+---
 
-4.2. While we take reasonable precautions, no method of data transmission over the internet or electronic storage is entirely secure. Therefore, we cannot guarantee absolute security.
+### 4. Data Retention
 
-## 5. Third-Party Links
+We retain your information for as long as necessary to fulfill the purposes outlined in this Privacy Policy unless a longer retention period is required by law.
 
-5.1. Astroship may contain links to third-party websites or services. We are not responsible for the privacy practices or content of these websites. Please review their privacy policies before using them.
+---
 
-## 6. Children's Privacy
+### 5. Your Privacy Rights
 
-6.1. Astroship is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe we have inadvertently collected such information, please contact us to delete it.
+Depending on your location, you may have the following rights:
+- Access, correct, or delete your personal information.
+- Object to or restrict certain processing activities.
+- Withdraw consent where processing is based on consent.
+- File a complaint with a relevant data protection authority.
 
-## 7. Changes to this Privacy Policy
+To exercise these rights, please contact us at [Insert Contact Email].
 
-7.1. We may update this Privacy Policy from time to time. Any changes will be posted on this page, and the "Last updated" date will be revised accordingly.
+---
 
-## 8. Contact Us
+### 6. Data Security
 
-8.1. If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at [your contact email].
+We implement robust security measures to protect your information from unauthorized access, disclosure, or alteration. However, no system is completely secure, and we cannot guarantee absolute security.
+
+---
+
+### 7. Third-Party Links
+
+Our Services may contain links to third-party websites. We are not responsible for the privacy practices or content of those websites. Please review their privacy policies before providing any personal information.
+
+---
+
+### 8. Updates to This Privacy Policy
+
+We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated “Effective Date.” Your continued use of our Services after changes are made signifies your acceptance of the updated policy.
+
+---
+
+### 9. Contact Us
+
+If you have questions or concerns about this Privacy Policy, please contact us at:
+
+**Dealdroid**  
+Email: admin@dealdroid.net<br>
+Phone: +66 (081) 4033320<br>
+Address: 8/66 moo 6 Salatammasop Taweewattana, Bangkok, 10170 Thailand
+
+---
+
+By using Dealdroid’s Services, you acknowledge that you have read and understood this Privacy Policy.
+

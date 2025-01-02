@@ -2,71 +2,115 @@
 layout: ../layouts/MdLayout.astro
 title: "Terms & Conditions"
 author: "Matthew Phillips"
-date: "09 Aug 2023"
+date: "02 Jan 2025"
 ---
 
-Welcome to Astroship! We're excited to have you as a user of our Software-as-a-Service (SaaS) platform. Before you get started, please take a moment to read through our Terms and Conditions outlined below.
+**Terms and Conditions**
 
-By using our platform, you agree to be bound by these terms. If you do not agree with any part of these terms, please refrain from using Astroship.
+**Effective Date:** 1 Jan 2025
 
-## 1. Account Creation and Usage
+Welcome to Dealdroid! These Terms and Conditions (“Terms”) govern your access to and use of our platform, services, and website (“Services”). By using our Services, you agree to comply with these Terms. If you do not agree, you may not use the Services.
 
-1.1. You must be at least 18 years old to use Astroship and create an account.
+---
 
-1.2. You are responsible for maintaining the confidentiality of your account credentials (username and password) and ensuring their proper use. Any activity on your account is your responsibility.
+### 1. Definitions
 
-1.3. You agree not to use Astroship for any illegal or unauthorized purposes and to comply with all applicable laws and regulations.
+- **Dealdroid:** Refers to the company providing the Services.
+- **User:** Any individual or entity accessing or using the Services.
+- **Content:** Includes all information, text, images, and other materials provided through the Services.
 
-## 2. Service Usage
+---
 
-2.1. Astroship provides a web-based SaaS platform for [describe the core service(s) provided by Astroship].
+### 2. Eligibility
 
-2.2. You understand that your use of Astroship may be subject to limitations, such as storage space, number of users, or other usage constraints.
+By using our Services, you represent and warrant that you:
+- Are at least 18 years old or the legal age of majority in your jurisdiction.
+- Have the authority to agree to these Terms on behalf of yourself or the organization you represent.
 
-2.3. You agree not to interfere with the proper functioning of Astroship or attempt to gain unauthorized access to any part of our platform.
+---
 
-2.4. We reserve the right to modify, suspend, or discontinue any part of Astroship without prior notice.
+### 3. Use of Services
 
-## 3. Data and Privacy
+#### 3.1 Permitted Use
+You may use our Services for lawful purposes only and in accordance with these Terms.
 
-3.1. We respect your privacy and handle your personal data in accordance with our Privacy Policy [link to the Privacy Policy].
+#### 3.2 Prohibited Activities
+You agree not to:
+- Use the Services for any illegal or unauthorized purpose.
+- Attempt to disrupt or damage the Services.
+- Share false or misleading information.
+- Reverse-engineer or attempt to extract the source code of our platform.
 
-3.2. By using Astroship, you grant us the right to collect and process data related to your usage of the platform.
+---
 
-3.3. We may use aggregated and anonymized data for statistical and analytical purposes.
+### 4. User Responsibilities
 
-## 4. Intellectual Property
+- You are responsible for the accuracy and legality of the information provided to or through the Services.
+- You agree to maintain the confidentiality of your account credentials and notify us immediately if you suspect unauthorized use.
 
-4.1. All content and materials provided on Astroship, including but not limited to software, text, graphics, logos, images, and trademarks, are the property of Astroship or its licensors.
+---
 
-4.2. You may not copy, modify, distribute, or reproduce any part of Astroship without our explicit written consent.
+### 5. Intellectual Property
 
-## 5. Payment and Subscription
+#### 5.1 Ownership
+All intellectual property rights in the Services, including content, design, and functionality, belong to Dealdroid or its licensors.
 
-5.1. Astroship may require payment for certain services or features. By subscribing to our paid services, you agree to pay the fees associated with your chosen plan.
+#### 5.2 Limited License
+Dealdroid grants you a non-exclusive, non-transferable, revocable license to use the Services in accordance with these Terms.
 
-5.2. Subscription fees are non-refundable unless otherwise stated in our Refund Policy [link to the Refund Policy].
+---
 
-5.3. We reserve the right to modify our subscription fees, but any changes will be communicated to you in advance.
+### 6. Fees and Payments
 
-## 6. Disclaimer of Warranties
+- **Subscription Plans:** Access to certain features may require a subscription. Fees and payment terms will be disclosed during registration or purchase.
+- **Refund Policy:** Payments are non-refundable unless required by applicable law or specified otherwise.
 
-6.1. Astroship is provided "as is" without any warranties or guarantees, whether express or implied.
+---
 
-6.2. We do not warrant that Astroship will be error-free, secure, or uninterrupted.
+### 7. Termination
 
-## 7. Limitation of Liability
+Dealdroid reserves the right to:
+- Suspend or terminate your access to the Services for violations of these Terms or applicable laws.
+- Discontinue the Services entirely, with notice provided where possible.
 
-7.1. In no event shall Astroship or its affiliates be liable for any direct, indirect, incidental, special, or consequential damages arising from the use or inability to use our platform.
+---
 
-## 8. Termination
+### 8. Limitation of Liability
 
-8.1. You may terminate your account at any time by following the account closure process.
+To the fullest extent permitted by law, Dealdroid is not liable for:
+- Indirect, incidental, or consequential damages arising from your use of the Services.
+- Losses resulting from unauthorized access to your account or data.
 
-8.2. Astroship reserves the right to terminate or suspend your account for any violation of these Terms and Conditions.
+---
 
-## 9. Governing Law
+### 9. Indemnification
 
-9.1. These Terms and Conditions shall be governed by and construed in accordance with the laws of [Your Country/State], without regard to its conflict of laws principles.
+You agree to indemnify and hold harmless Dealdroid from any claims, damages, or expenses arising out of your use of the Services or breach of these Terms.
 
-By using Astroship, you acknowledge that you have read and understood these Terms and Conditions, and you agree to be bound by them. If you have any questions or concerns, please contact us at [your contact email].
+---
+
+### 10. Governing Law
+
+These Terms are governed by and construed in accordance with the laws of [Insert Jurisdiction]. Any disputes arising out of or related to these Terms shall be resolved exclusively in the courts of [Insert Jurisdiction].
+
+---
+
+### 11. Modifications to Terms
+
+Dealdroid reserves the right to update these Terms at any time. Changes will be effective upon posting on our website. Your continued use of the Services constitutes acceptance of the revised Terms.
+
+---
+
+### 12. Contact Us
+
+If you have questions or concerns about these Terms, please contact us at:
+
+**Dealdroid**  
+Email: admin@dealdroid.net<br>
+Phone: +66 (081) 4033320<br>
+Address: 8/66 moo 6 Salatammasop Taweewattana, Bangkok, 10170 Thailand
+
+---
+
+By using Dealdroid’s Services, you acknowledge that you have read, understood, and agree to these Terms and Conditions.
+

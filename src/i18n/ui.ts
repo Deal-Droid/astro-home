@@ -20,6 +20,8 @@ export const ui: UILanguages = {
   en: {
     'general.start_trial': 'Start 14-day trial',
     'general.home': 'Home',
+    'general.terms': 'Term and Condition',
+    'general.privacy': 'Privacy Policy',
     'general.blog': 'Blog',
     'general.document': 'Document',
     'general.contact': 'Contact',
@@ -27,6 +29,8 @@ export const ui: UILanguages = {
   th: {
     'general.start_trial': 'ฟรี 14 วัน - ใช้เลย',
     'general.home': 'หน้าหลัก',
+    'general.terms': 'ข้อตกลงและข้อตกลง',
+    'general.privacy': 'นโยบายความเป็นส่วนตัว',
     'general.blog': 'บล็อก',
     'general.document': 'คู่มือ',
     'general.contact': 'ติดต่อเรา',
