@@ -1,33 +1,33 @@
 ---
-import Container from '@components/container.astro';
-import Link from '@components/ui/link.astro';
-import Dropdown from './dropdown.astro';
-import { StickyHeader, Astronav, MenuItems, MenuIcon } from 'astro-navbar';
-import { Image } from 'astro:assets';
-import logoImage from '../../assets/logo.svg';
-import { config } from '../../config.ts';
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import Dropdown from "./dropdown.astro";
+import { StickyHeader, Astronav, MenuItems, MenuIcon } from "astro-navbar";
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.svg";
+import { config } from "../../config.ts";
 
 import {
   useTranslations,
   usePageTranslations,
   useTranslatedPath,
-} from '../../i18n/utils';
+} from "../../i18n/utils";
 
-import type { UILanguages } from '../../i18n/ui';
-import { Icon } from 'astro-icon/components';
+import type { UILanguages } from "../../i18n/ui";
+import { Icon } from "astro-icon/components";
 
 const page_ui: UILanguages = {
   en: {
-    'nav.login': 'Login',
-    'nav.cta': 'Try for Free',
+    "nav.login": "Login",
+    "nav.cta": "Try for Free",
   },
   th: {
-    'nav.login': 'เข้าสู่ระบบ',
-    'nav.cta': 'ทดสอบระบบ ฟรี',
+    "nav.login": "เข้าสู่ระบบ",
+    "nav.cta": "ทดสอบระบบ ฟรี",
   },
 } as const;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || "en";
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 
@@ -62,22 +62,23 @@ const translatedPath = useTranslatedPath(lang);
 
 const menuitems: MenuItem[] = [
   {
-    title: t('general.home'),
-    path: translatedPath('/'),
+    title: t("general.home"),
+    path: translatedPath("/"),
   },
   // {
   //   title: t('general.blog'),
   //   path: '/blog',
   // },
   {
-    title: t('general.document'),
-    // path: 'https://document.dealdroid.net',  
-    path: 'https://shakesphere.notion.site/dealdroid-help-center',
+    title: t("general.document"),
+    // path: 'https://document.dealdroid.net',
+    // path: 'https://shakesphere.notion.site/dealdroid-help-center',
+    path: "https://docs.dealdroid.net",
     isExternal: true,
   },
   {
-    title: t('general.contact'),
-    path: translatedPath('/contact'),
+    title: t("general.contact"),
+    path: translatedPath("/contact"),
   },
 ];
 ---
@@ -94,7 +95,7 @@ const menuitems: MenuItem[] = [
       <Astronav>
         <div class="flex w-full lg:w-auto items-center justify-between">
           <a
-            href={translatedPath('/')}
+            href={translatedPath("/")}
             class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full px-2 -ml-2">
             <Image
               src={logoImage}
@@ -134,8 +135,8 @@ const menuitems: MenuItem[] = [
                         href={item.path}
                         class={`flex items-center lg:px-3 py-2 text-sm text-gray-600 hover:text-indigo-600 focus-visible:ring-2 focus-visible:ring-offset-2 transition focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full ${
                           Astro.url.pathname === item.path
-                            ? 'text-indigo-600 font-medium'
-                            : 'text-gray-600'
+                            ? "text-indigo-600 font-medium"
+                            : "text-gray-600"
                         }`}>
                         {item.title}
                         {item.isExternal && (
@@ -157,14 +158,10 @@ const menuitems: MenuItem[] = [
               href="http://happy.dealdroid.net"
               style="muted"
               block
-              size="md"
-              >{p('nav.login')}</Link
+              size="md">{p("nav.login")}</Link
             >
-            <Link
-              href={config.urls.register}
-              size="md"
-              block
-              >{p('nav.cta')}</Link
+            <Link href={config.urls.register} size="md" block
+              >{p("nav.cta")}</Link
             >
           </div>
         </MenuItems>
@@ -174,13 +171,13 @@ const menuitems: MenuItem[] = [
           <a
             href="https://happy.dealdroid.net"
             class="text-sm px-2 py-1 transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:shadow-outline-indigo rounded-full"
-            >{p('nav.login')}</a
+            >{p("nav.login")}</a
           >
           <Link
             href={config.urls.register}
             size="sm"
             class="inline-flex items-center group gap-px">
-            <span>{p('nav.cta')}</span>
+            <span>{p("nav.cta")}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
@@ -189,8 +186,7 @@ const menuitems: MenuItem[] = [
               <path
                 fill-rule="evenodd"
                 d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                clip-rule="evenodd"
-              ></path>
+                clip-rule="evenodd"></path>
             </svg>
           </Link>
         </div>
@@ -202,42 +198,42 @@ const menuitems: MenuItem[] = [
 <script>
   // Replace the existing script with this
   function updateHeaderOnScroll() {
-    const header = document.querySelector('.astronav-sticky-header');
+    const header = document.querySelector(".astronav-sticky-header");
     if (header) {
       const scrollPos = window.scrollY;
       const addScrollY = Math.max(50, 100);
       const removeScrollY = Math.max(50 - 50, 50);
 
       if (scrollPos > addScrollY) {
-        header.classList.remove('py-5', 'border-transparent');
+        header.classList.remove("py-5", "border-transparent");
         header.classList.add(
-          'is-active',
-          'py-2',
-          'bg-white/80',
-          'border-gray-200',
-          'backdrop-blur-lg'
+          "is-active",
+          "py-2",
+          "bg-white/80",
+          "border-gray-200",
+          "backdrop-blur-lg"
         );
-        header.setAttribute('active', '');
+        header.setAttribute("active", "");
       } else if (scrollPos < removeScrollY) {
         header.classList.remove(
-          'is-active',
-          'py-2',
-          'bg-white/80',
-          'border-gray-200',
-          'backdrop-blur-lg'
+          "is-active",
+          "py-2",
+          "bg-white/80",
+          "border-gray-200",
+          "backdrop-blur-lg"
         );
-        header.classList.add('py-5', 'border-transparent');
-        header.removeAttribute('active');
+        header.classList.add("py-5", "border-transparent");
+        header.removeAttribute("active");
       }
     }
   }
 
   // Handle both initial load and subsequent navigation
-  document.addEventListener('DOMContentLoaded', updateHeaderOnScroll);
-  document.addEventListener('astro:page-load', updateHeaderOnScroll);
+  document.addEventListener("DOMContentLoaded", updateHeaderOnScroll);
+  document.addEventListener("astro:page-load", updateHeaderOnScroll);
 
   // Handle scroll events
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     requestAnimationFrame(updateHeaderOnScroll);
   });
 </script>
