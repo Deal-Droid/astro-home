@@ -73,7 +73,10 @@ const menuitems: MenuItem[] = [
     title: t("general.document"),
     // path: 'https://document.dealdroid.net',
     // path: 'https://shakesphere.notion.site/dealdroid-help-center',
-    path: "https://docs.dealdroid.net",
+    path:
+      lang === "th"
+        ? "https://docs.dealdroid.net/th"
+        : "https://docs.dealdroid.net",
     isExternal: true,
   },
   {
