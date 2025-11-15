@@ -54,15 +54,51 @@ const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 
 const features = [
-  { icon: "fluent:chat-bubbles-question-24-regular", key: "1" },
-  { icon: "fluent:box-search-24-regular", key: "2" },
-  { icon: "fluent:book-open-24-regular", key: "3" },
-  { icon: "fluent:branch-24-regular", key: "4" },
-  { icon: "fluent:translate-24-regular", key: "5" },
-  { icon: "fluent:puzzle-piece-24-regular", key: "6" },
-  { icon: "fluent:beaker-24-regular", key: "7" },
-  { icon: "fluent:settings-24-regular", key: "8" },
-  { icon: "fluent:shield-checkmark-24-regular", key: "9" },
+  {
+    icon: "fluent:chat-bubbles-question-24-regular",
+    key: "1",
+    link: "https://docs.dealdroid.net/tuning/when-ai-think/",
+  },
+  {
+    icon: "fluent:box-search-24-regular",
+    key: "2",
+    link: "https://docs.dealdroid.net/tuning/add-product/",
+  },
+  {
+    icon: "fluent:book-open-24-regular",
+    key: "3",
+    link: "https://docs.dealdroid.net/tuning/add-knowledge/",
+  },
+  {
+    icon: "fluent:branch-24-regular",
+    key: "4",
+    link: "https://docs.dealdroid.net/tuning/add-intent/",
+  },
+  {
+    icon: "fluent:translate-24-regular",
+    key: "5",
+    link: "https://docs.dealdroid.net/faq/language-support/",
+  },
+  {
+    icon: "fluent:puzzle-piece-24-regular",
+    key: "6",
+    link: "https://docs.dealdroid.net/thirdparty/endpoint/",
+  },
+  {
+    icon: "fluent:beaker-24-regular",
+    key: "7",
+    link: "https://docs.dealdroid.net/getting-started/testing/",
+  },
+  {
+    icon: "fluent:settings-24-regular",
+    key: "8",
+    link: "https://docs.dealdroid.net/tuning/brand-voice/",
+  },
+  {
+    icon: "fluent:shield-checkmark-24-regular",
+    key: "9",
+    link: "https://docs.dealdroid.net/faq/language-support/",
+  },
 ];
 ---
 
@@ -73,7 +109,11 @@ const features = [
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
     {
       features.map((f) => (
-        <div class="flex flex-col items-start p-6 border border-slate-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all group">
+        <a
+          href={f.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-start p-6 border border-slate-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all group no-underline">
           <div class="flex items-center justify-center w-12 h-12 bg-indigo-50 rounded-lg mb-4 group-hover:bg-indigo-100 transition-colors">
             <Icon name={f.icon} class="text-indigo-600" size="24" />
           </div>
@@ -83,7 +123,7 @@ const features = [
           <p class="text-slate-600 leading-relaxed">
             {p(`feature.${f.key}.desc`)}
           </p>
-        </div>
+        </a>
       ))
     }
   </div>
