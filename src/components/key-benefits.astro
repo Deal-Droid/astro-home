@@ -1,0 +1,64 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "benefits.title": "What Dealdroid does for your business",
+    "benefits.1.title": "Save staff hours",
+    "benefits.1.desc": "Automate repetitive tasks",
+    "benefits.2.title": "Close more",
+    "benefits.2.desc": "Intelligent product suggestions",
+    "benefits.3.title": "Work 24/7",
+    "benefits.3.desc": "Capture after-hours customers",
+    "benefits.4.title": "Keep brand voice",
+    "benefits.4.desc": "Tuned to your tone",
+  },
+  th: {
+    "benefits.title": "Dealdroid ช่วยธุรกิจคุณได้อย่างไร",
+    "benefits.1.title": "ประหยัดเวลาทีม",
+    "benefits.1.desc": "จัดการงานซ้ำๆ อัตโนมัติ",
+    "benefits.2.title": "เพิ่มยอดขาย",
+    "benefits.2.desc": "แนะนำสินค้าอัจฉริยะ",
+    "benefits.3.title": "ทำงาน 24/7",
+    "benefits.3.desc": "รับลูกค้านอกเวลา",
+    "benefits.4.title": "รักษาสไตล์แบรนด์",
+    "benefits.4.desc": "น้ำเสียงของคุณ",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
+
+const benefits = [
+  { icon: "fluent:people-team-24-regular", key: "1" },
+  { icon: "fluent:chart-multiple-24-regular", key: "2" },
+  { icon: "fluent:clock-24-regular", key: "3" },
+  { icon: "fluent:speaker-24-regular", key: "4" },
+];
+---
+
+<div class="mt-16 border-t border-b border-slate-200 py-12">
+  <h3 class="text-center text-slate-600 text-lg mb-8 font-medium">
+    {p("benefits.title")}
+  </h3>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+    {
+      benefits.map((b) => (
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-12 h-12 bg-indigo-50 rounded-lg mb-3">
+            <Icon name={b.icon} class="text-indigo-600" size="24" />
+          </div>
+          <h4 class="font-semibold text-slate-900">
+            {p(`benefits.${b.key}.title`)}
+          </h4>
+          <p class="text-sm text-slate-600 mt-1">
+            {p(`benefits.${b.key}.desc`)}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>

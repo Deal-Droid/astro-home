@@ -1,0 +1,72 @@
+---
+import Badge from "./ui/badge.astro";
+import { Icon } from "astro-icon/components";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+import { config } from "../config";
+
+const page_ui: UILanguages = {
+  en: {
+    "proof.tag": "Real Results",
+    "proof.title": "Business results you can expect",
+    "proof.1.number": "100+",
+    "proof.1.label": "customers per admin/day",
+    "proof.2.number": "Instant",
+    "proof.2.label": "response time",
+    "proof.3.number": "24/7",
+    "proof.3.label": "customer coverage",
+    "proof.cta": "Want numbers from your business?",
+    "proof.cta.link": "Book a quick audit",
+  },
+  th: {
+    "proof.tag": "ผลลัพธ์จริง",
+    "proof.title": "ผลลัพธ์ทางธุรกิจที่คุณคาดหวังได้",
+    "proof.1.number": "100+",
+    "proof.1.label": "ลูกค้าต่อแอดมินต่อวัน",
+    "proof.2.number": "ทันที",
+    "proof.2.label": "เวลาตอบกลับ",
+    "proof.3.number": "24/7",
+    "proof.3.label": "ดูแลลูกค้าตลอดเวลา",
+    "proof.cta": "ต้องการตัวเลขจากธุรกิจคุณ?",
+    "proof.cta.link": "จองการตรวจสอบฟรี",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
+---
+
+<div class="mt-24 bg-slate-50 py-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <Badge color="purple">{p("proof.tag")}</Badge>
+      <h2 class="text-3xl md:text-4xl font-bold mt-4">
+        {p("proof.title")}
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-12 max-w-4xl mx-auto">
+      {
+        [1, 2, 3].map((i) => (
+          <div class="text-center">
+            <div class="text-4xl md:text-5xl font-bold text-indigo-600">
+              {p(`proof.${i}.number`)}
+            </div>
+            <p class="text-slate-600 mt-2">{p(`proof.${i}.label`)}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="text-center mt-12">
+      <p class="text-slate-600 mb-4">{p("proof.cta")}</p>
+      <a
+        href={config.urls.register}
+        class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+        {p("proof.cta.link")}
+        <Icon name="fluent:arrow-right-24-regular" size="20" />
+      </a>
+    </div>
+  </div>
+</div>

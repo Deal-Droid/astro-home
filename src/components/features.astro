@@ -1,104 +1,102 @@
 ---
 // @ts-ignore
-import Badge from '@components/ui/badge.astro';
-import { Icon } from 'astro-icon/components';
-import { useTranslations, usePageTranslations } from '../i18n/utils';
-import type { UILanguages } from '../i18n/ui';
+import Badge from "@components/ui/badge.astro";
+import { Icon } from "astro-icon/components";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
 
 const page_ui: UILanguages = {
   en: {
-    'feature.tag': 'More Features',
-    'feature.h1': "We've got you covered",
-    'feature.description':
-      "We strive to make our chat bot comprehensive, covering all the needs of online sellers. If there's anything we don't have yet, please don't hesitate to contact us.",
+    "feature.tag": "Smart Features",
+    "feature.h1": "Smart features that drive sales",
+    "feature.description":
+      "High-level capabilities designed for business outcomes. See our Feature page for technical details.",
+    "feature.link": "See all technical features",
   },
   th: {
-    'feature.tag': 'More Features',
-    'feature.h1': 'ความสามารถครบวงจร',
-    'feature.description':
-      'เราพยายามทำ chat bot ให้มีความสามารถครอบคลุม ทุกความต้องการของแม่ค้าออนไลน์ หากยังมีอะไรที่เราไม่มี โปรดอย่าเกรงใจสามารถติดต่อหาเราได้เลย',
+    "feature.tag": "ฟีเจอร์อัจฉริยะ",
+    "feature.h1": "ฟีเจอร์อัจฉริยะที่ช่วยเพิ่มยอดขาย",
+    "feature.description":
+      "ความสามารถระดับสูงที่ออกแบบมาเพื่อผลลัพธ์ทางธุรกิจ ดูรายละเอียดทางเทคนิคในหน้า Feature",
+    "feature.link": "ดูฟีเจอร์ทางเทคนิคทั้งหมด",
   },
 } as const;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || "en";
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 
 const features_th = [
   {
-    title: 'ตะกร้าสินค้าอัตโนมัติ',
+    title: "ประหยัดเวลาทีมงาน",
     description:
-      'เพิ่มสินค้าในตะกร้าได้ทันทีจากบทสนทนา เช่น \"เพิ่ม 1 ชิ้น\" หรือ \"เอาสีแดงอีก 1\" ลูกค้าเลือกได้ผ่าน chat ประหยัดเวลา เพิ่มยอดขายได้ง่าย ๆ',
-    icon: 'fluent:cart-24-regular',
+      "จัดการงานซ้ำๆ และคำถามที่พบบ่อยอัตโนมัติ ให้ทีมโฟกัสกับลูกค้าสำคัญ",
+    icon: "fluent:people-team-24-regular",
   },
   {
-    title: 'ติดตามประวัติการขายได้ง่าย',
+    title: "เพิ่มยอดขาย",
     description:
-      'ระบบสามารถส่งออกข้อมูลการขายรายวันไปยัง Excel เพื่อช่วยวิเคราะห์ยอดขาย สินค้าที่ลูกค้าสนใจ และเวลาที่ลูกค้าติดต่อเข้ามา ช่วยให้ร้านค้าเข้าใจลูกค้าและเพิ่มโอกาสในการพัฒนายอดขาย',
-    icon: 'fluent:chat-24-regular',
+      "แนะนำสินค้าอัจฉริยะพร้อมรูปภาพ และชำระเงินง่าย เพิ่ม conversion rate",
+    icon: "fluent:chart-multiple-24-regular",
   },
   {
-    title: 'ปรับแต่งข้อความบอทอัตโนมัติ้',
-    description:
-      'ไม่จำเป็นต้องให้ Bot ตอบทุกคำถามตั้งแต่แรก เจ้าของร้านสามารถเลือกรูปแบบคำถามที่บอทจะตอบได้ตามต้องการ เช่น เริ่มจากคำทักทายก่อน ช่วยให้ร้านค้าสามารถทดลองใช้งานได้อย่างมั่นใจ',
-    icon: 'fluent:checkbox-checked-24-regular',
+    title: "ทำงาน 24/7",
+    description: "ไม่พลาดลูกค้า รับ lead นอกเวลาทำงานและวันหยุดอัตโนมัติ",
+    icon: "fluent:clock-24-regular",
   },
   {
-    title: 'ตอบคำถามตาม Keyword อย่างแม่นยำ',
-    description:
-      'ตั้งค่าคำถามสำคัญที่ร้านค้าพบบ่อย และให้ Bot ตอบกลับทันที เพิ่มความเร็วในการตอบแชทและลดเวลารอของลูกค้า พร้อมรองรับตัวเลือกข้อความสำเร็จรูป ช่วยให้การขายออนไลน์ราบรื่นมากขึ้น',
-    icon: 'fluent:tag-24-regular',
+    title: "รักษาสไตล์แบรนด์",
+    description: "ตอบในน้ำเสียงและนโยบายของคุณ เหมือนทีมงาน ไม่ใช่หุ่นยนต์",
+    icon: "fluent:speaker-24-regular",
   },
   {
-    title: 'ตอบได้หลายภาษา ครอบคลุมทุกตลาด',
-    description:
-      'ขยายโอกาสการขายด้วย Bot ที่รองรับหลายภาษา เช่น ไทย จีน และอังกฤษ เพิ่มความสะดวกให้ลูกค้าทุกกลุ่ม พร้อมให้ร้านค้าตั้งค่าภาษาที่ต้องการตอบกลับได้เอง ตอบโจทย์การขายในยุคที่ตลาดออนไลน์ไร้พรมแดน',
-    icon: 'fluent:translate-24-regular',
+    title: "รองรับสินค้าจำนวนมาก",
+    description: "เข้าใจสินค้าจากรูปภาพ และเปรียบเทียบสินค้าได้ตามต้องการ",
+    icon: "fluent:box-multiple-24-regular",
   },
   {
-    title: 'พร้อมให้บริการ 24/7 ไม่มีพลาดทุกโอกาสขาย',
-    description:
-      'Bot ทำงานไม่มีหยุด รองรับลูกค้าทุกช่วงเวลา ไม่ว่าลูกค้าจะทักมาตอนดึกหรือเช้าตรู่ ช่วยลดภาระของทีมงาน และไม่พลาดโอกาสขายแม้ในช่วงเวลาที่ยุ่งที่สุด',
-    icon: 'fluent:clock-toolbox-24-regular',
+    title: "รองรับหลายภาษา",
+    description: "ตอบลูกค้าในภาษาของเขาอัตโนมัติ ไม่ต้องตั้งค่าเพิ่ม",
+    icon: "fluent:translate-24-regular",
   },
 ] as const;
 
 const features_en = [
   {
-    title: 'Smart Cart Automation',
+    title: "Save staff hours",
     description:
-      'Effortlessly create shopping carts from chats! Just say, "Add 1 piece" or "One more in red," and the Bot handles the rest, saving time and boosting sales.',
-    icon: 'fluent:cart-24-regular',
+      "Automates repetitive admin tasks and FAQs so your team can focus on high-value conversations.",
+    icon: "fluent:people-team-24-regular",
   },
   {
-    title: 'Easily Track Sales History',
+    title: "Close more deals",
     description:
-      'Export daily sales data to Excel for detailed analysis. Understand customer preferences, track product trends, and pinpoint peak interaction times. Empower your store with insights to boost sales performance effectively.',
-    icon: 'fluent:chat-24-regular',
+      "Intelligent product suggestions with images and guided checkout increase conversion rates.",
+    icon: "fluent:chart-multiple-24-regular",
   },
   {
-    title: 'Customizable Bot Responses',
+    title: "Work 24/7",
     description:
-      "Control what your Bot answers! Start with simple greetings and gradually enable more advanced responses. Tailored flexibility lets shop owners test and optimize their Bot\'s performance with ease.",
-    icon: 'fluent:checkbox-checked-24-regular',
+      "Never miss a customer. Capture leads after hours and on weekends automatically.",
+    icon: "fluent:clock-24-regular",
   },
   {
-    title: 'Accurate Keyword-Based Responses',
+    title: "Keep your brand voice",
     description:
-      "Set up frequently asked questions and let the Bot respond instantly. Speed up chat responses, reduce customer wait times, and enhance online shopping experiences with quick-reply options tailored to your store\'s needs.",
-    icon: 'fluent:checkbox-checked-24-regular',
+      "Responses tuned to your tone and policies. Sounds like your team, not a robot.",
+    icon: "fluent:speaker-24-regular",
   },
   {
-    title: 'Multilingual Support for Global Reach',
+    title: "Handle large catalogs",
     description:
-      'Expand your sales opportunities with a Bot that supports multiple languages like Thai, Chinese, and English. Enhance customer convenience across diverse markets while allowing shop owners to configure preferred response languages. Perfect for thriving in the borderless world of online commerce.',
-    icon: 'fluent:translate-24-regular',
+      "Product-aware replies that understand images and can compare items on demand.",
+    icon: "fluent:box-multiple-24-regular",
   },
   {
-    title: '24/7 Operation: Never Miss a Sale',
+    title: "Multi-language support",
     description:
-      'Your Bot is always active, catering to customers any time of day or night. Whether it’s late at night or early morning, it reduces team workload and ensures you never miss a sales opportunity, even during peak hours.',
-    icon: 'fluent:clock-toolbox-24-regular',
+      "Works with customers in their language automatically. No extra setup needed.",
+    icon: "fluent:translate-24-regular",
   },
 ] as const;
 
@@ -119,12 +117,12 @@ const features = features_all[lang];
   </p>
 </div> -->
 <div class="mt-24 max-w-3xl mx-auto flex flex-col items-center justify-center">
-  <Badge color="purple">{p('feature.tag')}</Badge>
+  <Badge color="purple">{p("feature.tag")}</Badge>
   <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-4 text-center">
-    {p('feature.h1')}
+    {p("feature.h1")}
   </h2>
   <p class="text-lg mt-4 text-slate-600 text-center [text-wrap:pretty]">
-    {p('feature.description')}
+    {p("feature.description")}
   </p>
 </div>
 
@@ -133,17 +131,22 @@ const features = features_all[lang];
     features.map((item) => (
       <div class="flex flex-col gap-4 items-start group hover:bg-slate-50 hover:border-slate-100 border border-transparent rounded-lg transition-all md:-m-5 p-5">
         <div class="mt-1 bg-indigo-50 border shadow shadow-indigo-100/50 border-indigo-100 transition-colors rounded-lg grid place-items-center  p-2 w-10 h-10 shrink-0">
-          <Icon
-            class="text-indigo-500"
-            name={item.icon}
-            size="24"
-          />
+          <Icon class="text-indigo-500" name={item.icon} size="24" />
         </div>
         <div>
-          <h3 class="font-semibold text-lg">{item.title}</h3>{' '}
+          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
           <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
         </div>
       </div>
     ))
   }
+</div>
+
+<div class="mt-12 text-center">
+  <a
+    href="/features"
+    class="text-indigo-600 hover:text-indigo-700 font-medium inline-flex items-center gap-2 transition-colors">
+    {p("feature.link")}
+    <Icon name="fluent:arrow-right-24-regular" size="20" />
+  </a>
 </div>
