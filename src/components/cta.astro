@@ -1,27 +1,27 @@
 ---
-import Link from './ui/link.astro';
+import Link from "./ui/link.astro";
 
-import { useTranslations, usePageTranslations } from '../i18n/utils';
-import { config } from '../config.ts';
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import { config } from "../config.ts";
 
-import type { UILanguages } from '../i18n/ui';
+import type { UILanguages } from "../i18n/ui";
 
 const page_ui: UILanguages = {
   en: {
-    'cta.h1': 'Build No Code Chatbot',
-    'cta.description':
-      'The chatbot platform to Open sales, Support, Close sales, Upsale an Upsell for your business.',
-    'cta.cta': 'Sign up for waiting list 🎉',
+    "cta.h1": "Ready to grow without more hiring?",
+    "cta.description":
+      "See how Dealdroid can handle your customer conversations and close more deals — without adding staff.",
+    "cta.cta": "Try a live demo",
   },
   th: {
-    'cta.h1': 'สร้าง Chat bot ได้ด้วยตัวเอง',
-    'cta.description':
-      'แพลตฟอร์มแชทบอทสำหรับเปิดการขาย ให้บริการลูกค้า ปิดการขาย และนำเสนอสินค้าเพิ่มเติมสำหรับธุรกิจของคุณ',
-    'cta.cta': 'ลงชื่อเพื่อใช้งาน 🎉',
+    "cta.h1": "พร้อมขยายธุรกิจโดยไม่ต้องจ้างคนเพิ่ม?",
+    "cta.description":
+      "ดูว่า Dealdroid จะช่วยจัดการการสนทนากับลูกค้าและปิดการขายได้มากขึ้นอย่างไร — โดยไม่ต้องเพิ่มพนักงาน",
+    "cta.cta": "ทดลองใช้งานฟรี",
   },
 } as const;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || "en";
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 ---
@@ -29,16 +29,12 @@ const p = usePageTranslations(lang, page_ui);
 <div
   class="bg-gradient-to-bl from-indigo-900 to-indigo-700 p-8 md:px-20 md:py-20 mt-20 flex flex-col items-center text-center">
   <h2 class="text-white text-4xl md:text-6xl tracking-tight">
-    {p('cta.h1')}
+    {p("cta.h1")}
   </h2>
   <p class="text-white/70 mt-4 text-lg md:text-xl">
-    {p('cta.description')}
+    {p("cta.description")}
   </p>
   <div class="flex mt-5">
-    <Link
-      href={config.urls.register}
-      style="inverted"
-      >{p('cta.cta')}</Link
-    >
+    <Link href={config.urls.register} style="inverted">{p("cta.cta")}</Link>
   </div>
 </div>

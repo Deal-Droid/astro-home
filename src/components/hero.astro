@@ -1,17 +1,17 @@
 ---
-import { Image, Picture } from 'astro:assets';
-import heroImageEn from '../assets/hero-screenshot-en.png';
-import heroImageTh from '../assets/hero-screenshot-th.png';
-import Link from '@components/ui/link.astro';
-import Container from '@components/container.astro';
+import { Image, Picture } from "astro:assets";
+import heroImageEn from "../assets/hero-screenshot-en.png";
+import heroImageTh from "../assets/hero-screenshot-th.png";
+import Link from "@components/ui/link.astro";
+import Container from "@components/container.astro";
 import {
   useTranslations,
   usePageTranslations,
   useTranslatedPath,
-} from '../i18n/utils';
+} from "../i18n/utils";
 
-import type { UILanguages } from '../i18n/ui';
-import { config } from '../config.ts';
+import type { UILanguages } from "../i18n/ui";
+import { config } from "../config.ts";
 
 const heroImages = {
   en: heroImageEn,
@@ -20,22 +20,22 @@ const heroImages = {
 
 const page_ui: UILanguages = {
   en: {
-    'hero.h1': 'Boost Your Sales with an AI Chatbot Built for Online Sellers',
-    'hero.description':
-      'Handle customer inquiries 24/7, close more sales, and grow your business effortlessly—no coding required!',
-    'hero.cta': ' ☕️ Email me',
-    'hero.register': 'Register for Waitlist 🎉',
+    "hero.h1": "Increase sales — without hiring more people.",
+    "hero.description":
+      "AI sales agent that handles 100+ customer chats per day, answers product questions with images, and closes orders 24/7.",
+    "hero.cta": "Book free consultation",
+    "hero.register": "Try a live demo",
   },
   th: {
-    'hero.h1': 'เพิ่มยอดขายง่าย ๆ ด้วย AI Chatbot สำหรับแม่ค้าออนไลน์',
-    'hero.description':
-      'ตอบลูกค้า 24/7 ปิดการขายไว จัดการธุรกิจได้ง่าย ไม่ต้องเขียนโค้ด!',
-    'hero.cta': 'นัดหมายพูดคุย',
-    'hero.register': 'ลงทะเบียนฟรี',
+    "hero.h1": "เพิ่มยอดขาย — โดยไม่ต้องจ้างคนเพิ่ม",
+    "hero.description":
+      "ผู้ช่วย AI ที่จัดการลูกค้า 100+ คนต่อวัน ตอบคำถามพร้อมรูปสินค้า และปิดออเดอร์ได้ตลอด 24 ชม.",
+    "hero.cta": "นัดปรึกษาฟรี",
+    "hero.register": "ทดลองใช้ฟรี",
   },
 } as const;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || "en";
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 const translatedPath = useTranslatedPath(lang);
@@ -55,13 +55,13 @@ const heroImage = heroImages[lang];
       <div class="max-w-sm md:max-w-max lg:col-span-2">
         <h1
           class={`text-3xl lg:text-4xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter [text-wrap:balance] text-center lg:text-start ${
-            lang === 'th' ? 'leading-snug xl:leading-snug' : ''
+            lang === "th" ? "leading-snug xl:leading-snug" : ""
           }`}>
-          {p('hero.h1')}
+          {p("hero.h1")}
         </h1>
         <p
           class="text-lg mt-4 max-w-lg text-slate-600 [text-wrap:balance] text-center lg:text-start">
-          {p('hero.description')}
+          {p("hero.description")}
         </p>
         <div
           class="mt-6 flex flex-col sm:flex-row sm:justify-center lg:justify-start gap-3">
@@ -70,16 +70,16 @@ const heroImage = heroImages[lang];
             target="_blank"
             class="flex gap-1 items-center justify-center"
             rel="noopener">
-            {p('hero.register')}
+            {p("hero.register")}
           </Link>
           <Link
             size="lg"
             style="outline"
             rel="noopener"
-            href={translatedPath('/contact')}
+            href={translatedPath("/contact")}
             class="flex gap-1 items-center justify-center"
             target="_blank">
-            {p('hero.cta')}
+            {p("hero.cta")}
           </Link>
         </div>
       </div>
@@ -87,7 +87,7 @@ const heroImage = heroImages[lang];
         <Picture
           src={heroImage}
           alt="Astronaut in the air"
-          formats={['avif', 'webp']}
+          formats={["avif", "webp"]}
           sizes="(max-width: 768px) 90vw, (max-width: 1024px) 80vw, 50vw"
           widths={[480, 960, 1440, 1920, heroImage.width]}
           loading="eager"
