@@ -1,0 +1,126 @@
+---
+import Badge from "./ui/badge.astro";
+import { Picture } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  id: string;
+  badge: string;
+  title: string;
+  description: string;
+  benefits: string[];
+  example?: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  imagePosition?: "left" | "right";
+  docsLink?: string;
+  docsLinkText?: string;
+  devNote?: string;
+  background?: "white" | "slate";
+}
+
+const {
+  id,
+  badge,
+  title,
+  description,
+  benefits,
+  example,
+  image,
+  imageAlt,
+  imagePosition = "left",
+  docsLink,
+  docsLinkText = "Learn more",
+  devNote,
+  background = "white",
+} = Astro.props;
+
+const bgClass = background === "slate" ? "bg-slate-50" : "bg-white";
+const isImageLeft = imagePosition === "left";
+---
+
+<div class={`py-16 ${bgClass}`} id={id}>
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Image -->
+      <div class={isImageLeft ? "lg:order-1" : "lg:order-2"}>
+        <Picture
+          src={image}
+          alt={imageAlt}
+          formats={["avif", "webp"]}
+          class="rounded-lg shadow-lg"
+          widths={[480, 800]}
+          sizes="(max-width: 1024px) 100vw, 50vw"
+        />
+      </div>
+
+      <!-- Content -->
+      <div class={isImageLeft ? "lg:order-2" : "lg:order-1"}>
+        <Badge color="purple">{badge}</Badge>
+        <h2 class="text-3xl lg:text-4xl font-bold mt-4 mb-4">
+          {title}
+        </h2>
+        <p class="text-lg text-slate-600 leading-relaxed mb-6">
+          {description}
+        </p>
+
+        <!-- Benefits -->
+        {
+          benefits.length > 0 && (
+            <ul class="space-y-3 mb-6">
+              {benefits.map((benefit) => (
+                <li class="flex items-start gap-3">
+                  <Icon
+                    name="fluent:checkmark-circle-24-regular"
+                    class="text-indigo-600 flex-shrink-0 mt-0.5"
+                    size="24"
+                  />
+                  <span class="text-slate-700">{benefit}</span>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        <!-- Example -->
+        {
+          example && (
+            <div class="bg-indigo-50 border border-indigo-100 rounded-lg p-4 mb-6">
+              <p class="text-sm text-indigo-900 italic">
+                <strong>Example:</strong> {example}
+              </p>
+            </div>
+          )
+        }
+
+        <!-- Docs Link -->
+        {
+          docsLink && (
+            <a
+              href={docsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-medium transition-colors">
+              {docsLinkText}
+              <Icon name="fluent:arrow-right-24-regular" size="20" />
+            </a>
+          )
+        }
+
+        <!-- Dev Note (collapsible on mobile) -->
+        {
+          devNote && (
+            <details class="mt-6 border-t border-slate-200 pt-4">
+              <summary class="text-sm font-medium text-slate-700 cursor-pointer hover:text-indigo-600">
+                Developer note
+              </summary>
+              <p class="text-sm text-slate-600 mt-2 leading-relaxed">
+                {devNote}
+              </p>
+            </details>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>

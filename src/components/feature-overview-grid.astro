@@ -1,0 +1,90 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "overview.title": "Everything you need to scale customer conversations",
+    "feature.1.title": "Intelligent Message Handling",
+    "feature.1.desc":
+      "Waits for final message before replying — no repeated answers",
+    "feature.2.title": "Product Intelligence",
+    "feature.2.desc": "Handles thousands of SKUs with image recognition",
+    "feature.3.title": "Knowledge Base",
+    "feature.3.desc": "Rich content with images, PDFs, and versioning",
+    "feature.4.title": "Smart Fallbacks",
+    "feature.4.desc": "Routes to humans or asks clarifying questions",
+    "feature.5.title": "Multi-language",
+    "feature.5.desc": "Auto-detects and replies in customer language",
+    "feature.6.title": "Third-party Integrations",
+    "feature.6.desc": "Webhooks to CRM, orders, and inventory systems",
+    "feature.7.title": "Testing Tools",
+    "feature.7.desc": "Automated regression tests prevent breaking changes",
+    "feature.8.title": "Admin Tools",
+    "feature.8.desc": "Team roles, transcripts, and brand voice editor",
+    "feature.9.title": "Security & Compliance",
+    "feature.9.desc": "Role-based access, audit logs, encrypted webhooks",
+  },
+  th: {
+    "overview.title": "ทุกสิ่งที่คุณต้องการเพื่อขยายการสนทนากับลูกค้า",
+    "feature.1.title": "การจัดการข้อความอัจฉริยะ",
+    "feature.1.desc": "รอข้อความสุดท้ายก่อนตอบกลับ — ไม่ซ้ำซาก",
+    "feature.2.title": "ระบบสินค้าอัจฉริยะ",
+    "feature.2.desc": "รองรับสินค้าหลายพันรายการพร้อมจดจำรูปภาพ",
+    "feature.3.title": "ฐานความรู้",
+    "feature.3.desc": "เนื้อหาครบถ้วนพร้อมรูปภาพ PDF และเวอร์ชัน",
+    "feature.4.title": "ตัวสำรอง Smart",
+    "feature.4.desc": "ส่งต่อคนหรือถามคำถามเพิ่มเติม",
+    "feature.5.title": "หลายภาษา",
+    "feature.5.desc": "ตรวจจับและตอบในภาษาของลูกค้าอัตโนมัติ",
+    "feature.6.title": "เชื่อมต่อระบบภายนอก",
+    "feature.6.desc": "Webhook เชื่อม CRM คำสั่งซื้อ และระบบสต็อก",
+    "feature.7.title": "เครื่องมือทดสอบ",
+    "feature.7.desc": "ทดสอบอัตโนมัติป้องกันความเสียหาย",
+    "feature.8.title": "เครื่องมือแอดมิน",
+    "feature.8.desc": "บทบาททีม บันทึกแชท และแก้น้ำเสียงแบรนด์",
+    "feature.9.title": "ความปลอดภัย",
+    "feature.9.desc": "ควบคุมสิทธิ์ บันทึกการตรวจสอบ webhook เข้ารหัส",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
+
+const features = [
+  { icon: "fluent:chat-bubbles-question-24-regular", key: "1" },
+  { icon: "fluent:box-search-24-regular", key: "2" },
+  { icon: "fluent:book-open-24-regular", key: "3" },
+  { icon: "fluent:branch-24-regular", key: "4" },
+  { icon: "fluent:translate-24-regular", key: "5" },
+  { icon: "fluent:puzzle-piece-24-regular", key: "6" },
+  { icon: "fluent:beaker-24-regular", key: "7" },
+  { icon: "fluent:settings-24-regular", key: "8" },
+  { icon: "fluent:shield-checkmark-24-regular", key: "9" },
+];
+---
+
+<div class="mt-16 mb-32">
+  <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12">
+    {p("overview.title")}
+  </h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+    {
+      features.map((f) => (
+        <div class="flex flex-col items-start p-6 border border-slate-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all group">
+          <div class="flex items-center justify-center w-12 h-12 bg-indigo-50 rounded-lg mb-4 group-hover:bg-indigo-100 transition-colors">
+            <Icon name={f.icon} class="text-indigo-600" size="24" />
+          </div>
+          <h3 class="text-xl font-semibold text-slate-900 mb-2">
+            {p(`feature.${f.key}.title`)}
+          </h3>
+          <p class="text-slate-600 leading-relaxed">
+            {p(`feature.${f.key}.desc`)}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>

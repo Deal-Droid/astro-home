@@ -1,0 +1,51 @@
+---
+import Link from "./ui/link.astro";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+import { config } from "../config";
+
+const page_ui: UILanguages = {
+  en: {
+    "hero.h1": "Features",
+    "hero.subtitle":
+      "Smart conversation design, product-aware sales, and enterprise-grade reliability — built for growing stores.",
+    "hero.intro":
+      "Dealdroid is more than a chatbot. It is a conversation-first sales assistant built to handle real store workflows: product images, large catalogs, noisy chats, third-party triggers, and safe updates. Designed for small teams that need enterprise reliability.",
+    "hero.cta.primary": "Try interactive demo",
+    "hero.cta.secondary": "Request integration review",
+  },
+  th: {
+    "hero.h1": "ฟีเจอร์ทั้งหมด",
+    "hero.subtitle":
+      "ออกแบบการสนทนาอัจฉริยะ ขายได้จริงด้วยข้อมูลสินค้า และความน่าเชื่อถือระดับองค์กร — สร้างมาเพื่อร้านค้าที่กำลังเติบโต",
+    "hero.intro":
+      "Dealdroid ไม่ใช่แค่แชทบอท แต่เป็นผู้ช่วยขายที่เน้นการสนทนาจริง รองรับงานจริงของร้านค้า: รูปสินค้า แคตตาล็อกขนาดใหญ่ แชทที่ซับซ้อน เชื่อมต่อระบบภายนอก และอัปเดตอย่างปลอดภัย ออกแบบมาสำหรับทีมเล็กที่ต้องการความน่าเชื่อถือระดับองค์กร",
+    "hero.cta.primary": "ทดลองใช้งาน",
+    "hero.cta.secondary": "ขอรีวิวการเชื่อมต่อฟรี",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
+---
+
+<div class="text-center max-w-4xl mx-auto mt-16 mb-24">
+  <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
+    {p("hero.h1")}
+  </h1>
+  <p class="text-xl lg:text-2xl mt-4 text-slate-700 font-medium">
+    {p("hero.subtitle")}
+  </p>
+  <p class="text-lg mt-6 text-slate-600 leading-relaxed max-w-3xl mx-auto">
+    {p("hero.intro")}
+  </p>
+  <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+    <Link href={config.urls.register} size="lg">
+      {p("hero.cta.primary")}
+    </Link>
+    <Link href={config.urls.register} size="lg" style="outline">
+      {p("hero.cta.secondary")}
+    </Link>
+  </div>
+</div>

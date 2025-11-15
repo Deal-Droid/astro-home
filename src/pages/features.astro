@@ -1,21 +1,159 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
-import FeatureAlt from "@components/feature-alt.astro";
-import FeatureGrid from "@components/feature-grid.astro";
-import { default as FeaturesBlock } from "@components/features.astro";
-import Logos from "@components/logos.astro";
-import Sectionhead from "@components/sectionhead.astro";
-import Testimonials from "@components/testimonials.astro";
-import Link from "@components/ui/link.astro";
+import FeatureHero from "@components/feature-hero.astro";
+import FeatureOverviewGrid from "@components/feature-overview-grid.astro";
+import FeatureDetail from "@components/feature-detail.astro";
+import DeveloperResources from "@components/developer-resources.astro";
 import Layout from "@layouts/Layout.astro";
+
+// Import feature images (using existing assets as placeholders)
+import FeatureImg1 from "../assets/features/1.png";
+import FeatureImg2 from "../assets/features/2.png";
+import FeatureImg3 from "../assets/features/3.png";
+import FeatureImg4 from "../assets/features/4.png";
+import FeatureImg5 from "../assets/features/5.png";
+import FeatureImg6 from "../assets/features/6.png";
 ---
 
 <Layout footerMargin={false}>
-  <Container class="mt-16">
-    <FeatureAlt nomargin={true} />
-    <FeatureGrid />
-    <FeaturesBlock />
+  <Container>
+    <!-- Hero Section -->
+    <FeatureHero />
+
+    <!-- Overview Grid -->
+    <FeatureOverviewGrid />
   </Container>
+
+  <!-- Detailed Features -->
+  <!-- Feature 1: Intelligent Message Handling -->
+  <FeatureDetail
+    id="message-handling"
+    badge="Smart Conversations"
+    title="Stop noisy replies — respond only when it matters"
+    description="When a customer sends multiple messages in a row, Dealdroid waits and replies to the final message — just like a human would. That means no repeated answers, cleaner chats, and fewer confused customers."
+    benefits={[
+      "Reduces chat noise and staff interruptions",
+      "Preserves conversational context for longer customer messages",
+      "Improves perceived empathy — customers feel heard",
+    ]}
+    example="When a user types three lines of updates, Dealdroid replies once with a consolidated answer and suggested products."
+    image={FeatureImg1}
+    imageAlt="Intelligent message handling timeline"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/tuning/when-ai-think/"
+    docsLinkText="Learn about message timing"
+    background="white"
+  />
+
+  <!-- Feature 2: Product Intelligence -->
+  <FeatureDetail
+    id="product-intelligence"
+    badge="Product Aware"
+    title="Scales to large catalogs — understands product images"
+    description="Dealdroid connects to your product feed or store and recognizes product metadata and images. It can recommend items, compare models, and send exact product photos that match the customer's questions."
+    benefits={[
+      "Works with thousands of SKUs without slowdown",
+      "Sends the exact product image customers ask for",
+      "Performs side-by-side comparisons on request",
+    ]}
+    example="Customer asks: 'Show me that red shirt in size M' → Bot returns the precise photo + availability status."
+    image={FeatureImg2}
+    imageAlt="Product catalog with image recognition"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/tuning/add-product/"
+    docsLinkText="Product feed setup"
+    devNote="Supports CSV feeds, Shopify integration, and REST product APIs. Image recognition works against stored product images and metadata."
+    background="slate"
+  />
+
+  <!-- Feature 3: Knowledge Base -->
+  <FeatureDetail
+    id="knowledge-base"
+    badge="Knowledge Driven"
+    title="Knowledge base with rich content — answers that cite your materials"
+    description="Upload guides, warranty docs, FAQs, and images to a Knowledge Base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate."
+    benefits={[
+      "Accurate, brand-approved answers every time",
+      "Visual responses: diagrams, spec tables, or how-to images included inline",
+      "Keep sensitive info gated with role-based access",
+    ]}
+    example="Customer: 'How long is the warranty?' — Bot: '12 months. See warranty PDF [download link]'"
+    image={FeatureImg3}
+    imageAlt="Knowledge base with documents and images"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/tuning/add-knowledge/"
+    docsLinkText="Knowledge base guide"
+    devNote="KB supports Markdown + image attachments + version history."
+    background="white"
+  />
+
+  <!-- Feature 4: Smart Fallbacks & Intent Routing -->
+  <FeatureDetail
+    id="intent-routing"
+    badge="Intelligent Routing"
+    title="Stops guessing — asks or routes when needed"
+    description="When Dealdroid can't confidently resolve a message, it uses smart fallbacks: ask clarifying questions, show KB articles, or escalate to a human. Intent routing sends specific queries to flows that trigger actions or integrations."
+    benefits={[
+      "Reduced wrong answers and customer frustration",
+      "Smooth handoff to human agents when needed",
+      "Intent-driven automation for common workflows",
+    ]}
+    example="Common intents: 'Request invoice', 'Return item', 'Product demo', 'Technical support' — each can trigger webhooks or show specific KB content."
+    image={FeatureImg4}
+    imageAlt="Intent routing flow diagram"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/tuning/add-intent/"
+    docsLinkText="Configure intents"
+    devNote="Configurable confidence thresholds, fallback templates, and human escalation triggers. Webhooks for third-party system integration."
+    background="slate"
+  />
+
+  <!-- Feature 5: Testing & Reliability -->
+  <FeatureDetail
+    id="testing"
+    badge="Safe Updates"
+    title="Built-in testing and regression checks — safe to iterate"
+    description="Dealdroid includes an interactive playground for manual testing and automated regression tests that run on every change. This prevents new edits from breaking previously good responses."
+    benefits={[
+      "Safe, fast iteration of scripts and intents",
+      "Catch regressions before they hit customers",
+      "Confidence to experiment with new flows",
+    ]}
+    example="Run test suite: 'Compare two products', 'Request refund', 'Ask about warranty' — see pass/fail results with visual diff of response changes."
+    image={FeatureImg5}
+    imageAlt="Testing dashboard with pass/fail indicators"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/getting-started/testing/"
+    docsLinkText="Testing guide"
+    devNote="Exportable test results, CI integration for scripted test runs, manual chat simulator with scenario presets."
+    background="white"
+  />
+
+  <!-- Feature 6: Multi-language + Security -->
+  <FeatureDetail
+    id="security"
+    badge="Enterprise Ready"
+    title="Multi-language support + enterprise-grade security"
+    description="Automatic language detection and replies in the same language out of the box. Plus role-based access control, audit logs, encrypted webhooks, and optional private deployments for high compliance needs."
+    benefits={[
+      "Works in Thai, English, and many other languages automatically",
+      "Role-based admin access for team management",
+      "Audit logs and compliance-ready data controls",
+    ]}
+    example="User writes in Thai → bot replies in Thai with localized product names. Admins can assign roles and review audit logs for all changes."
+    image={FeatureImg6}
+    imageAlt="Multi-language support and security features"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/faq/language-support/"
+    docsLinkText="Language & security docs"
+    devNote="Support for TLS, HMAC signatures for webhooks, GDPR-compatible data controls, optional on-prem deployment."
+    background="slate"
+  />
+
+  <!-- Developer Resources -->
+  <DeveloperResources />
+
+  <!-- Final CTA -->
   <Cta />
 </Layout>

@@ -1,0 +1,112 @@
+---
+import { Icon } from "astro-icon/components";
+import { useTranslations, usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "dev.title": "For developers — full technical docs",
+    "dev.description":
+      "Complete API reference, webhook specifications, and integration guides for building advanced workflows.",
+    "dev.1.title": "API & Webhook Reference",
+    "dev.1.desc": "Complete REST API docs and webhook event specifications",
+    "dev.1.link": "https://docs.dealdroid.net/thirdparty/endpoint/",
+    "dev.2.title": "Product Feed Formats",
+    "dev.2.desc": "CSV, JSON, and API formats for product catalogs",
+    "dev.2.link": "https://docs.dealdroid.net/tuning/add-product/",
+    "dev.3.title": "Intent Configuration",
+    "dev.3.desc": "Create custom intents and route to workflows",
+    "dev.3.link": "https://docs.dealdroid.net/tuning/add-intent/",
+    "dev.4.title": "Brand Voice Tuning",
+    "dev.4.desc": "Configure tone, personality, and response templates",
+    "dev.4.link": "https://docs.dealdroid.net/tuning/brand-voice/",
+    "dev.5.title": "Testing & Validation",
+    "dev.5.desc": "Automated test suites and regression checking",
+    "dev.5.link": "https://docs.dealdroid.net/getting-started/testing/",
+    "dev.6.title": "Security Best Practices",
+    "dev.6.desc": "Authentication, encryption, and compliance guidelines",
+    "dev.6.link": "https://docs.dealdroid.net/faq/security/",
+  },
+  th: {
+    "dev.title": "สำหรับนักพัฒนา — เอกสารทางเทคนิคครบถ้วน",
+    "dev.description":
+      "API อ้างอิง คู่มือ webhook และการเชื่อมต่อสำหรับสร้างเวิร์กโฟลว์ขั้นสูง",
+    "dev.1.title": "API & Webhook Reference",
+    "dev.1.desc": "เอกสาร REST API และ webhook event ครบถ้วน",
+    "dev.1.link": "https://docs.dealdroid.net/thirdparty/endpoint/",
+    "dev.2.title": "รูปแบบข้อมูลสินค้า",
+    "dev.2.desc": "CSV, JSON และ API สำหรับแคตตาล็อกสินค้า",
+    "dev.2.link": "https://docs.dealdroid.net/tuning/add-product/",
+    "dev.3.title": "ตั้งค่า Intent",
+    "dev.3.desc": "สร้าง intent และเชื่อมต่อเวิร์กโฟลว์",
+    "dev.3.link": "https://docs.dealdroid.net/tuning/add-intent/",
+    "dev.4.title": "ปรับแต่งน้ำเสียงแบรนด์",
+    "dev.4.desc": "ตั้งค่าโทน บุคลิก และเทมเพลตการตอบ",
+    "dev.4.link": "https://docs.dealdroid.net/tuning/brand-voice/",
+    "dev.5.title": "การทดสอบและตรวจสอบ",
+    "dev.5.desc": "ชุดทดสอบอัตโนมัติและตรวจสอบความเสียหาย",
+    "dev.5.link": "https://docs.dealdroid.net/getting-started/testing/",
+    "dev.6.title": "แนวปฏิบัติด้านความปลอดภัย",
+    "dev.6.desc": "การยืนยันตัวตน การเข้ารหัส และแนวทางปฏิบัติ",
+    "dev.6.link": "https://docs.dealdroid.net/faq/security/",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const t = useTranslations(lang);
+const p = usePageTranslations(lang, page_ui);
+
+const resources = [
+  { icon: "fluent:code-24-regular", key: "1" },
+  { icon: "fluent:box-24-regular", key: "2" },
+  { icon: "fluent:branch-24-regular", key: "3" },
+  { icon: "fluent:speaker-24-regular", key: "4" },
+  { icon: "fluent:beaker-24-regular", key: "5" },
+  { icon: "fluent:shield-checkmark-24-regular", key: "6" },
+];
+---
+
+<div class="py-20 bg-slate-50 mt-16">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+        {p("dev.title")}
+      </h2>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+        {p("dev.description")}
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        resources.map((r) => (
+          <a
+            href={p(`dev.${r.key}.link`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex flex-col p-6 bg-white border border-slate-200 rounded-lg hover:border-indigo-300 hover:shadow-lg transition-all group">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="flex items-center justify-center w-10 h-10 bg-indigo-50 rounded-lg group-hover:bg-indigo-100 transition-colors">
+                <Icon name={r.icon} class="text-indigo-600" size="20" />
+              </div>
+              <h3 class="text-lg font-semibold text-slate-900 group-hover:text-indigo-600 transition-colors">
+                {p(`dev.${r.key}.title`)}
+              </h3>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-3">
+              {p(`dev.${r.key}.desc`)}
+            </p>
+            <div class="mt-auto flex items-center gap-2 text-indigo-600 text-sm font-medium">
+              View docs
+              <Icon
+                name="fluent:arrow-right-24-regular"
+                size="16"
+                class="group-hover:translate-x-1 transition-transform"
+              />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</div>
