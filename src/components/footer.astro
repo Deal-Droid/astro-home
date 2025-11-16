@@ -1,38 +1,38 @@
 ---
-import Container from '@components/container.astro';
-import { Icon } from 'astro-icon/components';
-import { languages } from 'i18n/ui';
+import Container from "@components/container.astro";
+import { Icon } from "astro-icon/components";
+import { languages } from "i18n/ui";
 
 import {
   useTranslations,
   usePageTranslations,
   useTranslatedPath,
-} from '../i18n/utils';
-import type { UILanguages } from '../i18n/ui';
-import { getRelativeLocaleUrl } from 'astro:i18n';
+} from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const { margin } = Astro.props;
 
 const page_ui: UILanguages = {
   en: {
-    'footer.company': 'Company',
-    'footer.document': 'Documents',
-    'footer.document.home': 'Home',
-    'footer.document.getting_started': 'Getting Started',
-    'footer.description':
-      'Dealdroid is a SaaS and startups chatbot platform. Built with lastes AI Technologoy.',
+    "footer.company": "Company",
+    "footer.document": "Documents",
+    "footer.document.home": "Home",
+    "footer.document.getting_started": "Getting Started",
+    "footer.description":
+      "Dealdroid is a SaaS and startups chatbot platform. Built with lastes AI Technologoy.",
   },
   th: {
-    'footer.company': 'บริษัท',
-    'footer.document': 'คู่มือ',
-    'footer.document.home': 'หน้าหลัก',
-    'footer.document.getting_started': 'การเริ่มต้น',
-    'footer.description':
-      'Dealdroid เป็นระบบแชทบอทสำหรับปิดการขาย พัฒนาบนเทคโนโลยี AI ล่าสุด โดยมีเป้าหมายให้เจ้าของธุรกิจสามารถใช้งานง่ายๆ ด้วยตนเอง',
+    "footer.company": "บริษัท",
+    "footer.document": "คู่มือ",
+    "footer.document.home": "หน้าหลัก",
+    "footer.document.getting_started": "การเริ่มต้น",
+    "footer.description":
+      "Dealdroid เป็นระบบแชทบอทสำหรับปิดการขาย พัฒนาบนเทคโนโลยี AI ล่าสุด โดยมีเป้าหมายให้เจ้าของธุรกิจสามารถใช้งานง่ายๆ ด้วยตนเอง",
   },
 } as const;
 
-const lang = Astro.currentLocale || 'en';
+const lang = Astro.currentLocale || "en";
 const translatePath = useTranslatedPath(lang);
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
@@ -40,52 +40,52 @@ const p = usePageTranslations(lang, page_ui);
 const footermenu = {
   company: [
     {
-      title: t('general.home'),
-      path: translatePath('/'),
+      title: t("general.home"),
+      path: translatePath("/"),
     },
     // {
     //   title: t('general.blog'),
     //   path: '/blog',
     // },
     {
-      title: t('general.contact'),
-      path: translatePath('/contact'),
+      title: t("general.contact"),
+      path: translatePath("/contact"),
     },
     {
-      title: t('general.terms'),
-      path: translatePath('/terms'),
+      title: t("general.terms"),
+      path: translatePath("/terms"),
     },
     {
-      title: t('general.privacy'),
-      path: translatePath('/privacy'),
+      title: t("general.privacy"),
+      path: translatePath("/privacy"),
     },
   ],
   product: [
     {
-      title: p('footer.document.home'),
-      path: 'http://doc.dealdroid.net',
+      title: p("footer.document.home"),
+      path: "http://docs.dealdroid.net",
     },
     {
-      title: p('footer.document.getting_started'),
-      path: 'http://doc.dealdroid.net',
+      title: p("footer.document.getting_started"),
+      path: "http://docs.dealdroid.net/getting-started/overview/",
     },
   ],
   resources: [
     {
-      title: 'Help Center',
-      path: '#',
+      title: "Help Center",
+      path: "#",
     },
     {
-      title: 'Guides',
-      path: '#',
+      title: "Guides",
+      path: "#",
     },
     {
-      title: 'Documentation',
-      path: '#',
+      title: "Documentation",
+      path: "#",
     },
     {
-      title: 'Uptime Status',
-      path: '#',
+      title: "Uptime Status",
+      path: "#",
     },
   ],
 };
@@ -93,15 +93,13 @@ const footermenu = {
 
 <footer
   class:list={[
-    'py-14 bg-slate-100 border-t border-slate-100',
-    margin && 'mt-10',
+    "py-14 bg-slate-100 border-t border-slate-100",
+    margin && "mt-10",
   ]}>
   <Container>
     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
       <div class="sm:col-span-2 md:col-span-3 lg:col-span-2">
-        <a
-          href="/"
-          class="text-lg flex items-center"
+        <a href="/" class="text-lg flex items-center"
           ><span class="font-bold text-indigo-600">Deal</span><span
             class="text-slate-600">droid</span
           >
@@ -111,51 +109,28 @@ const footermenu = {
           > -->
         </a>
         <p class="mt-4 text-sm text-slate-700 max-w-xs">
-          {p('footer.description')}
+          {p("footer.description")}
         </p>
         <div class="flex gap-3 mt-4 items-center">
           <a
-            href="https://twitter.com/surjithctly"
+            href="https://discord.gg/ZnGSSbQg4N"
             target="_blank"
             rel="noopener noreferrer"
             class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon
-              name="bx:bxl-twitter"
-              class="w-4 h-4"
-            />
-            <span class="sr-only">Twitter or X</span></a
-          >
-          <a
-            href="https://facebook.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon
-              name="bx:bxl-facebook-circle"
-              class="w-4 h-4"
-            /><span class="sr-only">Facebook</span></a
-          >
-          <a
-            href="https://linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-slate-200 hover:bg-slate-300 rounded w-6 h-6 inline-flex items-center justify-center text-slate-500">
-            <Icon
-              name="bx:bxl-linkedin-square"
-              class="w-4 h-4"
-            /><span class="sr-only">Linkedin</span></a
+            <Icon name="bx:bxl-discord" class="w-4 h-4" />
+            <span class="sr-only">Discord</span></a
           >
         </div>
       </div>
       <div>
         <h3 class="font-medium text-sm text-slate-800">
-          {p('footer.company')}
+          {p("footer.company")}
         </h3>
         <div class="flex flex-col mt-3">
           {
             footermenu.company.map((item) => (
               <a
-                href={item.path || '#'}
+                href={item.path || "#"}
                 class="py-2 text-sm text-slate-600 hover:text-indigo-600">
                 {item.title}
               </a>
@@ -165,13 +140,13 @@ const footermenu = {
       </div>
       <div>
         <h3 class="font-medium text-sm text-slate-800">
-          {p('footer.document')}
+          {p("footer.document")}
         </h3>
         <div class="flex flex-col mt-3">
           {
             footermenu.product.map((item) => (
               <a
-                href={item.path || '#'}
+                href={item.path || "#"}
                 class="py-2 text-sm text-slate-600 hover:text-indigo-600">
                 {item.title}
               </a>
@@ -181,17 +156,14 @@ const footermenu = {
       </div>
       <div>
         <h3 class="font-medium text-sm text-slate-800 flex items-center gap-1">
-          <Icon
-            name="fluent:translate-20-filled"
-            class="w-4 h-4"
-          /> Language
+          <Icon name="fluent:translate-20-filled" class="w-4 h-4" /> Language
         </h3>
         <div class="flex flex-col mt-3">
           {
             Object.entries(languages).map(([lang, label]) => {
               const pathWithoutLocale = Astro.url.pathname.replace(
                 /^\/[a-z]{2}(?=-|\/|$)/,
-                ''
+                ""
               );
               return (
                 <a
@@ -212,11 +184,7 @@ const footermenu = {
           Copyright © {new Date().getFullYear()} Dealdroid. All rights reserved.
         </p>
         <p class="text-center text-xs text-slate-600 mt-2">
-          <a
-            href="#"
-            class="hover:text-indigo-500">
-            Terms</a
-          > ・ <a
+          <a href="#" class="hover:text-indigo-500"> Terms</a> ・ <a
             href="#"
             class="hover:text-indigo-500">
             Privacy</a
