@@ -7,48 +7,36 @@ const page_ui: UILanguages = {
   en: {
     "dev.title": "For developers — full technical docs",
     "dev.description":
-      "Complete API reference, webhook specifications, and integration guides for building advanced workflows.",
-    "dev.1.title": "API & Webhook Reference",
-    "dev.1.desc": "Complete REST API docs and webhook event specifications",
+      "Complete API reference, webhook specifications, and intent configuration for building custom integrations and advanced workflows.",
+    "dev.1.title": "Message Endpoint API",
+    "dev.1.desc":
+      "Send messages programmatically and integrate DealDroid into your custom applications, mobile apps, or workflows",
     "dev.1.link": "https://docs.dealdroid.net/thirdparty/endpoint/",
-    "dev.2.title": "Product Feed Formats",
-    "dev.2.desc": "CSV, JSON, and API formats for product catalogs",
-    "dev.2.link": "https://docs.dealdroid.net/tuning/add-product/",
+    "dev.2.title": "Receiving Webhooks",
+    "dev.2.desc":
+      "Get real-time notifications for every message to build custom integrations, track conversations, and trigger automation",
+    "dev.2.link": "https://docs.dealdroid.net/thirdparty/receiving-webhook/",
     "dev.3.title": "Intent Configuration",
-    "dev.3.desc": "Create custom intents and route to workflows",
+    "dev.3.desc":
+      "Control bot behavior and trigger third-party API webhooks based on conversation context—generate payment links, update CRM, or automate workflows",
     "dev.3.link": "https://docs.dealdroid.net/tuning/add-intent/",
-    "dev.4.title": "Brand Voice Tuning",
-    "dev.4.desc": "Configure tone, personality, and response templates",
-    "dev.4.link": "https://docs.dealdroid.net/tuning/brand-voice/",
-    "dev.5.title": "Testing & Validation",
-    "dev.5.desc": "Automated test suites and regression checking",
-    "dev.5.link": "https://docs.dealdroid.net/getting-started/testing/",
-    "dev.6.title": "Security Best Practices",
-    "dev.6.desc": "Authentication, encryption, and compliance guidelines",
-    "dev.6.link": "https://docs.dealdroid.net/faq/security/",
   },
   th: {
     "dev.title": "สำหรับนักพัฒนา — เอกสารทางเทคนิคครบถ้วน",
     "dev.description":
-      "API อ้างอิง คู่มือ webhook และการเชื่อมต่อสำหรับสร้างเวิร์กโฟลว์ขั้นสูง",
-    "dev.1.title": "API & Webhook Reference",
-    "dev.1.desc": "เอกสาร REST API และ webhook event ครบถ้วน",
+      "API อ้างอิง, Webhook และการตั้งค่า Intent สำหรับสร้างการเชื่อมต่อแบบกำหนดเองและเวิร์กโฟลว์ขั้นสูง",
+    "dev.1.title": "Message Endpoint API",
+    "dev.1.desc":
+      "ส่งข้อความผ่านโปรแกรมและรวม DealDroid เข้ากับแอปพลิเคชัน แอปมือถือ หรือเวิร์กโฟลว์ของคุณ",
     "dev.1.link": "https://docs.dealdroid.net/thirdparty/endpoint/",
-    "dev.2.title": "รูปแบบข้อมูลสินค้า",
-    "dev.2.desc": "CSV, JSON และ API สำหรับแคตตาล็อกสินค้า",
-    "dev.2.link": "https://docs.dealdroid.net/tuning/add-product/",
+    "dev.2.title": "Receiving Webhooks",
+    "dev.2.desc":
+      "รับการแจ้งเตือนแบบเรียลไทม์สำหรับทุกข้อความเพื่อสร้างการเชื่อมต่อ ติดตามการสนทนา และเรียกใช้ระบบอัตโนมัติ",
+    "dev.2.link": "https://docs.dealdroid.net/thirdparty/receiving-webhook/",
     "dev.3.title": "ตั้งค่า Intent",
-    "dev.3.desc": "สร้าง intent และเชื่อมต่อเวิร์กโฟลว์",
+    "dev.3.desc":
+      "ควบคุมพฤติกรรมบอทและเรียกใช้ third-party API webhook ตามบริบทการสนทนา—สร้างลิงก์ชำระเงิน อัปเดต CRM หรือสร้างระบบอัตโนมัติ",
     "dev.3.link": "https://docs.dealdroid.net/tuning/add-intent/",
-    "dev.4.title": "ปรับแต่งน้ำเสียงแบรนด์",
-    "dev.4.desc": "ตั้งค่าโทน บุคลิก และเทมเพลตการตอบ",
-    "dev.4.link": "https://docs.dealdroid.net/tuning/brand-voice/",
-    "dev.5.title": "การทดสอบและตรวจสอบ",
-    "dev.5.desc": "ชุดทดสอบอัตโนมัติและตรวจสอบความเสียหาย",
-    "dev.5.link": "https://docs.dealdroid.net/getting-started/testing/",
-    "dev.6.title": "แนวปฏิบัติด้านความปลอดภัย",
-    "dev.6.desc": "การยืนยันตัวตน การเข้ารหัส และแนวทางปฏิบัติ",
-    "dev.6.link": "https://docs.dealdroid.net/faq/security/",
   },
 } as const;
 
@@ -58,15 +46,12 @@ const p = usePageTranslations(lang, page_ui);
 
 const resources = [
   { icon: "fluent:code-24-regular", key: "1" },
-  { icon: "fluent:box-24-regular", key: "2" },
-  { icon: "fluent:branch-24-regular", key: "3" },
-  { icon: "fluent:speaker-24-regular", key: "4" },
-  { icon: "fluent:beaker-24-regular", key: "5" },
-  { icon: "fluent:shield-checkmark-24-regular", key: "6" },
+  { icon: "fluent:alert-24-regular", key: "2" },
+  { icon: "fluent:brain-circuit-24-regular", key: "3" },
 ];
 ---
 
-<div class="py-20 bg-slate-50 mt-16">
+<div class="py-20 mt-16">
   <div class="max-w-6xl mx-auto px-4">
     <div class="text-center mb-12">
       <h2 class="text-3xl lg:text-4xl font-bold mb-4">
@@ -77,7 +62,7 @@ const resources = [
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid md:grid-cols-3 gap-6">
       {
         resources.map((r) => (
           <a
