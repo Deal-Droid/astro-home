@@ -1,0 +1,159 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import FeatureHero from "@components/feature-hero.astro";
+import FeatureOverviewGrid from "@components/feature-overview-grid.astro";
+import FeatureDetail from "@components/feature-detail.astro";
+import DeveloperResources from "@components/developer-resources.astro";
+import Layout from "@layouts/Layout.astro";
+
+// Import feature images (using existing assets as placeholders)
+import FeatureImg1 from "../../assets/features/1.png";
+import FeatureImg8 from "../../assets/features/8.png";
+import FeatureImg9 from "../../assets/features/9.png";
+import FeatureImg12 from "../../assets/features/12.png";
+import FeatureImg11 from "../../assets/features/11.png";
+import FeatureImg14 from "../../assets/features/14.png";
+---
+
+<Layout footerMargin={false}>
+  <Container>
+    <!-- Hero Section -->
+    <FeatureHero />
+
+    <!-- Overview Grid -->
+    <FeatureOverviewGrid />
+  </Container>
+
+  <!-- Detailed Features -->
+  <!-- Feature 1: Intelligent Message Handling -->
+  <FeatureDetail
+    id="message-handling"
+    badge="การสนทนาอัจฉริยะ"
+    title="หยุดการตอบกลับที่รบกวน — ตอบกลับเฉพาะเมื่อจำเป็น"
+    description="เมื่อลูกค้าส่งข้อความหลายข้อความติดต่อกัน Dealdroid จะรอและตอบกลับข้อความสุดท้าย — เหมือนกับคนจริงๆ นั่นหมายความว่าไม่มีคำตอบซ้ำ แชทที่สะอาดขึ้น และลูกค้าสับสนน้อยลง"
+    benefits={[
+      "ลดเสียงรบกวนในแชทและการขัดจังหวะของพนักงาน",
+      "รักษาบริบทการสนทนาสำหรับข้อความลูกค้าที่ยาวขึ้น",
+      "ปรับปรุงการรับรู้ถึงความเห็นอกเห็นใจ — ลูกค้ารู้สึกว่าถูกรับฟัง",
+    ]}
+    example="เมื่อผู้ใช้พิมพ์สามบรรทัดของการอัปเดต Dealdroid จะตอบกลับครั้งเดียวด้วยคำตอบที่รวมกันและผลิตภัณฑ์ที่แนะนำ"
+    image={FeatureImg1}
+    imageAlt="ไทม์ไลน์การจัดการข้อความอัจฉริยะ"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/th/tuning/when-ai-think/"
+    docsLinkText="เรียนรู้เกี่ยวกับการจับเวลาข้อความ"
+    background="white"
+  />
+
+  <!-- Feature 2: Product Intelligence -->
+  <FeatureDetail
+    id="product-intelligence"
+    badge="ความรู้เกี่ยวกับผลิตภัณฑ์"
+    title="รองรับแคตตาล็อกขนาดใหญ่ — เข้าใจภาพผลิตภัณฑ์"
+    description="Dealdroid เชื่อมต่อกับฟีดผลิตภัณฑ์หรือร้านค้าของคุณและจดจำข้อมูลเมตาและภาพของผลิตภัณฑ์ สามารถแนะนำรายการ เปรียบเทียบรุ่น และส่งภาพผลิตภัณฑ์ที่ตรงกับคำถามของลูกค้า"
+    benefits={[
+      "ทำงานกับ SKU หลายพันรายการโดยไม่ช้าลง",
+      "ส่งภาพผลิตภัณฑ์ที่แน่นอนที่ลูกค้าขอ",
+      "ทำการเปรียบเทียบแบบเคียงข้างกันตามคำขอ",
+    ]}
+    example="ลูกค้าถาม: 'แสดงเสื้อสีแดงนั้นในไซส์ M' → บอทส่งคืนภาพที่แม่นยำ + สถานะความพร้อม"
+    image={FeatureImg8}
+    imageAlt="แคตตาล็อกผลิตภัณฑ์พร้อมการรู้จำภาพ"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-product/"
+    docsLinkText="การตั้งค่าฟีดผลิตภัณฑ์"
+    devNote="รองรับฟีด CSV, การผสานรวม Shopify และ REST product APIs การรู้จำภาพทำงานกับภาพผลิตภัณฑ์และข้อมูลเมตาที่เก็บไว้"
+    background="slate"
+  />
+
+  <!-- Feature 3: Knowledge Base -->
+  <FeatureDetail
+    id="knowledge-base"
+    badge="ฐานความรู้"
+    title="ฐานความรู้พร้อมเนื้อหาที่หลากหลาย พร้อมคำตอบที่อ้างอิงจากเอกสารของคุณ"
+    description="อัปโหลดคู่มือ เอกสารการรับประกัน คำถามที่พบบ่อย และภาพไปยังฐานความรู้ Dealdroid จะให้ความสำคัญกับเนื้อหา KB สำหรับคำตอบ โดยแนบภาพหรือ PDF สนับสนุนเมื่อเหมาะสม"
+    benefits={[
+      "คำตอบที่ถูกต้องและได้รับอนุมัติจากแบรนด์ทุกครั้ง",
+      "การตอบกลับด้วยภาพ: แผนภาพ ตารางข้อมูลจำเพาะ หรือภาพวิธีการรวมอยู่ในบรรทัด",
+      "เก็บข้อมูลที่ละเอียดอ่อนด้วยการควบคุมการเข้าถึงตามบทบาท",
+    ]}
+    example="ลูกค้า: 'การรับประกันนานเท่าไร?' — บอท: '12 เดือน ดู PDF การรับประกัน [ลิงก์ดาวน์โหลด]'"
+    image={FeatureImg9}
+    imageAlt="ฐานความรู้พร้อมเอกสารและภาพ"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-knowledge/"
+    docsLinkText="คู่มือฐานความรู้"
+    devNote="KB รองรับ Markdown + ไฟล์แนบภาพ + ประวัติเวอร์ชัน"
+    background="white"
+  />
+
+  <!-- Feature 4: Smart Fallbacks & Intent Routing -->
+  <FeatureDetail
+    id="intent-routing"
+    badge="การกำหนดเส้นทางอัจฉริยะ"
+    title="หยุดการเดา กำหนดแผนการตอบล่วงหน้า หรือถามเมื่อจำเป็น"
+    description="เมื่อ Dealdroid ไม่สามารถแก้ไขข้อความได้อย่างมั่นใจ จะใช้ทางเลือกสำรอง: ถามคำถามชี้แจง แสดงบทความ KB หรือส่งต่อให้มนุษย์ การกำหนดเส้นทางเจตนาส่งคำถามเฉพาะไปยังโฟลว์ที่เรียกการดำเนินการหรือการผสานรวม"
+    benefits={[
+      "ลดคำตอบที่ผิดและความไม่พอใจของลูกค้า",
+      "การส่งต่อที่ราบรื่นไปยังเจ้าหน้าที่มนุษย์เมื่อจำเป็น",
+      "ระบบอัตโนมัติที่ขับเคลื่อนด้วยเจตนาสำหรับเวิร์กโฟลว์ทั่วไป",
+    ]}
+    example="เจตนาทั่วไป: 'ขอใบแจ้งหนี้', 'คืนสินค้า', 'สาธิตผลิตภัณฑ์', 'การสนับสนุนทางเทคนิค' — แต่ละอย่างสามารถเรียก webhooks หรือแสดงเนื้อหา KB เฉพาะ"
+    image={FeatureImg12}
+    imageAlt="แผนภาพโฟลว์การกำหนดเส้นทางเจตนา"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-intent/"
+    docsLinkText="กำหนดค่าเจตนา"
+    devNote="เกณฑ์ความเชื่อมั่นที่กำหนดค่าได้ แม่แบบทางเลือก และทริกเกอร์การส่งต่อให้มนุษย์ Webhooks สำหรับการผสานรวมระบบบุคคลที่สาม"
+    background="slate"
+  />
+
+  <!-- Feature 5: Testing & Reliability -->
+  <FeatureDetail
+    id="testing"
+    badge="การอัปเดตที่ปลอดภัย"
+    title="ระบบทดสอบในตัวและป้องกันการผิดซ้ำซ้อน — ปลอดภัยในการแก้ไข"
+    description="Dealdroid มีสนามเด็กเล่นแบบโต้ตอบสำหรับการทดสอบด้วยตนเองและการทดสอบการถดถอยอัตโนมัติที่ทำงานในทุกการเปลี่ยนแปลง สิ่งนี้ป้องกันไม่ให้การแก้ไขใหม่ทำลายการตอบกลับที่ดีก่อนหน้านี้"
+    benefits={[
+      "การวนซ้ำที่ปลอดภัยและรวดเร็วของสคริปต์และเจตนา",
+      "จับการถดถอยก่อนที่จะไปถึงลูกค้า",
+      "ความมั่นใจในการทดลองกับโฟลว์ใหม่",
+    ]}
+    example="เรียกใช้ชุดทดสอบ: 'เปรียบเทียบสองผลิตภัณฑ์', 'ขอคืนเงิน', 'ถามเกี่ยวกับการรับประกัน' — ดูผลลัพธ์ผ่าน/ล้มเหลวพร้อมความแตกต่างด้านภาพของการเปลี่ยนแปลงการตอบกลับ"
+    image={FeatureImg11}
+    imageAlt="แดชบอร์ดการทดสอบพร้อมตัวบ่งชี้ผ่าน/ล้มเหลว"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/th/getting-started/testing/"
+    docsLinkText="คู่มือการทดสอบ"
+    devNote="ผลการทดสอบที่ส่งออกได้ การผสานรวม CI สำหรับการทดสอบสคริปต์ ตัวจำลองแชทด้วยตนเองพร้อมชุดสถานการณ์"
+    background="white"
+  />
+
+  <!-- Feature 6: Multi-language + Security -->
+  <FeatureDetail
+    id="security"
+    badge="พร้อมสำหรับองค์กร"
+    title="รองรับหลายภาษา + ความปลอดภัยระดับองค์กร"
+    description="การตรวจจับภาษาอัตโนมัติและตอบกลับในภาษาเดียวกันทันที บวกกับการควบคุมการเข้าถึงตามบทบาท บันทึกการตรวจสอบ webhooks ที่เข้ารหัส และการปรับใช้ส่วนตัวตัวเลือกสำหรับความต้องการการปฏิบัติตามสูง"
+    benefits={[
+      "ทำงานในภาษาไทย อังกฤษ และภาษาอื่น ๆ อีกมากมายโดยอัตโนมัติ",
+      "การเข้าถึงผู้ดูแลระบบตามบทบาทสำหรับการจัดการทีม",
+      "บันทึกการตรวจสอบและการควบคุมข้อมูลที่พร้อมสำหรับการปฏิบัติตาม",
+    ]}
+    example="ผู้ใช้เขียนเป็นภาษาไทย → บอทตอบกลับเป็นภาษาไทยพร้อมชื่อผลิตภัณฑ์ที่แปลแล้ว ผู้ดูแลระบบสามารถกำหนดบทบาทและตรวจสอบบันทึกการตรวจสอบสำหรับการเปลี่ยนแปลงทั้งหมด"
+    image={FeatureImg14}
+    imageAlt="การสนับสนุนหลายภาษาและคุณสมบัติความปลอดภัย"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/th/faq/language-support/"
+    docsLinkText="เอกสารภาษาและความปลอดภัย"
+    devNote="รองรับ TLS, ลายเซ็น HMAC สำหรับ webhooks, การควบคุมข้อมูลที่เข้ากันได้กับ GDPR, การปรับใช้ on-prem เป็นทางเลือก"
+    background="slate"
+  />
+
+  <!-- Developer Resources -->
+  <DeveloperResources />
+
+  <!-- Final CTA -->
+  <Cta />
+</Layout>
