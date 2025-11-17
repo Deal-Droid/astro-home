@@ -170,7 +170,8 @@ const footermenu = {
               return (
                 <a
                   href={getRelativeLocaleUrl(lang, pathWithoutLocale)}
-                  class="py-2 text-sm text-slate-600 hover:text-indigo-600">
+                  class="language-switcher py-2 text-sm text-slate-600 hover:text-indigo-600"
+                  data-language={lang}>
                   {label}
                 </a>
               );
@@ -200,3 +201,50 @@ const footermenu = {
     </div>
   </Container>
 </footer>
+
+<script>
+  /**
+   * Footer Language Switcher - localStorage Sync
+   *
+   * Updates localStorage when users change language via footer links
+   * This ensures the language banner won't show again after selection
+   */
+
+  const STORAGE_KEY = "user-language-preference";
+  const BANNER_SHOWN_KEY = "language-banner-shown";
+
+  /**
+   * Save language preference when footer language link is clicked
+   */
+  function initFooterLanguageSwitcher(): void {
+    const languageSwitchers = document.querySelectorAll(".language-switcher");
+
+    languageSwitchers.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const selectedLanguage = (
+          event.currentTarget as HTMLElement
+        ).getAttribute("data-language");
+
+        if (selectedLanguage) {
+          try {
+            // Save the selected language to localStorage
+            localStorage.setItem(STORAGE_KEY, selectedLanguage);
+            localStorage.setItem(BANNER_SHOWN_KEY, "true");
+          } catch (error) {
+            console.error(
+              "Error saving language preference from footer:",
+              error
+            );
+          }
+        }
+      });
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initFooterLanguageSwitcher);
+  } else {
+    initFooterLanguageSwitcher();
+  }
+</script>

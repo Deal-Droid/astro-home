@@ -1,0 +1,389 @@
+---
+/**
+ * Language Selection Banner Component
+ *
+ * Displays a top banner for first-time visitors to choose their preferred language.
+ * - Shows on first visit only
+ * - Stores preference in localStorage
+ * - Preserves current page path when switching languages
+ * - Auto-hides after selection
+ */
+
+import { languages } from "../i18n/ui";
+
+// Get current locale from URL
+const currentLocale = Astro.currentLocale || "en";
+const currentPath = Astro.url.pathname;
+
+// Calculate the path without locale prefix for URL construction
+const pathWithoutLocale = currentPath.replace(/^\/[a-z]{2}(?=\/|$)/, "") || "/";
+---
+
+<!-- Language Selection Banner -->
+<div
+  id="language-banner"
+  class="language-banner"
+  data-current-locale={currentLocale}>
+  <div class="language-banner-container">
+    <div class="language-banner-content">
+      <!-- Message -->
+      <p class="language-banner-message">
+        เลือกประเทศหรือภาษาของคุณ เพื่อดูเนื้อหาที่เหมาะสม<br />
+        <span class="text-sm opacity-90"
+          >Select your country or language to see relevant content</span
+        >
+      </p>
+
+      <!-- Language Buttons -->
+      <div class="language-banner-buttons">
+        {
+          Object.entries(languages).map(([code, label]) => {
+            // Construct URL for each language
+            const targetUrl =
+              code === "en"
+                ? pathWithoutLocale
+                : `/${code}${pathWithoutLocale}`;
+
+            return (
+              <button
+                type="button"
+                class="language-btn"
+                data-language={code}
+                data-target-url={targetUrl}
+                aria-label={`Switch to ${label}`}>
+                {label}
+              </button>
+            );
+          })
+        }
+      </div>
+    </div>
+
+    <!-- Close button (optional - for users who want to dismiss without choosing) -->
+    <button
+      type="button"
+      class="language-banner-close"
+      aria-label="Close language banner"
+      title="Close">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .language-banner {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.75rem 1rem;
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      opacity 0.3s ease-in-out,
+      max-height 0.3s ease-in-out;
+  }
+
+  .language-banner.show {
+    opacity: 1;
+    max-height: 200px;
+  }
+
+  .language-banner-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .language-banner-content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+    text-align: left;
+  }
+
+  .language-banner-message {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  .language-banner-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .language-btn {
+    background: white;
+    color: #667eea;
+    border: 2px solid white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .language-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .language-btn:active {
+    transform: translateY(0);
+  }
+
+  .language-banner-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .language-banner-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+
+  .language-banner-close:active {
+    transform: scale(0.95);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .language-banner {
+      padding: 0.75rem;
+    }
+
+    .language-banner.show {
+      max-height: 300px;
+    }
+
+    .language-banner-container {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .language-banner-content {
+      flex-direction: column;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .language-banner-message {
+      font-size: 0.8125rem;
+    }
+
+    .language-btn {
+      padding: 0.5rem 1.25rem;
+      font-size: 0.8125rem;
+    }
+
+    .language-banner-close {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+  }
+
+  /* Keep banner in layout flow but hidden */
+  .language-banner:not(.show) {
+    max-height: 0;
+    padding: 0;
+  }
+</style>
+
+<script>
+  /**
+   * Language Banner Logic
+   *
+   * Handles:
+   * - Checking if user has already selected a language
+   * - Showing/hiding the banner
+   * - Storing language preference
+   * - Redirecting to selected language
+   * - Error handling with storage cleanup
+   */
+
+  const STORAGE_KEY = "user-language-preference";
+  const BANNER_SHOWN_KEY = "language-banner-shown";
+
+  /**
+   * Check if user has already made a language selection
+   */
+  function hasLanguagePreference(): boolean {
+    try {
+      const preference = localStorage.getItem(STORAGE_KEY);
+      return preference !== null && preference !== "";
+    } catch (error) {
+      console.warn("Error reading language preference:", error);
+      // If localStorage fails, clear potentially corrupted data
+      clearLanguageData();
+      return false;
+    }
+  }
+
+  /**
+   * Save language preference to localStorage
+   */
+  function saveLanguagePreference(language: string): void {
+    try {
+      localStorage.setItem(STORAGE_KEY, language);
+      localStorage.setItem(BANNER_SHOWN_KEY, "true");
+    } catch (error) {
+      console.error("Error saving language preference:", error);
+      // Clear corrupted data and show banner again
+      clearLanguageData();
+    }
+  }
+
+  /**
+   * Clear all language-related data from localStorage
+   * Used for error recovery
+   */
+  function clearLanguageData(): void {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(BANNER_SHOWN_KEY);
+    } catch (error) {
+      console.error("Error clearing language data:", error);
+    }
+  }
+
+  /**
+   * Validate language code
+   */
+  function isValidLanguage(code: string): boolean {
+    const validLanguages = ["en", "th"];
+    return validLanguages.includes(code);
+  }
+
+  /**
+   * Initialize the language banner
+   */
+  function initLanguageBanner(): void {
+    const banner = document.getElementById("language-banner");
+    if (!banner) return;
+
+    // Check if user has already selected a language
+    if (hasLanguagePreference()) {
+      // User has already chosen - don't show banner
+      return;
+    }
+
+    // Show the banner with animation
+    setTimeout(() => {
+      banner.classList.add("show");
+    }, 100);
+
+    // Handle language selection
+    const languageButtons = banner.querySelectorAll(".language-btn");
+    languageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedLanguage = button.getAttribute("data-language");
+        const targetUrl = button.getAttribute("data-target-url");
+
+        if (!selectedLanguage || !targetUrl) {
+          console.error("Invalid button configuration");
+          return;
+        }
+
+        // Validate language code
+        if (!isValidLanguage(selectedLanguage)) {
+          console.error("Invalid language code:", selectedLanguage);
+          clearLanguageData();
+          return;
+        }
+
+        // Save preference
+        saveLanguagePreference(selectedLanguage);
+
+        // Hide banner with animation
+        banner.classList.remove("show");
+
+        // Redirect to selected language after animation
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 300);
+      });
+    });
+
+    // Handle close button
+    const closeButton = banner.querySelector(".language-banner-close");
+    if (closeButton) {
+      closeButton.addEventListener("click", () => {
+        // Get current locale from banner data attribute
+        const currentLocale =
+          banner.getAttribute("data-current-locale") || "en";
+
+        // Save current locale as preference (user chose to stay)
+        saveLanguagePreference(currentLocale);
+
+        // Hide banner
+        banner.classList.remove("show");
+      });
+    }
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLanguageBanner);
+  } else {
+    initLanguageBanner();
+  }
+
+  /**
+   * Development/Testing Helper Function
+   * Call this from browser console to reset language selection:
+   * window.resetLanguageSelection()
+   */
+  if (typeof window !== "undefined") {
+    (window as any).resetLanguageSelection = function () {
+      clearLanguageData();
+      console.log(
+        "✅ Language preference cleared! Refresh the page to see the banner again."
+      );
+      // Optionally auto-reload
+      // location.reload();
+    };
+  }
+</script>
