@@ -14,6 +14,7 @@ import FeatureImg9 from "../assets/features/9.png";
 import FeatureImg12 from "../assets/features/12.png";
 import FeatureImg11 from "../assets/features/11.png";
 import FeatureImg14 from "../assets/features/14.png";
+import FeatureImg15 from "../assets/features/15.png";
 ---
 
 <Layout footerMargin={false}>
@@ -88,49 +89,7 @@ import FeatureImg14 from "../assets/features/14.png";
     background="white"
   />
 
-  <!-- Feature 4: Smart Fallbacks & Intent Routing -->
-  <FeatureDetail
-    id="intent-routing"
-    badge="Intelligent Routing"
-    title="Stops guessing — asks or routes when needed"
-    description="When Dealdroid can't confidently resolve a message, it uses smart fallbacks: ask clarifying questions, show KB articles, or escalate to a human. Intent routing sends specific queries to flows that trigger actions or integrations."
-    benefits={[
-      "Reduced wrong answers and customer frustration",
-      "Smooth handoff to human agents when needed",
-      "Intent-driven automation for common workflows",
-    ]}
-    example="Common intents: 'Request invoice', 'Return item', 'Product demo', 'Technical support' — each can trigger webhooks or show specific KB content."
-    image={FeatureImg12}
-    imageAlt="Intent routing flow diagram"
-    imagePosition="right"
-    docsLink="https://docs.dealdroid.net/tuning/add-intent/"
-    docsLinkText="Configure intents"
-    devNote="Configurable confidence thresholds, fallback templates, and human escalation triggers. Webhooks for third-party system integration."
-    background="slate"
-  />
-
-  <!-- Feature 5: Testing & Reliability -->
-  <FeatureDetail
-    id="testing"
-    badge="Safe Updates"
-    title="Built-in testing and regression checks — safe to iterate"
-    description="Dealdroid includes an interactive playground for manual testing and automated regression tests that run on every change. This prevents new edits from breaking previously good responses."
-    benefits={[
-      "Safe, fast iteration of scripts and intents",
-      "Catch regressions before they hit customers",
-      "Confidence to experiment with new flows",
-    ]}
-    example="Run test suite: 'Compare two products', 'Request refund', 'Ask about warranty' — see pass/fail results with visual diff of response changes."
-    image={FeatureImg11}
-    imageAlt="Testing dashboard with pass/fail indicators"
-    imagePosition="left"
-    docsLink="https://docs.dealdroid.net/getting-started/testing/"
-    docsLinkText="Testing guide"
-    devNote="Exportable test results, CI integration for scripted test runs, manual chat simulator with scenario presets."
-    background="white"
-  />
-
-  <!-- Feature 6: Multi-language + Security -->
+  <!-- Feature 4: Multi-language + Security -->
   <FeatureDetail
     id="security"
     badge="Enterprise Ready"
@@ -149,6 +108,27 @@ import FeatureImg14 from "../assets/features/14.png";
     docsLinkText="Language & security docs"
     devNote="Support for TLS, HMAC signatures for webhooks, GDPR-compatible data controls, optional on-prem deployment."
     background="slate"
+  />
+
+  <!-- Feature 5: Smart Intent Routing -->
+  <FeatureDetail
+    id="intent-routing"
+    badge="Intelligent Routing"
+    title="Not just answering questions — drives real sales outcomes"
+    description="When Dealdroid analyzes customer intent, it understands what customers want and determines responses that guide them through the sales funnel — from Awareness to Consideration to Conversion. Store owners can add custom intents and enable seamless handoff to human agents when needed."
+    benefits={[
+      "Helps increase sales conversions",
+      "Reduces wrong answers that cause customers to drop off",
+      "Smooth handoff to human agents when necessary",
+    ]}
+    example="Users can configure custom rules like: when a Purchase intent is detected, ask customers to choose between cash on delivery or bank transfer payment methods."
+    image={FeatureImg15}
+    imageAlt="Intent configuration screen"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/tuning/add-intent/"
+    docsLinkText="Add intent"
+    devNote="Configure which webhooks to call when users enter specific intents."
+    background="white"
   />
 
   <!-- Developer Resources -->
