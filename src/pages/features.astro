@@ -31,14 +31,14 @@ import FeatureImg15 from "../assets/features/15.png";
   <FeatureDetail
     id="message-handling"
     badge="Smart Conversations"
-    title="Stop noisy replies — respond only when it matters"
-    description="When a customer sends multiple messages in a row, Dealdroid waits and replies to the final message — just like a human would. That means no repeated answers, cleaner chats, and fewer confused customers."
+    title="Stop disruptive replies"
+    description="When a customer sends multiple messages in a row, Dealdroid waits and replies to the final message — just like a real person. That means no duplicate answers, cleaner chats, and less confused customers."
     benefits={[
       "Reduces chat noise and staff interruptions",
       "Preserves conversational context for longer customer messages",
       "Improves perceived empathy — customers feel heard",
     ]}
-    example="When a user types three lines of updates, Dealdroid replies once with a consolidated answer and suggested products."
+    example="When a user types three lines in a row, Dealdroid replies once with an answer that addresses all questions."
     image={FeatureImg1}
     imageAlt="Intelligent message handling timeline"
     imagePosition="left"
@@ -52,7 +52,7 @@ import FeatureImg15 from "../assets/features/15.png";
     id="product-intelligence"
     badge="Product Aware"
     title="Scales to large catalogs — understands product images"
-    description="Dealdroid connects to your product feed or store and recognizes product metadata and images. It can recommend items, compare models, and send exact product photos that match the customer's questions."
+    description="Dealdroid can import large product catalogs, understand product details, and recognize product images. It can recommend items, compare models, and send product photos that match customer questions."
     benefits={[
       "Works with thousands of SKUs without slowdown",
       "Sends the exact product image customers ask for",
@@ -72,12 +72,12 @@ import FeatureImg15 from "../assets/features/15.png";
   <FeatureDetail
     id="knowledge-base"
     badge="Knowledge Driven"
-    title="Knowledge base with rich content — answers that cite your materials"
-    description="Upload guides, warranty docs, FAQs, and images to a Knowledge Base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate."
+    title="Answers that reference your documents"
+    description="Add manuals, warranty documents, FAQs, and images to the knowledge base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate."
     benefits={[
       "Accurate, brand-approved answers every time",
       "Visual responses: diagrams, spec tables, or how-to images included inline",
-      "Keep sensitive info gated with role-based access",
+      "Can send links or images from documents to customers",
     ]}
     example="Customer: 'How long is the warranty?' — Bot: '12 months. See warranty PDF [download link]'"
     image={FeatureImg9}
@@ -114,20 +114,20 @@ import FeatureImg15 from "../assets/features/15.png";
   <FeatureDetail
     id="intent-routing"
     badge="Intelligent Routing"
-    title="Not just answering questions — drives real sales outcomes"
-    description="When Dealdroid analyzes customer intent, it understands what customers want and determines responses that guide them through the sales funnel — from Awareness to Consideration to Conversion. Store owners can add custom intents and enable seamless handoff to human agents when needed."
+    title="The system doesn't just keep answering questions — it actively drives real sales"
+    description="When Dealdroid detects customer intent, it analyzes what customers want and determines which responses will move customers to the next sale funnel — such as from Awareness to Consideration, then to Conversion, etc. Most importantly, store owners can manually add other necessary intents, including handoff to humans."
     benefits={[
-      "Helps increase sales conversions",
-      "Reduces wrong answers that cause customers to drop off",
+      "Helps increase sales",
+      "Reduces wrong answers that cause customers to drop out of purchases",
       "Smooth handoff to human agents when necessary",
     ]}
-    example="Users can configure custom rules like: when a Purchase intent is detected, ask customers to choose between cash on delivery or bank transfer payment methods."
+    example="Users can configure additional settings such as: when a Purchase intent is detected, ask the user to choose a payment method between cash on delivery or bank transfer."
     image={FeatureImg15}
     imageAlt="Intent configuration screen"
     imagePosition="left"
     docsLink="https://docs.dealdroid.net/tuning/add-intent/"
     docsLinkText="Add intent"
-    devNote="Configure which webhooks to call when users enter specific intents."
+    devNote="You can also configure which webhook to call when users enter a specific intent."
     background="white"
   />
 
