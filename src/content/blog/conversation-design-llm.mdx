@@ -1,0 +1,126 @@
+---
+draft: false
+title: "Conversation Design for ChatBots in the LLM Era"
+snippet: "Exploring how Large Language Models are transforming the field of conversation design."
+image:
+  {
+    src: "../../assets/blogs/conversation-design-llm.png",
+    alt: "AI Chatbot",
+  }
+publishDate: "2025-11-22"
+category: "Technology"
+author: "Apirak"
+tags: [Chatbot, LLM, UX Design]
+---
+import { Image } from 'astro:assets';
+import BlogImg15 from "../../assets/blogs/conversation-design-llm-2.jpg";
+
+I use to study Conversation Design a lot, trying to implement it with ChatBots, especially with Google DialogFlow. But I eventually gave up because designing quality conversations was incredibly difficult. Just completing a simple purchase flow was tough, given the massive number of possible paths.
+
+> Just making it recognize all the greetings was exhausting: ‘What’s up,’ ‘Hi there,’ ‘Hello’, ‘Greetings’, ‘Hey’, ‘Hi’, ‘Helloooo’ … and many more.
+
+But with the advent of LLMs (Large Language Models), that dream has returned!🤩 It allows us to clearly define branding — whether we want it to respond politely or even like a dog (“Hooman, do you like our product?”) — we can shape it all! This renewed interest led me to seriously start [DealDroid](http://dealdroid.net).
+
+---
+
+However, this new beginning comes with a huge challenge: **‘The LLM is a High-Uncertainty System.’** Many refer to it as a “Bug Factory” 😫. Unlike traditional computer systems where the same input always yields the same output, AI is different! It operates in a **‘gray area’** that is very difficult for us to control. Therefore, Conversation Design in this era is not just about designing beautiful dialogues, but about **preventing this uncertainty!** 💪
+
+<Image src={BlogImg15} alt="Guard Rails" />
+
+Today, I’d like to start sharing about Conversation Design by focusing on **Guard Rails**. This is a practice developed from the AI research I’ve been conducting, because if we want merchants to trust the bot, we must define Guard Rails for various issues. The most effective principle we use to solve Hallucination is the **‘Validate-before-Response’** technique, or what many call the **‘2-Agent Check’**! 🚀
+
+Simply put, we let **Agent 1** generate the response based on the defined role-play. But before sending it to the customer, we send that response to **Agent 2** to check for factual accuracy against the context and rules we’ve set. If it fails, Agent 2 tells Agent 1 why, and Agent 1 must find a new answer. This principle is what significantly enhances the quality of the conversation.
+
+Here are the specific Guard Rails I apply:
+
+## 1. Price Hallucination
+
+The AI has its own knowledge base, so it has a rough price in mind. If someone asks, and the price is not in the Prompt, the AI will invent one. This happens especially when customers insistently ask, and we’ve instructed the AI to try and respond, for example, by setting this primary task in the initial prompt:
+
+> “You are a sales expert. Your primary task is to analyze the user’s message and all provided context, then generate a natural conversational response to keep the response concise and natural for a chat message.”
+
+This looks fine — it uses the Role Play technique in Prompt Engineering. But the problem is when the customer insists: “WHAT IS THE PRICE!!!” The Bot will attempt to analyze and **Keep response** (as it is its Primary task) until it might blurt out a false price.
+
+The solution is not to fix the initial Prompt, but to send the answer to a second AI (some call it another Agent). The second AI is not responsible for generating text; its sole job is to **verify the text**. If incorrect, it flags why and sends it back to the first AI to find an answer.
+
+---
+
+## 2. Product Feature Hallucination
+
+This is very similar to the first point, but the failure often occurs when the customer claims the store has a certain Promotion. The Bot, which is trying to be helpful and responsive, will play along and confirm the Promotion, sometimes even calculating the discount. Even if we strictly state in the Prompt to forbid mentioning unlisted promotions, the moment the customer confirms it exists, the Bot treats the claim as a valid piece of context.
+
+The solution is the same: toss it to a second AI, but this time, the AI’s sole role is verification, for example:
+
+```text
+Set "has_hallucinated_content" to true when you find:
+
+- Delivery/shipping services or policies not mentioned in Context
+- Warranties, guarantees, or return policies beyond what's stated in Context
+- Promotions, discounts, or special offers not mentioned in Context
+```
+
+In this case, I instruct the second AI to return a JSON file, telling it when to flag content as hallucinated, and we send the content that the first AI decided on for verification.
+
+---
+
+## 3. Quantity/Stock Hallucination
+
+This is very difficult for those who build bots, especially when we **cannot check real-time stock** constantly. We need to prepare a fallback answer for when the customer asks, and if the customer insists (trying to force the Bot to answer), we must have prepared answers for these forced situations too.
+
+```text
+Examples of Hallucination:
+
+"Only 3 bags left!" -> If there is no stock data, but the customer forces 
+a reply.
+
+"Limited edition" -> If asked about limitations, the bot will try to sell, 
+and saying it is limited might increase sales.
+
+"Out of stock" -> Because the bot understands "discontinued" as "no inventory."
+```
+
+The issue isn’t just about quantity; it also involves Limited Edition products, where the Bot might misunderstand a general query as a stock question and give a wrong answer by referencing stock. Or, if a product is discontinued but we still sell it, we must define how the Bot should respond and what alternative product it should recommend.
+
+Another possible solution is to hand off the conversation to a human agent. When the customer asks about stock, the Bot can respond, “I’m not sure, let me check with the team first,” and then send an email to a staff member to take over.
+
+---
+
+## 4. Inappropriate Language Mixing
+
+This one is fun, especially with the diverse languages in SEA. You might get Chinese, Japanese, or even Thai mixed with Lao in a response, such as:
+
+- "สวัสดี! 我们有很好的狗粮!" (Mixed with Chinese characters)
+- "こんにちは! We have great dog food" (Mixed with Japanese)
+- "안녕하세요 มีอาหารสุนัขครับ" (Mixed with Korean)
+
+However, we can’t just make it check for only one language, as mixing Thai and English is perfectly normal:
+
+- "เรามี organic dog food" (OK - borrowed word)
+- "ของเรา premium quality" (OK)
+- "มี delivery ส่งฟรี" (OK)
+
+Therefore, we must allow for **Borrowed Words**. Furthermore, if the customer initiates the use of these words, following suit will improve communication. The Guard Rail must be meticulously conditioned and **heavily tested** to handle these scenarios correctly.
+
+---
+
+## 5. Competitor Mention
+
+This is admittedly not easy due to multiple factors. How does the AI decide who is a competitor? For example, if we compare DJI with GoPro, the Bot might see DJI as a drone and GoPro as a camera, placing them in different domains. Or, it might see that a GoPro can be attached to a DJI, making them complementary, or even assume GoPro is our own product, even though we want GoPro to be treated as a competitor because DJI also sells cameras.
+
+The solution here is to define who our competitors are and explicitly tell the Bot not to mention them. But beware, if the customer asks for a comparison, the Bot can find itself in a difficult spot: we forbade the mention, but the customer wants it mentioned, and the Bot usually prioritizes the customer. Thus, we must define a safe landing for the Bot.
+
+We need to instruct it on how to talk about competitors if it must.
+
+---
+
+In addition to these, there are details like defining “Forbidden Topics,” and ensuring “remove white space” (which are small details that improve conversation quality), as well as ending sentences with questions or prompting the customer toward the next Conversion in the Marketing Funnel.
+
+And if we want the Guard Rails not just to prevent errors but to suggest fixes, that’s also a fun challenge. Because we don’t want it to think of a new response, just to edit the existing text, this requires different conditions than when generating the original message (I’ll share more on this later).
+
+Conversation Design is just as fun as designing UI or being a UX Writer! Because every time we fix a ‘Guard Rail,’ it’s like continuously improving the UX of the conversation.
+
+The biggest challenge is the uncertainty of AI, but that’s precisely what forces us to Empathy AI 🧠. We must accept that ‘AI cannot always be trusted.’ Setting up Guard Rails will surely help the team trust the Bot more.
+
+> ✨ **In summary:** Conversation Design for LLM-based AI is not just about designing the **‘right path’**; it must also include setting the **‘non-wrong boundaries.’** This boundary must not be so wide that it allows errors, nor so narrow that it stifles the AI’s freedom… because in a real conversation, unexpected things will always happen. 😊
+
+And what about you, my friends? What Hallucinations have you encountered? Which successful Guard Rails have you implemented and want to share? I’m truly enjoying studying Conversation Design and constantly learning. Feel free to recommend any good resources!

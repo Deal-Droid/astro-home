@@ -23,6 +23,10 @@ export async function getStaticPaths({ paginate }) {
   });
 }
 
+interface Props {
+  page: import("astro").Page<import("astro:content").CollectionEntry<"blog">>;
+}
+
 const { page } = Astro.props;
 ---
 
