@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { Picture } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
@@ -28,6 +28,7 @@ interface Props {
 }
 
 const { page } = Astro.props;
+const authorsEntry = await getEntry("staffs", "authors");
 ---
 
 <Layout title="Blog">
@@ -67,7 +68,12 @@ const { page } = Astro.props;
                     </h2>
 
                     <div class="flex gap-2 mt-3 text-sm">
-                      <span class="text-gray-400">{post.data.author}</span>
+                      <span class="text-gray-400">
+                        {post.data.author &&
+                        authorsEntry?.data[post.data.author]
+                          ? authorsEntry.data[post.data.author].name
+                          : post.data.author}
+                      </span>
                       <span class="text-gray-400">• </span>
                       <time
                         class="text-gray-400"

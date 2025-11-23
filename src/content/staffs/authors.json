@@ -1,0 +1,26 @@
+{
+  "apirak": {
+    "name": "Apirak Panatkool",
+    "position": "Product Vision",
+    "believe": "Experience is in the detail",
+    "avatar": "../../assets/staffs/apirak.jpg"
+  },
+  "dave": {
+    "name": "Dave",
+    "position": "Lead Sale & Marketing",
+    "believe": "Sale & Marketing",
+    "avatar": "../../assets/staffs/dave.jpg"
+  },
+  "pete": {
+    "name": "Pete",
+    "position": "Lead Operation",
+    "believe": "Less is more",
+    "avatar": "../../assets/staffs/pete.jpg"
+  },
+  "pii": {
+    "name": "Pii",
+    "position": "Lead Technology",
+    "believe": "Storytelling is key",
+    "avatar": "../../assets/staffs/pii.jpg"
+  }
+}
