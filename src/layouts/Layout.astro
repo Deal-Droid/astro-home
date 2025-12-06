@@ -75,9 +75,25 @@ const lang = Astro.currentLocale || "en";
     <Navbar />
     <slot />
     <Footer margin={footerMargin} />
+    <script>
+      // @ts-ignore
+      window.ChatHeadConfig = {
+        scriptId: "script_xaugxgesi6a",
+        title: "Ask DealDroid",
+        openTitle: "How can we help you?",
+        theme: {
+          primary: "#4f46e5",
+        },
+        openQuestions: [
+          "What is DealDroid?",
+          "How to integrate DealDroid?",
+          "Pricing details",
+        ],
+      };
+    </script>
     <script
       type="module"
-      src="https://happyhead.dealdroid.net/assets/index.js?scriptId=script_xaugxgesi6a&color=4f46e5"
+      src="https://happyhead.dealdroid.net/assets/index.js?scriptId=script_xaugxgesi6a"
     ></script>
   </body>
 </html>
