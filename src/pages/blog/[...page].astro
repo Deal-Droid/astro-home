@@ -10,12 +10,9 @@ import Pagination from "@components/pagination.astro";
 
 export async function getStaticPaths({ paginate }) {
   const PAGE_SIZE = 6;
-  const allPosts = await getCollection("blog", ({ data, slug }) => {
+  const allPosts = await getCollection("blog", ({ id, data }) => {
     return (
-      !data.draft &&
-      data.publishDate <= new Date() &&
-      slug &&
-      !slug.startsWith("th/")
+      !data.draft && data.publishDate < new Date() && !id.startsWith("th/")
     );
   });
 

@@ -1,0 +1,102 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import { Picture } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import Pagination from "@components/pagination.astro";
+
+// Sort content entries by publication date
+
+export async function getStaticPaths({ paginate }) {
+  const PAGE_SIZE = 6;
+  const allPosts = await getCollection("blog", ({ id, data }) => {
+    return !data.draft && data.publishDate < new Date() && id.startsWith("th/");
+  });
+
+  const allSortedPosts = allPosts.sort(function (a, b) {
+    return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+  });
+
+  return paginate(allSortedPosts, {
+    pageSize: PAGE_SIZE,
+  });
+}
+
+interface Props {
+  page: import("astro").Page<import("astro:content").CollectionEntry<"blog">>;
+}
+
+const { page } = Astro.props;
+const authorsEntry = await getEntry("staffs", "authors");
+---
+
+<Layout title="บล็อก">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">บล็อกของเรา</Fragment>
+      <Fragment slot="desc">
+        เราเขียนเกี่ยวกับการสร้างสตาร์ทอัพและความคิดต่างๆ ที่อยู่ในใจเรา
+      </Fragment>
+    </Sectionhead>
+    <main class="mt-16">
+      <ul class="grid sm:grid-cols-2 md:grid-cols-3 gap-10 lg:gap-16">
+        {
+          page.data.map((post, index) => {
+            // Remove 'th/' prefix from slug for URL
+            const cleanSlug = post.slug.replace(/^th\//, "");
+            return (
+              <li>
+                <a href={`/th/blog/${cleanSlug}`}>
+                  <div>
+                    <Picture
+                      formats={["avif", "webp"]}
+                      src={post.data.image.src}
+                      alt={post.data.image.alt}
+                      sizes="(max-width: 800px) 100vw, 800px"
+                      width={800}
+                      height={600}
+                      loading={index <= 2 ? "eager" : "lazy"}
+                      decoding={index <= 2 ? "sync" : "async"}
+                      class="w-full rounded-md object-cover"
+                      transition:name={`post-img-${cleanSlug}`}
+                    />
+                    <div class="mt-4">
+                      <span class="text-blue-400 uppercase tracking-wider text-xs font-medium">
+                        {post.data.category}
+                      </span>
+
+                      <h2 class="text-xl font-semibold leading-snug tracking-tight mt-1">
+                        {post.data.title}
+                      </h2>
+
+                      <div class="flex gap-2 mt-3 text-sm">
+                        <span class="text-gray-400">
+                          {post.data.author &&
+                          authorsEntry?.data[post.data.author]
+                            ? authorsEntry.data[post.data.author].name
+                            : post.data.author}
+                        </span>
+                        <span class="text-gray-400">• </span>
+                        <time
+                          class="text-gray-400"
+                          datetime={post.data.publishDate.toISOString()}>
+                          {post.data.publishDate.toLocaleDateString("th-TH", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <Pagination url={page.url} />
+    </main>
+  </Container>
+</Layout>
