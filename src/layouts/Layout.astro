@@ -63,6 +63,27 @@ const lang = Astro.currentLocale || "en";
       img {
         content-visibility: auto;
       }
+
+      /* Medium-style HR with three dots */
+      .prose hr {
+        border: none !important;
+        background: none !important;
+        text-align: center;
+        margin-top: 56px !important;
+        margin-bottom: 56px !important;
+        height: auto !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .prose hr::before {
+        content: "• • •";
+        font-size: 12px;
+        letter-spacing: 0.8em;
+        color: rgba(0, 0, 0, 0.5);
+        font-weight: 400;
+      }
     </style>
     <ClientRouter />
     <link
