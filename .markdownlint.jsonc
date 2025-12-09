@@ -1,0 +1,19 @@
+// filepath: /Users/apirak/workspace/dealdroid/adonis/.markdownlint.jsonc
+{
+  // MD029: Ordered list item prefix
+  "MD029": false,
+  // MD032: Blank lines
+  "MD032": false,
+  // MD013: Line length
+  "MD013": false,
+  // MD033: Inline HTML
+  "MD033": false,
+  // MD036: Emphasis used instead of header
+  "MD036": false,
+  // MD040: Fenced code blocks should have a language specified
+  "MD040": false,
+  // MD024: No-duplicate-heading: Multiple headings with the same
+  "MD024": false,
+  // MD025: Single-title/single-h1: Multiple top-level headings in the same document
+  "MD025": false
+}

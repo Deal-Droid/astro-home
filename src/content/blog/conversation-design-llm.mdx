@@ -1,19 +1,17 @@
 ---
 draft: false
 title: "Conversation Design for ChatBots in the LLM Era"
-snippet: "Exploring how Large Language Models are transforming the field of conversation design."
+snippet: "Designing conversations with Large Language Models (LLMs) presents unique challenges and opportunities. Learn how to implement effective Guard Rails to enhance chatbot reliability and user experience."
 image:
-  {
-    src: "../../assets/blogs/conversation-design-llm.png",
-    alt: "AI Chatbot",
-  }
-publishDate: "2025-11-22"
+  { src: "../../assets/blogs/guard-rails.png", alt: "Guard Rails agent flow" }
+publishDate: "2024-11-22"
 category: "Technology"
 author: "apirak"
 tags: [Chatbot, LLM, UX Design]
 ---
-import { Image } from 'astro:assets';
-import BlogImg15 from "../../assets/blogs/conversation-design-llm-2.jpg";
+
+import { Image } from "astro:assets";
+import BlogImg15 from "../../assets/blogs/guard-rails.png";
 
 I use to study Conversation Design a lot, trying to implement it with ChatBots, especially with Google DialogFlow. But I eventually gave up because designing quality conversations was incredibly difficult. Just completing a simple purchase flow was tough, given the massive number of possible paths.
 
@@ -70,10 +68,10 @@ This is very difficult for those who build bots, especially when we **cannot che
 ```text
 Examples of Hallucination:
 
-"Only 3 bags left!" -> If there is no stock data, but the customer forces 
+"Only 3 bags left!" -> If there is no stock data, but the customer forces
 a reply.
 
-"Limited edition" -> If asked about limitations, the bot will try to sell, 
+"Limited edition" -> If asked about limitations, the bot will try to sell,
 and saying it is limited might increase sales.
 
 "Out of stock" -> Because the bot understands "discontinued" as "no inventory."

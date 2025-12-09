@@ -4,9 +4,11 @@ import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 import { Picture } from "astro:assets";
 
-// Generate a new path for every collection entry
+// Generate a new path for every English blog entry
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("blog");
+  const blogEntries = await getCollection("blog", ({ slug }) => {
+    return slug && !slug.startsWith("th/");
+  });
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
