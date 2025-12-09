@@ -71,7 +71,7 @@ const menuitems: MenuItem[] = [
   },
   {
     title: t("general.blog"),
-    path: "/blog",
+    path: translatedPath("/blog"),
   },
   {
     title: t("general.document"),
@@ -216,7 +216,7 @@ const menuitems: MenuItem[] = [
           "py-2",
           "bg-white/80",
           "border-gray-200",
-          "backdrop-blur-lg",
+          "backdrop-blur-lg"
         );
         header.setAttribute("active", "");
       } else if (scrollPos < removeScrollY) {
@@ -225,7 +225,7 @@ const menuitems: MenuItem[] = [
           "py-2",
           "bg-white/80",
           "border-gray-200",
-          "backdrop-blur-lg",
+          "backdrop-blur-lg"
         );
         header.classList.add("py-5", "border-transparent");
         header.removeAttribute("active");
