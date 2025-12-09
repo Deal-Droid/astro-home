@@ -1,0 +1,210 @@
+---
+draft: false
+title: "Conversation Design: Essential Knowledge for UX in the AI Era"
+snippet: "Learn the fundamentals of Conversation Design to create natural and impressive user experiences in the age of AI and Chatbots."
+image:
+  { src: "../../assets/blogs/basic-cd/agentic.png", alt: "How agentic ai work" }
+publishDate: "2024-12-08"
+category: "Technology"
+author: "apirak"
+tags: [Chatbot, LLM, UX Design]
+---
+
+import { Image } from "astro:assets";
+import BlogAgentic from "../../assets/blogs/basic-cd/agentic.png";
+import BlogDecisionTree from "../../assets/blogs/basic-cd/decision-tree.png";
+import BlogIntent from "../../assets/blogs/basic-cd/intent.png";
+
+# Conversation Design: Essential Knowledge for UX in the AI Era 😊
+
+**Apirak** · 3 min read · 18 hours ago
+
+After my last deep dive into "[Guard Rails](/blog/conversation-design-basics)" some friends reached out asking me to cover the basics of Conversation Design first, to make the more complex topics easier to digest.
+
+So here we are! When we interact with chatbots, we know we're talking to a bot, but at the same time, we don't want it to feel like we're talking to a rigid robot. We still want the conversation to feel natural.
+
+This is why **Conversation Design** is incredibly important, and perhaps even more critical now than ever before. Today, I want to casually share what this discipline is all about and why it's so fascinating (at least for me 😋).
+
+---
+
+## What is Conversation Design?
+
+Simply put, **Conversation Design is the art and science of designing conversations between humans and machines** to feel natural, easy to understand, and actually deliver the answers people need.
+
+It's not just about making a bot respond to questions—it's about making a bot that can **hold a conversation**.
+
+Think about it: if a customer messages your store, you wouldn't want the bot to respond like a lifeless robot, right?
+
+> **Customer:** "Do you have dog food?"
+>
+> **Bot:** "Yes." (End... awkward silence 😅)
+
+But if we design the conversation well, the bot should continue the dialogue to close the sale like this:
+
+> **Customer:** "Do you have dog food?"
+>
+> **Bot:** "We have plenty! What formula does your pup eat, or are there any allergies I should know about? I'd be happy to recommend something for you" 🐶
+
+Or even better, don't put the question in the middle of the sentence:
+
+> **Customer:** "Do you have dog food?"
+>
+> **Bot:** "We have plenty! I'd be happy to recommend something. What formula does your pup eat, or are there any allergies I should know about?" 🐶
+
+Good conversation follows simple principles that linguist **Paul Grice** outlined—that good dialogue requires cooperation, consisting of 4 maxims:
+
+1. **Quantity** — Provide the right amount of information
+2. **Quality** — Tell the truth, don't lie, don't guess \<- Very difficult for AI 🥲
+3. **Relation** — Stay relevant to the topic
+4. **Manner** — Be clear and avoid ambiguity
+
+And this is the foundation of Conversation Design that makes our bots communicate well with customers. But achieving this isn't easy, because we're not writing responses directly—we're teaching AI to answer questions on our behalf.
+
+To understand this, we need to look at the history of chatbots.
+
+---
+
+## Looking Back: The Evolution of Chatbots 🕰
+
+To paint a clearer picture, let me use the example of a **"Pet Food Store"**—same store, but evolving through 3 different eras.
+
+<Image src={BlogDecisionTree} alt="Decision Tree Flow" />
+
+## 1. The Decision Tree Era: Users Choose from Pre-defined Options 🤖
+
+This era, though called a chatbot, was more like calling a call center and encountering an Interactive Voice Response (IVR) system. A pet food store in this era would look like this:
+
+> **Bot:** "Hello, welcome to Pet Shop"
+> [Dog Food] [Cat Food] [Track Order]
+
+Users had to select their answer, and the system would provide pre-programmed responses. Because computers needed 100% clarity back then, customers had to follow the exact path we laid out. If a customer wanted "cat litter" but there was no button for it, they couldn't proceed.
+
+The design focused on Information Architecture—organizing question categories optimally to minimize clicks and help people find information quickly.
+
+---
+
+<Image src={BlogIntent} alt="Intent Base" />
+
+## 2. The Intent-Based Era: Bots Start Understanding Intent 🤔
+
+In this era, AI got smarter (we used tools like Dialogflow/Lex for design). When users asked questions, AI could grasp the intent and select appropriate responses. However, responses were still pre-written scripts:
+
+> **Customer:** "Do you have chicken-free dog food?"
+>
+> _Bot detects 'Dog Food' intent and retrieves Dog Food responses with pre-prepared buttons_
+>
+> **Bot:** We have many dog food formulas! Which type are you most interested in?
+> [Puppy Formula] [Adult Dog Formula] [Weight Management]
+
+In this era, designers worked hard preparing questions in advance so that when customers asked, the conversation could reach completion. We barely designed actual conversations—just keeping the bot guiding customers to completion was exhausting. Making conversations feel natural? Forget about it.
+
+Conversation Design in this era wasn't as fun (though it was very challenging—I spent quite a while doing this).
+
+---
+
+<Image src={BlogAgentic} alt="Generative AI (LLM) Flow" />
+
+## 3. The Generative AI (LLM) Era: Bots Can Now "Improvise" 🚀
+
+Welcome to the present (ChatGPT era). Now we don't need to prepare step-by-step flows. Instead, we design **"Character & Context"**:
+
+> **Customer:** "Hi, my dog is bored with kibble. Any recommendations?"
+
+In this era, we prepare a **Prompt** for AI to assume a role:
+
+> **Our Prompt:**
+> You are a cheerful, playful dog who owns the store and is an expert in nutrition. A customer just said "Hi, my dog is bored with kibble. Any recommendations?"
+
+**We send this prompt to ChatGPT or other LLMs, and it generates a response:**
+
+> **LLM:** "Woof! This is a national crisis! 🐶 If your pup is tired of the same old kibble, how about topping it with some 'shredded chicken soup'? Or try switching textures to our 'tender lamb' wet food formula—it's pawsome! I guarantee your pup will be wagging like crazy. Want to try a pouch?"
+
+Then we send this response back to the user.
+
+See? In this era, we don't design "response sentences"—we design "personality" and let AI improvise. This makes bots feel much more alive. How good the response is depends on our prompt before sending it to the LLM.
+
+---
+
+## **What Can We Expect from LLM Responses?**
+
+Honestly, we can expect responses to be on-topic. But if we want them to be polished according to Conversation Design principles, we still have a long way to go. The key point to remember is: **Most LLMs learn from "Documents," not from "Chat" conversations directly**.
+
+Because they've read so many documents, when they respond, they tend to do "info dumps"—packing everything in at once:
+
+**What AI typically does (Document style):**
+
+> **Bot:** "We have 5 premium dog food formulas: chicken, fish, lamb, grain-free, and weight management. All made from 100% natural ingredients. Which formula would you like to know more about? I can give you more details."
+
+It seems okay, but it's too much information—like shoving a catalog into the customer's hands. Plus, the question is stuck in the middle. If we apply **Conversation Design** principles, we'd adjust it:
+
+**Break it into 3 simple steps:**
+
+### **1. Separate "Questions" from "Information":**
+
+Instead of cramming information with questions, separate statements from questions:
+
+**Bot:** _"We have 5 premium dog food formulas, all made from 100% natural ingredients. Which formula would you like to know more about?"_
+
+### **2. Ask First, Then Tell:**
+
+For even smoother conversation, don't rush to sell. **"Ask"** to show care first, wait for a response, then **"Tell"** what they actually need:
+
+> **Bot:** "Does your pup have any food allergies I should know about? 🐶"
+>
+> (Wait for customer: "Allergic to chicken")
+>
+> **Bot:** "Got it! We'll skip the chicken formula. I recommend our **Lamb & Rice formula**—it's easy to digest. Want to try a bag?"
+
+The second approach is better because it shows care and doesn't rush the sale.
+
+### **3. Add Value (Make it special):**
+
+Instead of just saying "We have it," add descriptors that increase value or spark interest, like _Best Seller, Top Formula, or Limited Edition_:
+
+**Basic:**
+
+> **Bot:** _"We have it in stock. Would you like to see the menu?"_
+
+**With Added Value:**
+
+> **Bot:** _"We've selected **3 formulas perfect for dogs with allergies** for you. Want to check out our recommendations? 🍖"_
+
+See the difference? The latter feels more attentive and natural, and more concise (Clear, Concise, Useful). This is the designer's job—polishing AI to communicate effectively.
+
+---
+
+## ❤️ Technology Changes, but "Human Psychology" Never Does
+
+No matter how smart AI becomes, the foundation of Conversation Design remains about **"people"**. We can still apply psychological principles to make our bots more engaging and better at closing pet food sales.
+
+## 1. Create Motivation 🔥
+
+Make them "want" to buy now:
+
+- **Scarcity (Running out soon):** _"This salmon formula is down to the last 2 bags of this batch"_
+- **Social Proof (Everyone's using it):** _"This is the flavor dogs voted most delicious in our store this month!"_
+- And many more: Commitment/consistency, Reasons why, Positive feedback, Loss aversion, Perceived value, Anticipatory enthusiasm, Ask again, Expectation management, etc.
+
+## 2. Increase Ability ✅
+
+Make it as "easy" as possible for users:
+
+- **Reduce Choice:** Don't throw 10 flavors at them; curate: _"For small breed dogs, I recommend these 2 formulas with smaller, easier-to-chew kibbles"_
+- **Default:** For returning customers: _"Same order as last month—2 bags of the usual? I'll open the invoice for you"_
+- And many more: Remove distraction, Don't make me think, Nudging, Extreme aversion, Lower price perception, Soft call-to-action, Choice architecture, Anchoring, etc.
+
+These are principles we're already familiar with in UI/UX design and UX Writing. When applied to store chatbots, they take on their own context and become a huge area for us to explore.
+
+---
+
+## Golden Opportunity for UX Designers in Chatbot Design
+
+The world of chatbots now is like the early days of websites—at first, only engineers or programmers built them, and websites looked rigid and clunky. But when designers jumped in, websites became beautiful and user-friendly, setting new standards.
+
+**Conversation Design** is the same. The AI tools are ready, but they still lack the "art" of communication. Designing bots to converse smoothly, naturally, and empathetically with humans is profound and valuable work.
+
+For anyone interested or hesitating, I'll tell you straight: **"Go for it!"** This space is wide open, and people are willing to pay for great experiences like this.
+
+Next time, let's dive deeper into each topic. I'm having so much fun with this lately, and I'd love to invite everyone to join in the fun of Conversation Design! 😊
+
+---
