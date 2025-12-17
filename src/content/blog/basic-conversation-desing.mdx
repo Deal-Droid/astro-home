@@ -75,6 +75,7 @@ To paint a clearer picture, let me use the example of a **"Pet Food Store"**—s
 This era, though called a chatbot, was more like calling a call center and encountering an Interactive Voice Response (IVR) system. A pet food store in this era would look like this:
 
 > **Bot:** "Hello, welcome to Pet Shop"
+>
 > [Dog Food] [Cat Food] [Track Order]
 
 Users had to select their answer, and the system would provide pre-programmed responses. Because computers needed 100% clarity back then, customers had to follow the exact path we laid out. If a customer wanted "cat litter" but there was no button for it, they couldn't proceed.
@@ -90,10 +91,11 @@ The design focused on Information Architecture—organizing question categories 
 In this era, AI got smarter (we used tools like Dialogflow/Lex for design). When users asked questions, AI could grasp the intent and select appropriate responses. However, responses were still pre-written scripts:
 
 > **Customer:** "Do you have chicken-free dog food?"
->
-> _Bot detects 'Dog Food' intent and retrieves Dog Food responses with pre-prepared buttons_
->
+
+_Bot detects 'Dog Food' intent and retrieves Dog Food responses with pre-prepared buttons_
+
 > **Bot:** We have many dog food formulas! Which type are you most interested in?
+>
 > [Puppy Formula] [Adult Dog Formula] [Weight Management]
 
 In this era, designers worked hard preparing questions in advance so that when customers asked, the conversation could reach completion. We barely designed actual conversations—just keeping the bot guiding customers to completion was exhausting. Making conversations feel natural? Forget about it.
@@ -113,6 +115,7 @@ Welcome to the present (ChatGPT era). Now we don't need to prepare step-by-step 
 In this era, we prepare a **Prompt** for AI to assume a role:
 
 > **Our Prompt:**
+>
 > You are a cheerful, playful dog who owns the store and is an expert in nutrition. A customer just said "Hi, my dog is bored with kibble. Any recommendations?"
 
 **We send this prompt to ChatGPT or other LLMs, and it generates a response:**
