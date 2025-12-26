@@ -1,0 +1,23 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-push:
+  parallel: true
+  commands:
+    packages-audit: # Ignore for now due to unpatchable vulnerabilities from axios (imported from langchain)
+      tags: frontend security
+      run: pnpm audit --audit-level critical
+
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: '*.{js,ts,jsx,tsx}'
+      run: |
+        pnpm exec prettier --write {staged_files}
+        git add {staged_files}
+    check_typos:
+      run: pnpm exec cspell --gitignore {staged_files}
