@@ -25,10 +25,12 @@ module.exports = {
    */
   flagWords: [],
   ignorePaths: [
-    "**/*.yml",
-    "**/*.svg",
     "**/*.conf",
-    "pnpm-lock.yaml",
+    "**/*.svg",
+    "**/*.yml",
+    "CLAUDE.md",
+    "copilot-instructions.md",
     "package.json",
+    "pnpm-lock.yaml",
   ],
 };
