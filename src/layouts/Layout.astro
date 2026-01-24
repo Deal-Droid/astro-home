@@ -16,16 +16,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 const resolvedImageWithDomain = new URL(
   "/opengraph.jpg",
-  Astro.site
+  Astro.site,
 ).toString();
 
 const { title, footerMargin = true } = Astro.props;
 
 const makeTitle = title
   ? title + " | " + "DealDroid"
-  : "DealDroid - No-Code Chatbot for Quality Seller";
+  : "DealDroid - No-Code Chatbot for Quality Sellers";
 
 const lang = Astro.currentLocale || "en";
+
+const description =
+  "DealDroid - No-Code Chatbot for Quality Sellers. Engage visitors, capture leads, and boost conversions with our easy-to-use chatbot platform.";
 ---
 
 <!doctype html>
@@ -38,22 +41,20 @@ const lang = Astro.currentLocale || "en";
 
     <SEO
       title={makeTitle}
-      description="DealDroid - No-Code Chatbot for Quality Sellers. Engage visitors, capture leads, and boost conversions with our easy-to-use chatbot platform."
+      description={description}
       canonical={canonicalURL}
-      twitter={{
-        creator: "@surjithctly",
-        site: "@web3templates",
-        card: "summary_large_image",
-      }}
       openGraph={{
         basic: {
           url: canonicalURL,
           type: "website",
-          title: `DealDroid - No-Code Chatbot for Quality Sellers`,
+          title: makeTitle,
           image: resolvedImageWithDomain,
         },
         image: {
           alt: "DealDroid Homepage Screenshot",
+        },
+        optional: {
+          description: description,
         },
       }}
     />
