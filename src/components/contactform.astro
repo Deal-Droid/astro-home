@@ -10,7 +10,7 @@ const page_ui: UILanguages = {
     'contact.fullname': 'Full Name',
     'contact.email': 'Email Address',
     'contact.invalid-email': 'Please provide a valid email address.',
-    'contact.empty-emial': 'Please provide your email address.',
+    'contact.empty-email': 'Please provide your email address.',
     'contact.empty-fullname': 'Please provide your full name.',
     'contact.empty-message': 'Please enter your message.',
     'contact.your-message': 'Your Message',
@@ -20,7 +20,7 @@ const page_ui: UILanguages = {
     'contact.fullname': 'ชื่อ-นามสกุล',
     'contact.email': 'อีเมล',
     'contact.invalid-email': 'กรุณากรอกที่อยู่อีเมลที่ถูกต้อง',
-    'contact.empty-emial': 'กรุณากรอกที่อยู่อีเมลของคุณ',
+    'contact.empty-email': 'กรุณากรอกที่อยู่อีเมลของคุณ',
     'contact.empty-fullname': 'กรุณากรอกชื่อ-นามสกุลของคุณ',
     'contact.empty-message': 'กรุณากรอกข้อความของคุณ',
     'contact.your-message': 'ข้อความของคุณ',
@@ -81,7 +81,7 @@ const p = usePageTranslations(lang, page_ui);
       class="w-full px-4 py-3 border placeholder:text-slate-400 rounded-md outline-none focus:ring-4 border-slate-300 focus:border-slate-600 ring-slate-100"
     />
     <div class="empty-feedback text-red-400 text-sm mt-1">
-      {p('contact.empty-emial')}
+      {p('contact.empty-email')}
     </div>
     <div class="invalid-feedback text-red-400 text-sm mt-1">
       {p('contact.invalid-email')}
