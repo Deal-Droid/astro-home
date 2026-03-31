@@ -16,7 +16,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
 const resolvedImageWithDomain = new URL(
   "/opengraph.jpg",
-  Astro.site
+  Astro.site,
 ).toString();
 
 const { title, footerMargin = true } = Astro.props;
@@ -85,6 +85,19 @@ const lang = Astro.currentLocale || "en";
         font-weight: 400;
       }
     </style>
+    <!-- Google Analytics -->
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-Q8KNW432RV"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-Q8KNW432RV");
+    </script>
     <ClientRouter />
     <link
       rel="stylesheet"
