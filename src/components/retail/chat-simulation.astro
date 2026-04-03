@@ -1,0 +1,187 @@
+---
+/**
+ * ChatSimulation - Reusable animated chat mockup component.
+ * Messages appear one by one with typing animation.
+ *
+ * Props:
+ *   storeName: string — Chat header store name
+ *   messages: Array<{ sender: 'bot' | 'customer', text: string }> — Chat messages
+ *   typingDelay?: number — ms between messages (default 1500)
+ */
+interface Message {
+  sender: "bot" | "customer";
+  text: string;
+}
+
+interface Props {
+  storeName: string;
+  messages: Message[];
+  typingDelay?: number;
+}
+
+const { storeName, messages, typingDelay = 1500 } = Astro.props;
+---
+
+<div
+  class="chat-simulation bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-w-sm w-full"
+  data-delay={typingDelay}>
+  <!-- Chat Header -->
+  <div
+    class="bg-white border-b text-slate-900 px-4 py-3 flex items-center gap-3">
+    <div
+      class="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold backdrop-blur-sm">
+      {storeName.charAt(0)}
+    </div>
+    <div class="flex-1">
+      <div class="font-semibold text-sm">{storeName}</div>
+      <div class="flex items-center gap-1 text-xs text-indigo-400">
+        <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+        online
+      </div>
+    </div>
+  </div>
+  <!-- Chat Messages -->
+  <div class="chat-messages p-4 space-y-3 h-[360px] bg-slate-50">
+    {
+      messages.map((msg, i) => (
+        <div
+          class:list={[
+            "chat-bubble flex",
+            msg.sender === "customer" ? "justify-end" : "justify-start",
+          ]}
+          data-index={i}>
+          <div
+            class:list={[
+              "rounded-2xl px-4 py-2.5 text-sm max-w-[85%] whitespace-pre-line",
+              msg.sender === "customer"
+                ? "bg-indigo-500 text-white rounded-br-md"
+                : "bg-white border border-slate-200 text-slate-700 rounded-bl-md shadow-sm",
+            ]}>
+            {msg.text}
+          </div>
+        </div>
+      ))
+    }
+    <!-- Typing indicator (hidden by default, shown via JS) -->
+    <div class="chat-typing hidden justify-start" aria-hidden="true">
+      <div
+        class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+        <div class="flex gap-1 items-center">
+          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Chat Input Bar -->
+  <div
+    class="bg-white border-t border-slate-200 px-4 py-2.5 flex items-center gap-2">
+    <span class="text-xs text-slate-400 flex-1">Aa</span>
+    <span class="text-lg">😊</span>
+  </div>
+</div>
+
+<style>
+  .chat-bubble {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.4s ease,
+      transform 0.4s ease;
+  }
+  .chat-bubble.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .typing-dot {
+    animation: typingBounce 1.4s infinite ease-in-out;
+  }
+  .typing-dot:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .typing-dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .typing-dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes typingBounce {
+    0%,
+    60%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    30% {
+      transform: translateY(-4px);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  function initChatSimulations() {
+    document.querySelectorAll(".chat-simulation").forEach((container) => {
+      // Skip if already initialized
+      if (container.hasAttribute("data-initialized")) return;
+      container.setAttribute("data-initialized", "true");
+
+      const delay = parseInt(container.getAttribute("data-delay") || "1500");
+      const bubbles = container.querySelectorAll<HTMLElement>(".chat-bubble");
+      const typingIndicator = container.querySelector(
+        ".chat-typing",
+      ) as HTMLElement | null;
+
+      let isVisible = false;
+
+      // Use IntersectionObserver to start animation when visible
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !isVisible) {
+              isVisible = true;
+              animateMessages(bubbles, typingIndicator, delay);
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+
+      observer.observe(container);
+    });
+  }
+
+  function animateMessages(
+    bubbles: NodeListOf<HTMLElement>,
+    typingIndicator: HTMLElement | null,
+    delay: number,
+  ) {
+    bubbles.forEach((bubble, index) => {
+      const typingDuration = Math.min(delay * 0.6, 800);
+
+      setTimeout(() => {
+        // Show typing indicator before message
+        if (typingIndicator) {
+          typingIndicator.classList.remove("hidden");
+          typingIndicator.classList.add("flex");
+        }
+
+        setTimeout(() => {
+          // Hide typing, show message
+          if (typingIndicator) {
+            typingIndicator.classList.add("hidden");
+            typingIndicator.classList.remove("flex");
+          }
+          bubble.classList.add("visible");
+        }, typingDuration);
+      }, index * delay);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initChatSimulations);
+  document.addEventListener("astro:page-load", initChatSimulations);
+</script>

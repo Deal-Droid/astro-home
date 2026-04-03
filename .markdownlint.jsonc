@@ -15,5 +15,9 @@
   // MD024: No-duplicate-heading: Multiple headings with the same
   "MD024": false,
   // MD025: Single-title/single-h1: Multiple top-level headings in the same document
-  "MD025": false
+  "MD025": false,
+  // MD034: no-bare-urls
+  "MD034": false,
+  // MD060: table-column-style
+  "MD060": false
 }

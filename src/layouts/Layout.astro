@@ -10,6 +10,7 @@ import "@fontsource-variable/inter/index.css";
 export interface Props {
   title?: string;
   footerMargin?: boolean;
+  navbar?: typeof Navbar;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
@@ -19,7 +20,8 @@ const resolvedImageWithDomain = new URL(
   Astro.site,
 ).toString();
 
-const { title, footerMargin = true } = Astro.props;
+const { title, footerMargin = true, navbar: CustomNavbar } = Astro.props;
+const NavbarComponent = CustomNavbar || Navbar;
 
 const makeTitle = title
   ? title + " | " + "DealDroid"
@@ -107,7 +109,7 @@ const description =
   </head>
   <body>
     <LanguageBanner />
-    <Navbar />
+    <NavbarComponent />
     <slot />
     <Footer margin={footerMargin} />
     <script>

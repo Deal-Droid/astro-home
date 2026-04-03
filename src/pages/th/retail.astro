@@ -1,5 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import RetailNavbar from "@components/retail/navbar.astro";
 import Hero from "@components/retail/hero.astro";
 import ClientLogos from "@components/retail/client-logos.astro";
 import PainPoints from "@components/retail/pain-points.astro";
@@ -18,7 +19,8 @@ import FinalCta from "@components/retail/final-cta.astro";
 
 <Layout
   title="AI ตอบแชทแทน Admin สำหรับร้านค้า | DealDroid"
-  footerMargin={false}>
+  footerMargin={false}
+  navbar={RetailNavbar}>
   <Hero />
   <ClientLogos />
   <PainPoints />

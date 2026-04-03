@@ -1,8 +1,15 @@
 ---
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
+import ChatSimulation from "./chat-simulation.astro";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import messengerSvg from "@assets/channels/messenger.svg";
+import lineSvg from "@assets/channels/line.svg";
+import whatsappSvg from "@assets/channels/whatsapp.svg";
+import instagramSvg from "@assets/channels/instagram.svg";
+import websiteSvg from "@assets/channels/website.svg";
+import shopeeSvg from "@assets/channels/shopee.svg";
 
 const page_ui: UILanguages = {
   en: {
@@ -57,13 +64,22 @@ const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
 const translatePath = useTranslatedPath(lang);
 
-const channels = [
-  { name: "Messenger", icon: "💬" },
-  { name: "LINE", icon: "🟢" },
-  { name: "WhatsApp", icon: "📱" },
-  { name: "Instagram", icon: "📸" },
-  { name: "Website", icon: "🌐" },
-];
+const channels =
+  lang === "th"
+    ? [
+        { name: "Messenger", icon: messengerSvg.src },
+        { name: "LINE", icon: lineSvg.src },
+        { name: "WhatsApp", icon: whatsappSvg.src },
+        { name: "Instagram", icon: instagramSvg.src },
+        { name: "Website", icon: websiteSvg.src },
+      ]
+    : [
+        { name: "Messenger", icon: messengerSvg.src },
+        { name: "WhatsApp", icon: whatsappSvg.src },
+        { name: "Instagram", icon: instagramSvg.src },
+        { name: "Website", icon: websiteSvg.src },
+        { name: "Shopee", icon: shopeeSvg.src },
+      ];
 
 const stats = [
   { value: p("hero.stat1_value"), label: p("hero.stat1_label") },
@@ -71,22 +87,26 @@ const stats = [
   { value: p("hero.stat3_value"), label: p("hero.stat3_label") },
   { value: p("hero.stat4_value"), label: p("hero.stat4_label") },
 ];
+
+const chatMessages = [
+  { sender: "customer" as const, text: p("hero.chat_msg1") },
+  { sender: "bot" as const, text: p("hero.chat_reply1") },
+  { sender: "customer" as const, text: p("hero.chat_msg2") },
+];
 ---
 
-<section
-  class="bg-gradient-to-b from-indigo-50 to-white pt-16 pb-12 overflow-hidden">
+<section class="bg-white pt-8 pb-16 overflow-hidden">
   <Container>
-    <!-- Badge -->
-    <div class="text-center mb-6">
-      <span
-        class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
-        {p("hero.badge")}
-      </span>
-    </div>
-
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Left: Copy -->
       <div class="text-center lg:text-left">
+        <!-- Badge -->
+        <div class="mb-6">
+          <span
+            class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+            {p("hero.badge")}
+          </span>
+        </div>
         <h1
           class="text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight text-slate-900">
           {p("hero.h1")}
@@ -107,74 +127,49 @@ const stats = [
           </Link>
         </div>
 
-        <!-- Channels -->
+        <!-- Channel Icons -->
         <div
-          class="mt-8 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
-          <span class="text-sm text-slate-500">{p("hero.channels_label")}</span>
-          {
-            channels.map((ch) => (
-              <span class="inline-flex items-center gap-1 bg-white border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-600 shadow-sm">
-                <span>{ch.icon}</span> {ch.name}
-              </span>
-            ))
-          }
+          class="mt-6 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+          <span
+            class="text-sm text-slate-400 font-medium"
+            >{p("hero.channels_label")}</span
+          >
+          <div class="flex flex-wrap items-center gap-3">
+            {
+              channels.map((ch) => (
+                <div class="flex items-center gap-1.5">
+                  <img src={ch.icon} alt={ch.name} class="w-5 h-5 shrink-0" />
+                  <span class="text-xs font-medium text-slate-400">{ch.name}</span>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
 
-      <!-- Right: Chat Mockup -->
-      <div class="relative mx-auto lg:mx-0 max-w-sm w-full">
-        <div
-          class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-          <!-- Chat Header -->
-          <div
-            class="bg-indigo-600 text-white px-4 py-3 flex items-center gap-3">
-            <div
-              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
-              {p("hero.store_name").charAt(0)}
-            </div>
-            <div>
-              <div class="font-semibold text-sm">{p("hero.store_name")}</div>
-              <div class="text-xs text-indigo-200">online</div>
-            </div>
-          </div>
-          <!-- Chat Messages -->
-          <div class="p-4 space-y-3 min-h-[280px] bg-slate-50">
-            <!-- Customer message -->
-            <div class="flex justify-end">
-              <div
-                class="bg-indigo-500 text-white rounded-2xl rounded-br-md px-4 py-2 text-sm max-w-[80%]">
-                {p("hero.chat_msg1")}
-              </div>
-            </div>
-            <!-- Bot reply -->
-            <div class="flex justify-start">
-              <div
-                class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2 text-sm max-w-[85%] text-slate-700 whitespace-pre-line shadow-sm">
-                {p("hero.chat_reply1")}
-              </div>
-            </div>
-            <!-- Customer follow-up -->
-            <div class="flex justify-end">
-              <div
-                class="bg-indigo-500 text-white rounded-2xl rounded-br-md px-4 py-2 text-sm max-w-[80%]">
-                {p("hero.chat_msg2")}
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Right: Chat Mockup (offset left for visual balance) -->
+      <div class="flex justify-center lg:-ml-4">
+        <ChatSimulation
+          storeName={p("hero.store_name")}
+          messages={chatMessages}
+        />
       </div>
     </div>
 
-    <!-- Stats Strip -->
-    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-      {
-        stats.map((stat) => (
-          <div class="text-center bg-white rounded-xl border border-slate-200 px-4 py-5 shadow-sm">
-            <div class="text-2xl font-bold text-indigo-600">{stat.value}</div>
-            <div class="text-xs text-slate-500 mt-1">{stat.label}</div>
-          </div>
-        ))
-      }
+    <!-- Stats Strip — prominent, no card borders, with divider above -->
+    <div class="mt-14 pt-8 border-t border-slate-200">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        {
+          stats.map((stat) => (
+            <div class="text-center">
+              <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+                {stat.value}
+              </div>
+              <div class="text-sm text-slate-500 mt-1.5">{stat.label}</div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </Container>
 </section>

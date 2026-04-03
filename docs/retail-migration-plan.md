@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD034 MD060 -->
+
 # Plan: Migrate Retail Landing Page to Astro Home
 
 ## 🎉 COMPLETION STATUS: ✅ COMPLETE
@@ -10,6 +12,7 @@
 - ✅ **Phase 4**: Build verification complete (0 TypeScript errors, production build 60.47s)
 
 **Routes Live:**
+
 - 🌍 EN: https://astro-home.local/retail
 - 🇹🇭 TH: https://astro-home.local/th/retail
 
