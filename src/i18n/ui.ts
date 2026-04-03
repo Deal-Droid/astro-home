@@ -26,6 +26,7 @@ export const ui: UILanguages = {
     "general.blog": "Blog",
     "general.document": "Document",
     "general.contact": "Contact",
+    "general.retail": "Retail AI",
   },
   th: {
     "general.start_trial": "ฟรี 14 วัน - ใช้เลย",
@@ -36,5 +37,6 @@ export const ui: UILanguages = {
     "general.blog": "บล็อก",
     "general.document": "คู่มือ",
     "general.contact": "ติดต่อเรา",
+    "general.retail": "AI สำหรับร้านค้า",
   },
 } as const;

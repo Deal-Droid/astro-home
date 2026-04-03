@@ -1,0 +1,115 @@
+---
+import Container from "@components/container.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "pain.badge": "The Problem Every Retail Brand Faces",
+    "pain.heading": "Because your inbox can't keep up with your ads",
+    "pain.subheading":
+      "Your customers are leaving — and taking your ad budget with them",
+    "pain.card1_title": "Slow replies = lost customers",
+    "pain.card1_desc":
+      "Leads from ads wait 2+ minutes and bounce to your competitor",
+    "pain.card2_title": "Chat agents answer but don't sell",
+    "pain.card2_desc":
+      "They handle basic queries but never upsell, cross-sell, or create urgency",
+    "pain.card3_title": "Ads run 24/7, your team doesn't",
+    "pain.card3_desc":
+      "After hours, your ad spend goes straight down the drain",
+    "pain.card4_title": "Multi-language customers, mono-language team",
+    "pain.card4_desc":
+      "Tourists and expats reach out in English, Mandarin, Malay — your team can only handle one",
+    "pain.card5_title": "Repetitive questions burn your team",
+    "pain.card5_desc":
+      '"How much?" "Got delivery?" "Where\'s your store?" — same thing, every single day',
+    "pain.card6_title": "Your ad ROI is leaking",
+    "pain.card6_desc":
+      "You pay for every click, but your inbox can't convert them — revenue stays flat",
+    "pain.quote":
+      '"Your inbox is your storefront now — whoever replies fastest, wins."',
+    "pain.answer_badge": "The Answer You've Been Looking For",
+  },
+  th: {
+    "pain.badge": "ปัญหาของธุรกิจที่พึ่งพายอดขาย",
+    "pain.heading": "เพราะ Admin ยังตอบช้า และปิดขายไม่ได้",
+    "pain.subheading": "ลูกค้าคุณกำลังหายไปพร้อมกับงบ Marketing",
+    "pain.card1_title": "ตอบช้าจนลูกค้าหาย",
+    "pain.card1_desc": "ลูกค้าจาก ads รอเกิน 2 นาที = ไปซื้อที่อื่นแล้ว",
+    "pain.card2_title": "Admin ตอบแต่ปิดการขายไม่ได้",
+    "pain.card2_desc": "ตอบทั่วไปได้ แต่ไม่แนะนำ ไม่ upsell ไม่สร้าง urgency",
+    "pain.card3_title": "Run Ads ตอนดึก แต่คนตอบไม่อยู่",
+    "pain.card3_desc": "พอหลังเลิกงาน ค่า Ads คือเสียเปล่า",
+    "pain.card4_title": "เจอลูกค้าต่างชาติ ตอบได้แค่ Snakeๆ Fishๆ",
+    "pain.card4_desc":
+      "Admin พูดได้แค่ภาษาไทย แต่ลูกค้ามาหลายภาษา — โอกาสที่จะได้ลูกค้ามีพลังซื้อหายเรียบ",
+    "pain.card5_title": "คำถามซ้ำๆ เผาเวลาทีมงาน",
+    "pain.card5_desc":
+      "ราคา? ส่งฟรีไหม? สาขาอยู่ที่ไหน? — ทีมเหนื่อยโดยใช่เหตุ ถามเดิมๆทุกวี่ทุกวัน",
+    "pain.card6_title": "ROI ของ ads ถูกขโมยไป",
+    "pain.card6_desc":
+      "จ่ายให้คนคลิก แต่ปิดไม่ได้เพราะ inbox ไม่พร้อม — รายได้เงียบกริบ",
+    "pain.quote":
+      '"Inbox คือหน้าร้านของคุณในยุคนี้ — ใครตอบเร็ว ตอบดีกว่า ถือว่าชนะ"',
+    "pain.answer_badge": "คำตอบที่คุณมองหา",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const cards = [
+  { title: p("pain.card1_title"), desc: p("pain.card1_desc"), icon: "⏱️" },
+  { title: p("pain.card2_title"), desc: p("pain.card2_desc"), icon: "💬" },
+  { title: p("pain.card3_title"), desc: p("pain.card3_desc"), icon: "🌙" },
+  { title: p("pain.card4_title"), desc: p("pain.card4_desc"), icon: "🌏" },
+  { title: p("pain.card5_title"), desc: p("pain.card5_desc"), icon: "🔁" },
+  { title: p("pain.card6_title"), desc: p("pain.card6_desc"), icon: "📉" },
+];
+---
+
+<section class="py-16 bg-slate-50">
+  <Container>
+    <!-- Badge + Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span
+        class="inline-block bg-red-100 border border-red-200 text-red-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+        {p("pain.badge")}
+      </span>
+      <p class="text-slate-500 text-lg mb-2">{p("pain.subheading")}</p>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900">
+        {p("pain.heading")}
+      </h2>
+    </div>
+
+    <!-- 6 Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        cards.map((card) => (
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="text-3xl mb-4">{card.icon}</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
+            <p class="text-sm text-slate-600">{card.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <!-- Quote -->
+    <div class="mt-12 text-center">
+      <blockquote
+        class="text-lg md:text-xl font-medium text-slate-700 italic max-w-2xl mx-auto">
+        {p("pain.quote")}
+      </blockquote>
+    </div>
+
+    <!-- Answer Badge -->
+    <div class="mt-8 text-center">
+      <span
+        class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+        {p("pain.answer_badge")}
+      </span>
+    </div>
+  </Container>
+</section>

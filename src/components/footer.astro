@@ -45,6 +45,10 @@ const footermenu = {
       title: t("general.home"),
       path: translatePath("/"),
     },
+    {
+      title: t("general.retail"),
+      path: translatePath("/retail"),
+    },
     // {
     //   title: t('general.blog'),
     //   path: '/blog',
@@ -165,7 +169,7 @@ const footermenu = {
             Object.entries(languages).map(([lang, label]) => {
               const pathWithoutLocale = Astro.url.pathname.replace(
                 /^\/[a-z]{2}(?=-|\/|$)/,
-                ""
+                "",
               );
               return (
                 <a
@@ -233,7 +237,7 @@ const footermenu = {
           } catch (error) {
             console.error(
               "Error saving language preference from footer:",
-              error
+              error,
             );
           }
         }

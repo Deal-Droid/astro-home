@@ -1,0 +1,107 @@
+---
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import { ArrowIcon } from "@components/ui/icons";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "faq.title": "FAQ",
+    "faq.desc": "Questions before you decide",
+    "faq.q1": "Will the bot say something wrong and damage my brand?",
+    "faq.a1":
+      "We set strict guardrails — approved knowledge base, brand tone guidelines, and forbidden topics. If the AI encounters something outside its scope, it won't guess. It immediately hands off to your team with full context.",
+    "faq.q2": "How long does it take to go live?",
+    "faq.a2":
+      "If your product info and FAQs are ready, we can go live in 24–48 hours. We then fine-tune based on real conversations over the first 1–2 weeks.",
+    "faq.q3": "Do my customers need to switch to a new platform?",
+    "faq.a3":
+      "Not at all. DealDroid works on the channels you already sell on — Messenger, WhatsApp, Instagram, Shopee, Lazada, or your website. Zero change in customer behavior.",
+    "faq.q4": "Can it really handle campaign surges?",
+    "faq.a4":
+      "Yes — that's one of DealDroid's biggest strengths. It handles thousands of simultaneous chats without any drop in quality. No more lost sales during peak traffic.",
+    "faq.q5": "Can my team jump in and take over a conversation?",
+    "faq.a5":
+      "Absolutely. You can set up flows where AI qualifies and answers, then hands off at the right moment. Or your team can manually take over any conversation at any time.",
+    "faq.q6": "How do I measure if it's worth it?",
+    "faq.a6":
+      "We recommend tracking 3 simple metrics: average response time, % of chats handled by AI, and leads/orders/bookings generated through chat.",
+    "faq.q7": "How is this different from a regular chatbot?",
+    "faq.a7":
+      "Regular chatbots follow scripted flows. DealDroid AI acts as a salesperson — it detects buyer intent (browsing, ready to buy, needs support), recommends products from your catalog, handles objections, and closes deals. No other chatbot does all of this in one package.",
+    "faq.q8": "Is setup difficult? Do I need technical knowledge?",
+    "faq.a8":
+      "Not at all. Our team handles the entire setup — from configuring your store profile and brand voice to adding products and testing the bot. We do it together until you're confident and selling.",
+  },
+  th: {
+    "faq.title": "FAQ",
+    "faq.desc": "ตอบคำถามก่อนตัดสินใจ",
+    "faq.q1": "บอทจะตอบมั่วไหม? กลัวพูดผิดจนเสียแบรนด์+",
+    "faq.a1":
+      "เราตั้งกรอบได้ครับ เช่น Knowledge/FAQ ที่อนุญาตให้ตอบ, Tone ของแบรนด์, และ กันอีกชั้นด้วย Forbidden Topics ถ้าเจอเรื่องที่ไม่ควรตอบ จะไม่เดาเองและส่งต่อให้คนทันที",
+    "faq.q2": "ใช้เวลานานไหมกว่าจะ Live ได้จริง?",
+    "faq.a2":
+      "ถ้าข้อมูลพร้อม (สินค้า/FAQ/เกี่ยวกับ Brand) เราสามารถทำให้ Live ได้ใน 24–48 ชั่วโมง และค่อยๆ Tune ต่อจากแชทจริงใน 1-2 สัปดาห์แรก",
+    "faq.q3": "ต้องเปลี่ยนระบบหรือให้ลูกค้าไปช่องทางใหม่ไหม?",
+    "faq.a3":
+      "ไม่ต้องครับ เราทำงานบนช่องทางที่คุณขายอยู่แล้ว เช่น Facebook Messenger และ LINE OA ลูกค้าไม่ต้องเปลี่ยนพฤติกรรม",
+    "faq.q4": "รองรับช่วงแคมเปญ/แชทพุ่งได้จริงไหม?",
+    "faq.a4":
+      "ใช่ครับ จุดแข็งของ DealDroid AI คือรับแชทพร้อมกันได้จำนวนมาก โดยยังคงคุณภาพการตอบเหมือนเดิม ช่วยลดโอกาสหลุดยอดช่วง traffic peak",
+    "faq.q5": "ทีมแอดมินอยากเข้ามาช่วยปิดการขาย ทำได้ไหม?",
+    "faq.a5":
+      "ได้ครับ เราสามารถตั้ง flow ให้ AI ช่วยคัดกรอง/ตอบคำถาม แล้วส่งต่อให้ทีมเข้ามาปิดการขายได้ในจังหวะที่เหมาะสม หรือคนสามารถไปกดปิดบอทเอง เพื่อรับลูกค้าคนนั้นไปดูเองก็ทำได้ครับ",
+    "faq.q6": "วัดผลยังไงว่ามันคุ้ม?",
+    "faq.a6":
+      "เราแนะนำวัดผลแบบง่าย ๆ 3 อย่างครับ — เวลาตอบเฉลี่ย (response time), % แชทที่บอทตอบแทนได้, และจำนวน lead/คำสั่งซื้อ/การนัดหมายที่เกิดจากแชท",
+    "faq.q7": "ต่างจาก chatbot ทั่วไปยังไง?",
+    "faq.a7":
+      "Chatbot ทั่วไปตอบคำถามตามกำหนดได้ แต่ DealDroid AI ทำหน้าที่ Sales ปิดการขายได้ มันสามารถจับ Intent (เจตนาหรือความต้องการ) ว่าลูกค้ากำลัง แค่ Browse (มองหาสินค้า), ต้องการ Product Recommendation (อยากให้แนะนำสินค้า), Ready to Buy (พร้อมซื้อ) หรือต้องการ Support ซึ่งยังไม่มี AI Chatbot ที่ไหนที่ทำหน้าที่ได้ทั้งหมดนี้ในตัวเดียว",
+    "faq.q8": "Setup ยากไหม? ต้องใช้เวลานานไหม?",
+    "faq.a8":
+      "ไม่ยากเลยครับ เรามี Pro plan ที่รวมการทำ Workshop กับทีมงาน AI Expert ให้แล้ว เพื่อทำการ Setup ไปพร้อมกัน ตั้งแต่ตั้ง Profile ร้านค้า ปรับแต่ง Brand Voice เพิ่มสินค้า และ คำถามที่พบบ่อย ไปจนถึงทดสอบ Bot จนได้ตามที่ต้องการ ด้วยเป้าหมายที่ให้คุณสามารถเปิดขายได้จริงทันที",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const faqItems = [
+  { q: p("faq.q1"), a: p("faq.a1") },
+  { q: p("faq.q2"), a: p("faq.a2") },
+  { q: p("faq.q3"), a: p("faq.a3") },
+  { q: p("faq.q4"), a: p("faq.a4") },
+  { q: p("faq.q5"), a: p("faq.a5") },
+  { q: p("faq.q6"), a: p("faq.a6") },
+  { q: p("faq.q7"), a: p("faq.a7") },
+  { q: p("faq.q8"), a: p("faq.a8") },
+];
+---
+
+<Container>
+  <Sectionhead>
+    <Fragment slot="title">{p("faq.title")}</Fragment>
+    <Fragment slot="desc">{p("faq.desc")}</Fragment>
+  </Sectionhead>
+
+  <div class="grid divide-y divide-neutral-200 max-w-2xl mx-auto mt-8">
+    {
+      faqItems.map((item) => (
+        <div class="py-5">
+          <details class="group">
+            <summary class="flex justify-between items-center font-medium cursor-pointer list-none">
+              <span>{item.q}</span>
+              <span class="transition group-open:rotate-180">
+                <ArrowIcon />
+              </span>
+            </summary>
+            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn text-sm">
+              {item.a}
+            </p>
+          </details>
+        </div>
+      ))
+    }
+  </div>
+</Container>

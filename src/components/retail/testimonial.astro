@@ -1,0 +1,38 @@
+---
+import Container from "@components/container.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "test.quote":
+      '"DealDroid AI handled nearly 3,000 customers in one month. 80% were resolved by AI alone — no human needed — even during our heaviest ad campaigns."',
+    "test.name": "CEO, Authorized Electronics Dealer",
+    "test.title": "Premium drone & electronics retail brand",
+  },
+  th: {
+    "test.quote":
+      '"DealDroid AI รับลูกค้าเกือบ 3,000 รายใน 1 เดือน.. 80% AI จบเอง ไม่ต้องให้น้อง Admin เข้ามาช่วย แม้ช่วงที่รัน ad campaign ที่ traffic หนักสุดๆ"',
+    "test.name": "ณัฐชนน ชีวะวัฒนากร (นัท)",
+    "test.title": "CEO, DJI 13 Store — Authorized DJI Drone Dealer in Thailand",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+---
+
+<section class="py-16 bg-white">
+  <Container>
+    <div class="max-w-3xl mx-auto">
+      <blockquote
+        class="text-2xl md:text-3xl font-bold text-slate-900 text-center mb-6">
+        {p("test.quote")}
+      </blockquote>
+      <div class="text-center">
+        <div class="font-semibold text-slate-900">{p("test.name")}</div>
+        <div class="text-sm text-slate-500 mt-1">{p("test.title")}</div>
+      </div>
+    </div>
+  </Container>
+</section>

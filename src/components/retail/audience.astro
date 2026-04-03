@@ -1,0 +1,117 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "aud.heading": "We're selective — so every client gets real results",
+    "aud.fit_title": "Great Fit If You",
+    "aud.fit1": "Running paid ads (Meta, Google, TikTok) with $1K+/month spend",
+    "aud.fit2": "Selling via Messenger, WhatsApp, Instagram, Shopee, or Lazada",
+    "aud.fit3":
+      "Have a chat team but response quality or speed isn't good enough",
+    "aud.fit4":
+      "Looking for AI tools that actually boost revenue and efficiency",
+    "aud.fit5":
+      "Struggling with chat volume spikes during campaigns or sales events",
+    "aud.fit6":
+      "Want to serve multilingual customers (English, Mandarin, Malay, etc.)",
+    "aud.not_title": "Not a Fit If",
+    "aud.not1": "Don't sell through chat channels at all",
+    "aud.not2": "Ad spend under $1,000/month",
+    "aud.not3":
+      "Looking for a basic scripted chatbot that can only follow fixed flows",
+    "aud.cta": "Get Free Inbox Audit — No Commitment",
+    "aud.cta_link": "https://cal.com",
+  },
+  th: {
+    "aud.heading": "เราเลือกลูกค้า เพื่อให้ผลลัพธ์ชัดเจนทุกราย",
+    "aud.fit_title": "เหมาะกับร้านที่",
+    "aud.fit1": "Facebook Page 50K followers ขึ้นไป",
+    "aud.fit2": "Run Ads มากกว่า 50,000 บาท/เดือน",
+    "aud.fit3": "ใช้ Messenger, LINE OA, Instagram หรือ Website เป็นช่องทางขาย",
+    "aud.fit4": "มี Admin ตอบแชทอยู่แล้ว แต่คุณภาพการตอบยังไม่ดีพอ",
+    "aud.fit5":
+      "ธุรกิจที่มองหา AI Tools ที่ boost ยอดขาย และ efficiency ได้จริง",
+    "aud.fit6": "เจอปัญหารับแชทช้าหรือ หลุดในช่วง campaign peak",
+    "aud.not_title": "ไม่เหมาะถ้า",
+    "aud.not1": "ไม่มี chat inbox หรือไม่ได้ขายผ่านแชท",
+    "aud.not2": "Ad spend ต่ำกว่า 50,000 บาท/เดือน",
+    "aud.not3": 'ต้องการ "chatbot ราคาถูก" ทั่วไป ที่ตอบได้แค่ตามที่กำหนด',
+    "aud.cta": "นัดคุยวิเคราะห์ Inbox ฟรี — ไม่มีข้อผูกมัด",
+    "aud.cta_link": "https://line.me/R/ti/p/@dealdroid",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const fitCriteria = [
+  p("aud.fit1"),
+  p("aud.fit2"),
+  p("aud.fit3"),
+  p("aud.fit4"),
+  p("aud.fit5"),
+  p("aud.fit6"),
+];
+
+const notFit = [p("aud.not1"), p("aud.not2"), p("aud.not3")];
+---
+
+<section class="py-16 bg-slate-50">
+  <Container>
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">
+      {p("aud.heading")}
+    </h2>
+
+    <!-- Two Columns -->
+    <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto mb-10">
+      <!-- Great Fit -->
+      <div class="bg-white rounded-2xl border border-green-200 p-8">
+        <h3
+          class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <span class="text-2xl">✓</span>
+          {p("aud.fit_title")}
+        </h3>
+        <ul class="space-y-3">
+          {
+            fitCriteria.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="text-green-600 mt-1">✓</span>
+                <span class="text-slate-600 text-sm">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Not a Fit -->
+      <div class="bg-white rounded-2xl border border-red-200 p-8">
+        <h3
+          class="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+          <span class="text-2xl">✗</span>
+          {p("aud.not_title")}
+        </h3>
+        <ul class="space-y-3">
+          {
+            notFit.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="text-red-600 mt-1">✗</span>
+                <span class="text-slate-600 text-sm">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center">
+      <Link href={p("aud.cta_link")} size="lg" style="primary">
+        {p("aud.cta")}
+      </Link>
+    </div>
+  </Container>
+</section>

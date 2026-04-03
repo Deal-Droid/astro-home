@@ -1,0 +1,109 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "sol.heading": "DealDroid AI",
+    "sol.subheading":
+      "Your always-online sales assistant — never on leave, never off-duty, never stops selling",
+    "sol.f1":
+      'An AI Sales Agent trained as a "pro salesperson" for your specific business',
+    "sol.f2": "Understands your products and recommends like an expert",
+    "sol.f3":
+      "Speaks in your brand voice consistently — quality you can control",
+    "sol.f4":
+      "Handles chat surges during campaigns with ease — no more missed replies",
+    "sol.f5":
+      "Supports 118+ languages — serve tourists and international customers effortlessly",
+    "sol.cta": "Request a Live Demo →",
+    "sol.channels_label": "รองรับการเชื่อมต่อกับ",
+    "sol.cta_link": "https://cal.com",
+  },
+  th: {
+    "sol.heading": "DealDroid AI",
+    "sol.subheading": "ผู้ช่วยขายที่ออนไลน์ตลอดเวลา — ไม่ลา ไม่พลาด ไม่หยุดขาย",
+    "sol.f1": 'AI Sales Agent ที่ถูกฝึกให้เป็น "นักขายมือ Pro" เฉพาะธุรกิจคุณ',
+    "sol.f2": "เข้าใจสินค้าและบริการของคุณ แนะนำได้เหมือนผู้เชี่ยวชาญ",
+    "sol.f3": "พูดคุยด้วยโทนเสียงของแบรนด์คุณอย่างสม่ำเสมอ คุมคุณภาพการตอบได้",
+    "sol.f4": "รองรับแชทพุ่งช่วงแคมเปญแรงๆได้สบาย หมดปัญหาตอบไม่ทัน",
+    "sol.f5": "รองรับ 118+ ภาษา รับลูกค้าต่างชาติได้แบบหายห่วง",
+    "sol.cta": "ขอดู Live Demo →",
+    "sol.channels_label": "รองรับการเชื่อมต่อกับ",
+    "sol.cta_link": "https://line.me/R/ti/p/@dealdroid",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const features = [
+  p("sol.f1"),
+  p("sol.f2"),
+  p("sol.f3"),
+  p("sol.f4"),
+  p("sol.f5"),
+];
+
+const channels = [
+  { name: "Messenger", icon: "💬" },
+  { name: "LINE", icon: "🟢" },
+  { name: "WhatsApp", icon: "📱" },
+  { name: "Instagram", icon: "📸" },
+  { name: "Website", icon: "🌐" },
+];
+---
+
+<section class="py-16 bg-white">
+  <Container>
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-indigo-600 mb-4">
+        {p("sol.heading")}
+      </h2>
+      <p class="text-xl text-slate-600">{p("sol.subheading")}</p>
+    </div>
+
+    <div class="max-w-2xl mx-auto">
+      <!-- Feature list -->
+      <div class="space-y-4 mb-8">
+        {
+          features.map((f) => (
+            <div class="flex items-start gap-3">
+              <span class="text-green-500 mt-1 shrink-0">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span class="text-slate-700">{f}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mb-10">
+        <Link href={p("sol.cta_link")} size="lg" style="primary">
+          {p("sol.cta")}
+        </Link>
+      </div>
+
+      <!-- Channels -->
+      <div class="flex flex-wrap items-center gap-3 justify-center">
+        <span class="text-sm text-slate-500">{p("sol.channels_label")}</span>
+        {
+          channels.map((ch) => (
+            <span class="inline-flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-full px-3 py-1 text-xs text-slate-600">
+              <span>{ch.icon}</span> {ch.name}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </Container>
+</section>

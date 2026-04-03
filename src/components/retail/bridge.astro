@@ -1,0 +1,53 @@
+---
+import Container from "@components/container.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "bridge.heading": "How much more ad spend will you waste?",
+    "bridge.p1":
+      "Every dollar you spend on ads drives potential buyers to your inbox.",
+    "bridge.p2":
+      "But if your team is slow — or offline — those leads don't wait. They're gone in minutes.",
+    "bridge.p3":
+      "Campaign peaks are when you should be making the most money… but it's also when your team is most overwhelmed.",
+    "bridge.p4":
+      "Hiring more agents is a temporary fix. Costs scale with headcount, not revenue.",
+    "bridge.p5":
+      "And if they're not trained to close, they're just answering questions — not driving sales.",
+  },
+  th: {
+    "bridge.heading": "แล้วคุณจะต้องเสียค่า Ads อีกเท่าไหร่?",
+    "bridge.p1": "ทุกบาทที่คุณจ่ายค่า Ads กำลังพาลูกค้าเข้ามาที่ Inbox",
+    "bridge.p2":
+      "แต่ถ้า Admin ไม่พร้อม หรือ ตอบไม่ทัน ลูกค้าก็ไม่รอ และหายไปในไม่กี่นาที",
+    "bridge.p3":
+      'แคมเปญพีคๆ คือช่วงที่ทำเงินได้มากที่สุด… แต่ก็มักเป็นช่วงที่ทีมคุณ "รับมือไม่ไหว" มากที่สุดเช่นกัน',
+    "bridge.p4":
+      "การจ้าง Admin เพิ่มแก้ได้แค่ชั่วคราว เพราะต้นทุนขยายตามจำนวนคน ไม่ใช่ตามยอดขาย",
+    "bridge.p5":
+      "และ Admin ที่ไม่ได้ถูกฝึกมาเพื่อปิดการขาย ก็ทำได้แค่ตอบคำถาม แต่ไม่ได้ช่วยเพิ่ม Conversion",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+---
+
+<section class="py-16 bg-slate-900 text-white">
+  <Container>
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-8">
+        {p("bridge.heading")}
+      </h2>
+      <div class="space-y-5 text-lg text-slate-300 leading-relaxed">
+        <p>{p("bridge.p1")}</p>
+        <p>{p("bridge.p2")}</p>
+        <p>{p("bridge.p3")}</p>
+        <p>{p("bridge.p4")}</p>
+        <p>{p("bridge.p5")}</p>
+      </div>
+    </div>
+  </Container>
+</section>

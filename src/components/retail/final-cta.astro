@@ -1,0 +1,78 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "fcta.heading": "Ready to stop losing revenue to slow chat responses?",
+    "fcta.desc":
+      "Book a free 30-minute Inbox Audit — we'll analyze your chat flow, show you where you're losing sales, and map out an AI strategy tailored to your business.",
+    "fcta.primary_btn": "Get Free Inbox Audit — 30 min",
+    "fcta.secondary_text": "Chat on WhatsApp First",
+    "fcta.trust1": "Free inbox analysis",
+    "fcta.trust2": "No commitment",
+    "fcta.trust3": "Go live in 48 hours",
+    "fcta.scarcity": "Limited spots · Only 3 brands accepted this week",
+    "fcta.primary_link": "https://cal.com",
+    "fcta.secondary_link": "https://wa.me",
+  },
+  th: {
+    "fcta.heading":
+      "พร้อมหยุดสูญเสียรายได้จากการรับลูกค้าแบบไม่มีประสิทธิภาพหรือยัง?",
+    "fcta.desc":
+      "นัดคุยวิเคราะห์ Inbox ฟรี 30 นาที — เราจะวิเคราะห์ inbox ของคุณ ชี้จุดที่กำลังเสียยอดขาย และวางแผนการใช้ AI ที่ชัดเจน พร้อม Demo ความสำเร็จของ Brand อย่าง DJI13Store",
+    "fcta.primary_btn": "นัดคุยวิเคราะห์ Inbox ฟรี",
+    "fcta.secondary_text": "คุยทาง LINE ก่อน",
+    "fcta.trust1": "วิเคราะห์ Inbox ให้ฟรี",
+    "fcta.trust2": "ไม่มีข้อผูกมัด",
+    "fcta.trust3": "Live ได้ใน 48 ชั่วโมง",
+    "fcta.scarcity": "รับจำนวนจำกัด · สัปดาห์นี้รับไม่เกิน 3 แบรนด์",
+    "fcta.primary_link": "https://line.me/R/ti/p/@dealdroid",
+    "fcta.secondary_link": "https://line.me/R/ti/p/@dealdroid",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const trustSignals = [p("fcta.trust1"), p("fcta.trust2"), p("fcta.trust3")];
+---
+
+<section
+  class="py-16 bg-gradient-to-b from-indigo-600 to-indigo-700 text-white overflow-hidden">
+  <Container>
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">{p("fcta.heading")}</h2>
+      <p class="text-indigo-100 mb-8 text-lg">{p("fcta.desc")}</p>
+
+      <!-- Buttons -->
+      <div
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+        <Link href={p("fcta.primary_link")} size="lg" style="inverted">
+          {p("fcta.primary_btn")}
+        </Link>
+        <Link href={p("fcta.secondary_link")} size="lg" style="outline">
+          {p("fcta.secondary_text")}
+        </Link>
+      </div>
+
+      <!-- Trust Signals -->
+      <div class="flex flex-wrap justify-center gap-6 mb-6 text-sm">
+        {
+          trustSignals.map((signal) => (
+            <div class="flex items-center gap-2">
+              <span>✓</span> {signal}
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Scarcity -->
+      <p class="text-indigo-200 text-xs font-semibold uppercase tracking-wider">
+        {p("fcta.scarcity")}
+      </p>
+    </div>
+  </Container>
+</section>

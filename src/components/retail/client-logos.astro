@@ -1,0 +1,94 @@
+---
+import Container from "@components/container.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "logos.label": "TRUSTED BY LEADING BRANDS",
+  },
+  th: {
+    "logos.label": "ใช้งานโดยธุรกิจชั้นนำในไทย",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const logos = [
+  {
+    name: "Pojjaman",
+    src: "https://go.dealdroid.ai/assets/pojjaman-BywyeBZH.svg",
+  },
+  {
+    name: "Atlas Estate",
+    src: "https://go.dealdroid.ai/assets/atlas-estate-Cucgthtj.jpg",
+  },
+  { name: "Builk", src: "https://go.dealdroid.ai/assets/builk-C30XptsR.png" },
+  { name: "Jubili", src: "https://go.dealdroid.ai/assets/jubili-BpP_VJb-.jpg" },
+  {
+    name: "Jubili Intake",
+    src: "https://go.dealdroid.ai/assets/jubili-intake-B-4cigC8.png",
+  },
+  {
+    name: "Duc de Praslin",
+    src: "https://go.dealdroid.ai/assets/duc-de-praslin-360wnR8f.png",
+  },
+  {
+    name: "DJI13STORE",
+    src: "https://go.dealdroid.ai/assets/dji13store-horizontal-Gjk345vS.png",
+  },
+  {
+    name: "ENSONEER",
+    src: "https://go.dealdroid.ai/assets/ensoneer-BVPFWgZI.png",
+  },
+  {
+    name: "AUTOLUB",
+    src: "https://go.dealdroid.ai/assets/autolub-kRDdP8rr.jpg",
+  },
+  {
+    name: "SoldOutt",
+    src: "https://go.dealdroid.ai/assets/soldoutt-LtS_WAjk.png",
+  },
+];
+---
+
+<section class="py-8 bg-white overflow-hidden">
+  <Container>
+    <p
+      class="text-center text-xs font-semibold text-slate-400 tracking-widest uppercase mb-6">
+      {p("logos.label")}
+    </p>
+  </Container>
+  <div class="relative">
+    <div class="flex animate-scroll gap-12 items-center w-max">
+      {
+        [...logos, ...logos].map((logo) => (
+          <img
+            src={logo.src}
+            alt={logo.name}
+            class="h-8 md:h-10 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 shrink-0"
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-scroll {
+    animation: scroll 30s linear infinite;
+  }
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+</style>

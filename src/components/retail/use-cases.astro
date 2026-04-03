@@ -1,0 +1,181 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "uc.badge": "Conversation Use Cases",
+    "uc.heading": "From first hello to closed deal",
+    "uc.subheading": "Real scenarios DealDroid AI handles every day",
+    "uc.tab1": "First Contact",
+    "uc.tab1_desc":
+      "Welcome with brand voice + store info\n\n✅ Customer feels confident from the very first message",
+    "uc.tab2": "Product Recommendation",
+    "uc.tab2_desc": "Understands needs + suggests the right fit",
+    "uc.tab3": "Objection Handling",
+    "uc.tab3_desc": "Addresses concerns, builds trust, moves toward close",
+    "uc.tab4": "Closing the Sale",
+    "uc.tab4_desc": "Summarizes order, collects delivery info, sends payment",
+    "uc.tab5": "FAQ Auto-Reply",
+    "uc.tab5_desc": "Handles repetitive questions instantly",
+    "uc.tab6": "Out-of-Scope Handling",
+    "uc.tab6_desc": "Knows its limits, hands off with full context",
+    "uc.mid_cta_heading": "See DealDroid Handle Your Use Case →",
+    "uc.mid_cta_link": "https://cal.com",
+    "uc.store_name": "TechGear SG",
+    "uc.chat_customer": "Hi! I'm interested in your products",
+    "uc.chat_bot":
+      "Hey there! Welcome to TechGear SG 🎉\n\nWe're an authorized dealer for premium electronics — 100% authentic with full local warranty and free delivery across Singapore!\n\nWhat are you looking for today?\n\n🎧 Headphones & Audio\n📷 Cameras & Drones\n📱 Accessories",
+  },
+  th: {
+    "uc.badge": "Conversation Use Cases",
+    "uc.heading": "จากทักครั้งแรก จนปิดการขาย",
+    "uc.subheading": "สถานการณ์จริงที่ DealDroid AI พร้อมรับมือ",
+    "uc.tab1": "ทักครั้งแรก",
+    "uc.tab1_desc":
+      'ต้อนรับด้วย Brand Voice + ข้อมูลร้าน\n\n✅ ลูกค้ารู้สึก "มั่นใจ" ตั้งแต่ข้อความแรก และพร้อมคุยต่อ',
+    "uc.tab2": "แนะนำสินค้า",
+    "uc.tab2_desc": "จับความต้องการ + แนะนำตัวเลือกที่ใช่",
+    "uc.tab3": "โน้มน้าวไปในทางปิดการขาย",
+    "uc.tab3_desc":
+      'แก้ข้อกังวล ชี้ความคุ้มค่า เปลี่ยน "ลังเล" เป็น "พร้อมซื้อ"',
+    "uc.tab4": "ปิดการขาย",
+    "uc.tab4_desc":
+      "สรุปออเดอร์ ถามข้อมูลจัดส่ง คำนวนค่าจัดส่ง และแจ้งวิธีชำระเงิน",
+    "uc.tab5": "ตอบคำถามทั่วไป",
+    "uc.tab5_desc": "ตอบคำถามซ้ำๆ ที่ลูกค้าถามบ่อย",
+    "uc.tab6": "เคสนอกขอบเขต",
+    "uc.tab6_desc": "รู้ขีดจำกัดตัวเอง ส่งต่อให้ Supervisor",
+    "uc.mid_cta_heading": "อยากดูตัวอย่างที่ตรงกับธุรกิจคุณ?",
+    "uc.mid_cta_desc":
+      "นัดคุยวิเคราะห์ Inbox ฟรี 30 นาที แล้วเราจะ Demo ให้ตรงเคสของคุณเลย",
+    "uc.mid_cta_button": "นัดคุยวิเคราะห์ Inbox ฟรี",
+    "uc.mid_cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "uc.store_name": "DJI 13 Store",
+    "uc.chat_customer": "สวัสดีค่ะ สนใจสินค้า อยากสอบถามหน่อย",
+    "uc.chat_bot":
+      "สวัสดีครับ! ยินดีต้อนรับสู่ DJI 13 Store 🎉\n\nเราเป็นตัวแทนจำหน่าย DJI อย่างเป็นทางการ ของแท้ 100% พร้อมรับประกันศูนย์และส่งฟรีทั่วไทยครับ\n\nวันนี้สนใจสินค้าประเภทไหนเป็นพิเศษครับ?\n\n🚁 โดรน\n📷 กล้อง Action Camera\n🎒 อุปกรณ์เสริม",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const tabs = [
+  { key: "tab1", title: p("uc.tab1"), desc: p("uc.tab1_desc") },
+  { key: "tab2", title: p("uc.tab2"), desc: p("uc.tab2_desc") },
+  { key: "tab3", title: p("uc.tab3"), desc: p("uc.tab3_desc") },
+  { key: "tab4", title: p("uc.tab4"), desc: p("uc.tab4_desc") },
+  { key: "tab5", title: p("uc.tab5"), desc: p("uc.tab5_desc") },
+  { key: "tab6", title: p("uc.tab6"), desc: p("uc.tab6_desc") },
+];
+---
+
+<section class="py-16 bg-slate-50">
+  <Container>
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span
+        class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+        {p("uc.badge")}
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+        {p("uc.heading")}
+      </h2>
+      <p class="text-lg text-slate-600">{p("uc.subheading")}</p>
+    </div>
+
+    <!-- Tabbed Use Cases -->
+    <div class="max-w-4xl mx-auto" x-data="{ activeTab: 'tab1' }">
+      <!-- Tab buttons -->
+      <div class="flex flex-wrap gap-2 justify-center mb-8">
+        {
+          tabs.map((tab) => (
+            <button
+              x-on:click={`activeTab = '${tab.key}'`}
+              x-bind:class={`activeTab === '${tab.key}' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'`}
+              class="px-4 py-2 text-sm font-medium rounded-full border transition-colors">
+              {tab.title}
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- Tab content -->
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <!-- Description -->
+        <div>
+          {
+            tabs.map((tab) => (
+              <div x-show={`activeTab === '${tab.key}'`} x-cloak>
+                <h3 class="text-xl font-bold text-slate-900 mb-3">
+                  {tab.title}
+                </h3>
+                <p class="text-slate-600 whitespace-pre-line">{tab.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Chat Mockup -->
+        <div
+          class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden max-w-sm mx-auto w-full">
+          <!-- Chat Header -->
+          <div
+            class="bg-indigo-600 text-white px-4 py-3 flex items-center gap-3">
+            <div
+              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
+              {p("uc.store_name").charAt(0)}
+            </div>
+            <div>
+              <div class="font-semibold text-sm">{p("uc.store_name")}</div>
+            </div>
+          </div>
+          <!-- Messages -->
+          <div class="p-4 space-y-3 bg-slate-50 min-h-[260px]">
+            <div class="flex justify-end">
+              <div
+                class="bg-indigo-500 text-white rounded-2xl rounded-br-md px-4 py-2 text-sm max-w-[80%]">
+                {p("uc.chat_customer")}
+              </div>
+            </div>
+            <div class="flex justify-start">
+              <div
+                class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2 text-sm max-w-[85%] text-slate-700 whitespace-pre-line shadow-sm">
+                {p("uc.chat_bot")}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mid CTA -->
+    <div
+      class="mt-14 text-center bg-white rounded-2xl border border-slate-200 p-8 max-w-2xl mx-auto shadow-sm">
+      <h3 class="text-xl font-bold text-slate-900 mb-2">
+        {p("uc.mid_cta_heading")}
+      </h3>
+      {
+        lang === "th" && (
+          <p class="text-slate-600 mb-6">{p("uc.mid_cta_desc")}</p>
+        )
+      }
+      <Link href={p("uc.mid_cta_link")} size="lg" style="primary">
+        {lang === "th" ? p("uc.mid_cta_button") : p("uc.mid_cta_heading")}
+      </Link>
+    </div>
+  </Container>
+</section>
+
+<!-- Alpine.js for tabs (loaded once) -->
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+  defer></script>
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>
