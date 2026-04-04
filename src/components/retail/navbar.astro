@@ -2,6 +2,7 @@
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import { StickyHeader, Astronav } from "astro-navbar";
+import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import logoImage from "../../assets/logo.svg";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
@@ -46,39 +47,21 @@ const translatePath = useTranslatedPath(lang);
           class="text-slate-600">Droid</span
         >
       </a>
-      <div class="flex items-center gap-3">
+      <div class="hidden sm:flex items-center gap-3">
         <Link
           href={`${translatePath("/retail")}#proof`}
           size="sm"
           style="outline"
           class="inline-flex items-center group gap-px">
           <span>{p("nav.cta_results")}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform">
-            <path
-              fill-rule="evenodd"
-              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clip-rule="evenodd"></path>
-          </svg>
+          <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
         </Link>
         <Link
           href={p("nav.cta_link")}
           size="sm"
           class="inline-flex items-center group gap-px">
           <span>{p("nav.cta_audit")}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform">
-            <path
-              fill-rule="evenodd"
-              d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-              clip-rule="evenodd"></path>
-          </svg>
+          <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>
     </div>
