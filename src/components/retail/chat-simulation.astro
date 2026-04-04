@@ -1,12 +1,13 @@
 ---
 /**
  * ChatSimulation - Reusable animated chat mockup component.
- * Messages appear one by one with typing animation.
+ * Supports multiple conversation sets that cycle with fade transitions.
  *
  * Props:
  *   storeName: string — Chat header store name
- *   messages: Array<{ sender: 'bot' | 'customer', text: string }> — Chat messages
+ *   conversations: Array<Array<{ sender: 'bot' | 'customer', text: string }>> — Multiple conversation sets
  *   typingDelay?: number — ms between messages (default 1500)
+ *   pauseBetween?: number — ms pause between conversation sets (default 3000)
  */
 interface Message {
   sender: "bot" | "customer";
@@ -15,22 +16,30 @@ interface Message {
 
 interface Props {
   storeName: string;
-  messages: Message[];
+  conversations: Message[][];
   typingDelay?: number;
+  pauseBetween?: number;
 }
 
-const { storeName, messages, typingDelay = 1500 } = Astro.props;
+const {
+  storeName,
+  conversations,
+  typingDelay = 1500,
+  pauseBetween = 3000,
+} = Astro.props;
 ---
 
 <div
   class="chat-simulation bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-w-sm w-full"
-  data-delay={typingDelay}>
+  data-delay={typingDelay}
+  data-pause={pauseBetween}
+  data-conversations={JSON.stringify(conversations)}>
   <!-- Chat Header -->
   <div
     class="bg-white border-b text-slate-900 px-4 py-3 flex items-center gap-3">
     <div
-      class="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold backdrop-blur-sm">
-      {storeName.charAt(0)}
+      class="w-9 h-9 bg-indigo-50 rounded-full flex items-center justify-center backdrop-blur-sm">
+      <img src="/favicon.svg" alt="DealDroid" class="w-6 h-6" />
     </div>
     <div class="flex-1">
       <div class="font-semibold text-sm">{storeName}</div>
@@ -40,30 +49,17 @@ const { storeName, messages, typingDelay = 1500 } = Astro.props;
       </div>
     </div>
   </div>
-  <!-- Chat Messages -->
-  <div class="chat-messages p-4 space-y-3 h-[360px] bg-slate-50">
-    {
-      messages.map((msg, i) => (
-        <div
-          class:list={[
-            "chat-bubble flex",
-            msg.sender === "customer" ? "justify-end" : "justify-start",
-          ]}
-          data-index={i}>
-          <div
-            class:list={[
-              "rounded-2xl px-4 py-2.5 text-sm max-w-[85%] whitespace-pre-line",
-              msg.sender === "customer"
-                ? "bg-indigo-500 text-white rounded-br-md"
-                : "bg-white border border-slate-200 text-slate-700 rounded-bl-md shadow-sm",
-            ]}>
-            {msg.text}
-          </div>
-        </div>
-      ))
-    }
-    <!-- Typing indicator (hidden by default, shown via JS) -->
-    <div class="chat-typing hidden justify-start" aria-hidden="true">
+  <!-- Chat Messages (rendered dynamically by JS) -->
+  <div
+    class="chat-messages p-4 space-y-3 h-[360px] bg-slate-50 overflow-hidden">
+    <!-- Typing indicator -->
+    <div
+      class="chat-typing hidden justify-start items-end gap-2"
+      aria-hidden="true">
+      <div
+        class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
+        <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+      </div>
       <div
         class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
         <div class="flex gap-1 items-center">
@@ -83,6 +79,13 @@ const { storeName, messages, typingDelay = 1500 } = Astro.props;
 </div>
 
 <style>
+  .chat-messages {
+    transition: opacity 0.4s ease;
+  }
+  .chat-messages.fading {
+    opacity: 0;
+  }
+
   .chat-bubble {
     opacity: 0;
     transform: translateY(8px);
@@ -123,27 +126,103 @@ const { storeName, messages, typingDelay = 1500 } = Astro.props;
 </style>
 
 <script>
+  function createBubble(msg: { sender: string; text: string }): HTMLElement {
+    const wrapper = document.createElement("div");
+    const isCustomer = msg.sender === "customer";
+    wrapper.className = `chat-bubble flex gap-2 ${isCustomer ? "justify-end" : "justify-start items-end"}`;
+    wrapper.style.opacity = "0";
+    wrapper.style.transform = "translateY(8px)";
+    wrapper.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+
+    if (!isCustomer) {
+      const avatar = document.createElement("div");
+      avatar.className =
+        "w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50";
+      avatar.innerHTML =
+        '<img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />';
+      wrapper.appendChild(avatar);
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = `rounded-2xl px-4 py-2.5 text-sm max-w-[85%] whitespace-pre-line ${
+      isCustomer
+        ? "bg-indigo-500 text-white rounded-br-md"
+        : "bg-white border border-slate-200 text-slate-700 rounded-bl-md shadow-sm"
+    }`;
+    bubble.textContent = msg.text;
+    wrapper.appendChild(bubble);
+
+    return wrapper;
+  }
+
   function initChatSimulations() {
     document.querySelectorAll(".chat-simulation").forEach((container) => {
-      // Skip if already initialized
       if (container.hasAttribute("data-initialized")) return;
       container.setAttribute("data-initialized", "true");
 
       const delay = parseInt(container.getAttribute("data-delay") || "1500");
-      const bubbles = container.querySelectorAll<HTMLElement>(".chat-bubble");
+      const pause = parseInt(
+        container.getAttribute("data-pause") || "3000",
+      );
+      const conversations: { sender: string; text: string }[][] = JSON.parse(
+        container.getAttribute("data-conversations") || "[]",
+      );
+
+      if (!conversations.length) return;
+
+      const messagesContainer = container.querySelector(
+        ".chat-messages",
+      ) as HTMLElement;
       const typingIndicator = container.querySelector(
         ".chat-typing",
       ) as HTMLElement | null;
 
+      let currentSet = 0;
       let isVisible = false;
 
-      // Use IntersectionObserver to start animation when visible
+      function showConversation(index: number) {
+        // Fade out existing messages
+        messagesContainer.classList.add("fading");
+
+        setTimeout(() => {
+          // Remove old bubbles (keep typing indicator)
+          const oldBubbles =
+            messagesContainer.querySelectorAll(".chat-bubble");
+          oldBubbles.forEach((b) => b.remove());
+
+          messagesContainer.classList.remove("fading");
+
+          // Create new bubbles
+          const conversation = conversations[index];
+          const bubbles: HTMLElement[] = [];
+
+          conversation.forEach((msg) => {
+            const bubble = createBubble(msg);
+            if (typingIndicator) {
+              messagesContainer.insertBefore(bubble, typingIndicator);
+            } else {
+              messagesContainer.appendChild(bubble);
+            }
+            bubbles.push(bubble);
+          });
+
+          // Animate them in
+          animateMessages(bubbles, typingIndicator, delay, () => {
+            // After all messages shown, pause then move to next set
+            setTimeout(() => {
+              currentSet = (currentSet + 1) % conversations.length;
+              showConversation(currentSet);
+            }, pause);
+          });
+        }, 400);
+      }
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting && !isVisible) {
               isVisible = true;
-              animateMessages(bubbles, typingIndicator, delay);
+              showConversation(currentSet);
               observer.disconnect();
             }
           });
@@ -156,27 +235,32 @@ const { storeName, messages, typingDelay = 1500 } = Astro.props;
   }
 
   function animateMessages(
-    bubbles: NodeListOf<HTMLElement>,
+    bubbles: HTMLElement[],
     typingIndicator: HTMLElement | null,
     delay: number,
+    onComplete?: () => void,
   ) {
     bubbles.forEach((bubble, index) => {
       const typingDuration = Math.min(delay * 0.6, 800);
 
       setTimeout(() => {
-        // Show typing indicator before message
         if (typingIndicator) {
           typingIndicator.classList.remove("hidden");
           typingIndicator.classList.add("flex");
         }
 
         setTimeout(() => {
-          // Hide typing, show message
           if (typingIndicator) {
             typingIndicator.classList.add("hidden");
             typingIndicator.classList.remove("flex");
           }
           bubble.classList.add("visible");
+          bubble.style.opacity = "1";
+          bubble.style.transform = "translateY(0)";
+
+          if (index === bubbles.length - 1 && onComplete) {
+            onComplete();
+          }
         }, typingDuration);
       }, index * delay);
     });

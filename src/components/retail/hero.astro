@@ -88,16 +88,90 @@ const stats = [
   { value: p("hero.stat4_value"), label: p("hero.stat4_label") },
 ];
 
-const chatMessages = [
-  { sender: "customer" as const, text: p("hero.chat_msg1") },
-  { sender: "bot" as const, text: p("hero.chat_reply1") },
-  { sender: "customer" as const, text: p("hero.chat_msg2") },
-];
+type Msg = { sender: "bot" | "customer"; text: string };
+
+const chatConversations: Msg[][] =
+  lang === "th"
+    ? [
+        // Set A - สอบถามของแท้
+        [
+          { sender: "customer", text: "ของแท้ไหมคะ กลัวของปลอมอ่ะ" },
+          {
+            sender: "bot",
+            text: "แท้ 100% ค่ะ! เราเป็นตัวแทนจำหน่ายอย่างเป็นทางการ\n\n✅ รับประกัน 1 ปี\n✅ ออกใบเสร็จให้\n✅ สั่งซื้อมาจากผู้แจกจ่ายที่ได้รับอนุญาตโดยตรง\n\nซื้อกับเราสบายใจได้เลยค่ะ 😊",
+          },
+        ],
+        // Set B - สอบถามราคา
+        [
+          {
+            sender: "customer",
+            text: "DJI Mini 4 Pro ราคาเท่าไหร่คะ?",
+          },
+          {
+            sender: "bot",
+            text: "DJI Mini 4 Pro ราคา 27,990 บาทครับ\nตอนนี้ซื้อคู่กับ DJI RC 2 ลดเพิ่มอีก 2,000 บาท!\n\n📦 เหลือ 3 ตัวสุดท้ายครับ",
+          },
+          {
+            sender: "customer",
+            text: "ขอดูรูปหน่อยได้มั้ยค่ะ",
+          },
+        ],
+        // Set C - สอบถามสาขา
+        [
+          {
+            sender: "customer",
+            text: "มีหน้าร้านให้แวะชมไหมคะ?",
+          },
+          {
+            sender: "bot",
+            text: "มีค่ะ! มี 2 สาขา:\n\n📍 สาขาทองหล่อ\nเปิด 11:00–21:00 ทุกวัน\n📞 02-123-4567\n\n📍 สาขาเซ็นทรัล เวิลด์\nเปิด 10:00–22:00 ทุกวัน\n📞 02-789-0123\n\nแวะมาเลือกชมได้เลยค่ะ 😊",
+          },
+        ],
+      ]
+    : [
+        // Set A - Authenticity concern
+        [
+          {
+            sender: "customer",
+            text: "Is this authentic? I'm worried about fakes",
+          },
+          {
+            sender: "bot",
+            text: "100% authentic! We're an authorized retailer.\n\n✅ 1-year warranty\n✅ Official receipt provided\n✅ Sourced directly from authorized distributors\n\nShop with confidence! 😊",
+          },
+        ],
+        // Set B - Price inquiry + deal close
+        [
+          {
+            sender: "customer",
+            text: "Hi! How much is the Sony WH-1000XM5?",
+          },
+          {
+            sender: "bot",
+            text: "Hey there! 👋 The Sony WH-1000XM5 is S$449.\n\n🎧 Right now we have a bundle deal — get a free carrying case worth S$59!\n\n📦 Only 5 left in stock.",
+          },
+          {
+            sender: "customer",
+            text: "Deal! I'll take one.",
+          },
+        ],
+        // Set C - Store visit
+        [
+          {
+            sender: "customer",
+            text: "Do you have stores I can visit?",
+          },
+          {
+            sender: "bot",
+            text: "Yes! We have 2 locations:\n\n📍 Orchard Central\nOpen 11am–9pm daily\n📞 +65 6123 4567\n\n📍 VivoCity\nOpen 10am–10pm daily\n📞 +65 6789 0123\n\nWelcome anytime! 😊",
+          },
+        ],
+      ];
 ---
 
 <section class="bg-white pt-8 pb-16 overflow-hidden">
   <Container>
-    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <div class="py-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Left: Copy -->
       <div class="text-center lg:text-left">
         <!-- Badge -->
@@ -130,8 +204,7 @@ const chatMessages = [
         <!-- Channel Icons -->
         <div
           class="mt-6 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
-          <span
-            class="text-sm text-slate-400 font-medium"
+          <span class="text-sm text-slate-400 font-medium"
             >{p("hero.channels_label")}</span
           >
           <div class="flex flex-wrap items-center gap-3">
@@ -139,7 +212,9 @@ const chatMessages = [
               channels.map((ch) => (
                 <div class="flex items-center gap-1.5">
                   <img src={ch.icon} alt={ch.name} class="w-5 h-5 shrink-0" />
-                  <span class="text-xs font-medium text-slate-400">{ch.name}</span>
+                  <span class="text-xs font-medium text-slate-400">
+                    {ch.name}
+                  </span>
                 </div>
               ))
             }
@@ -151,21 +226,22 @@ const chatMessages = [
       <div class="flex justify-center lg:-ml-4">
         <ChatSimulation
           storeName={p("hero.store_name")}
-          messages={chatMessages}
+          conversations={chatConversations}
+          pauseBetween={3000}
         />
       </div>
     </div>
 
     <!-- Stats Strip — prominent, no card borders, with divider above -->
-    <div class="mt-14 pt-8 border-t border-slate-200">
+    <div class="mt-14 pt-16 border-t border-slate-200">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
         {
           stats.map((stat) => (
-            <div class="text-center">
-              <div class="text-3xl md:text-4xl font-extrabold text-indigo-600">
+            <div class="text-start">
+              <div class="text-3xl md:text-4xl font-bold text-indigo-600">
                 {stat.value}
               </div>
-              <div class="text-sm text-slate-500 mt-1.5">{stat.label}</div>
+              <div class="text-md text-slate-500 mt-1.5">{stat.label}</div>
             </div>
           ))
         }
