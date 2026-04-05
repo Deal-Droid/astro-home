@@ -79,13 +79,14 @@ const faqItems = [
 ];
 ---
 
-<Container>
-  <Sectionhead>
-    <Fragment slot="title">{p("faq.title")}</Fragment>
-    <Fragment slot="desc">{p("faq.desc")}</Fragment>
-  </Sectionhead>
+<section class="py-16 sm:py-24 bg-white">
+  <Container>
+    <Sectionhead>
+      <Fragment slot="title">{p("faq.title")}</Fragment>
+      <Fragment slot="desc">{p("faq.desc")}</Fragment>
+    </Sectionhead>
 
-  <div class="grid divide-y divide-neutral-200 max-w-2xl mx-auto mt-8">
+    <div class="grid divide-y divide-neutral-200 max-w-2xl mx-auto mt-8">
     {
       faqItems.map((item) => (
         <div class="py-5">
@@ -96,7 +97,7 @@ const faqItems = [
                 <ArrowIcon />
               </span>
             </summary>
-            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn text-sm">
+            <p class="text-neutral-600 mt-3 group-open:animate-fadeIn text-base">
               {item.a}
             </p>
           </details>
@@ -104,4 +105,5 @@ const faqItems = [
       ))
     }
   </div>
-</Container>
+  </Container>
+</section>
