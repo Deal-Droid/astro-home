@@ -1,40 +1,33 @@
 ---
 import Container from "@components/container.astro";
+import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
 
 const page_ui: UILanguages = {
   en: {
     "fg.heading": "Everything a great salesperson does — at scale",
-    "fg.f1_icon": "⏰",
     "fg.f1_title": "Instant replies, 24/7",
     "fg.f1_desc":
       "Responds within 10 seconds, round the clock — weekends, holidays, 3 AM",
-    "fg.f2_icon": "🎯",
     "fg.f2_title": "Product recommendations",
     "fg.f2_desc":
       "Analyzes customer needs, understands your catalog, and recommends or upsells on point",
-    "fg.f3_icon": "🎤",
     "fg.f3_title": "Your brand voice",
     "fg.f3_desc":
       "Replies in your tone and personality — consistent, on-brand, every time",
-    "fg.f4_icon": "🔥",
     "fg.f4_title": "Qualifies & hands off hot leads",
     "fg.f4_desc":
       "Detects high-intent buyers and sends instant alerts to your team to close the deal",
-    "fg.f5_icon": "❓",
     "fg.f5_title": "Auto-answers FAQs",
     "fg.f5_desc":
       "Pricing, delivery, warranty, store hours — handled instantly without human effort",
-    "fg.f6_icon": "🌍",
     "fg.f6_title": "118+ languages",
     "fg.f6_desc":
       "Serve international customers instantly — English, Mandarin, Malay, and beyond",
-    "fg.f7_icon": "🤝",
     "fg.f7_title": "Smart human handoff",
     "fg.f7_desc":
       "When AI hits its limit, it passes to your team with full context — no awkward gaps",
-    "fg.f8_icon": "📱",
     "fg.f8_title": "All your channels, one AI",
     "fg.f8_desc":
       "Messenger, WhatsApp, Instagram, Shopee, Lazada, website — no migration needed",
@@ -43,33 +36,25 @@ const page_ui: UILanguages = {
   },
   th: {
     "fg.heading": "ทุกอย่างที่ Sales ที่ดีต้องทำได้",
-    "fg.f1_icon": "⏰",
     "fg.f1_title": "ตอบทันที 24 ชั่วโมง",
     "fg.f1_desc": "Reply ภายใน 10 วินาที 24 ช.ม ทุกวันไม่เว้นวันหยุด",
-    "fg.f2_icon": "🎯",
     "fg.f2_title": "Recommend สินค้าได้",
     "fg.f2_desc":
       "วิเคราะห์ความต้องการของลูกค้า เข้าใจ catalog ที่มีอยู่ แล้วแนะนำ หรือ upsell ได้ตรงตามโจทย์",
-    "fg.f3_icon": "🎤",
     "fg.f3_title": "Brand Voice ของคุณเอง",
     "fg.f3_desc":
       "ตอบในน้ำเสียงที่คุณต้องการ ของความเป็นเอกลักษณ์ของ Brand คุณ",
-    "fg.f4_icon": "🔥",
     "fg.f4_title": "กรองลูกค้าตัวจริงพร้อมจ่าย และส่งต่อทีม",
     "fg.f4_desc":
       'ตรวจจับ "High-intent Buyers" และส่ง Alert ให้ทีมปิดการขายในทันที',
-    "fg.f5_icon": "❓",
     "fg.f5_title": "ตอบ FAQ อัตโนมัติ",
     "fg.f5_desc": "ราคา, ค่าจัดส่ง, ประกัน.. ถามบ่อยแค่ไหน bot ก็ตอบได้ทันที",
-    "fg.f6_icon": "🌍",
     "fg.f6_title": "รองรับ 118+ ภาษา",
     "fg.f6_desc":
       "รับลูกค้าต่างชาติได้ทันที แก้ปัญหา Admin ไม่กล้ารับภาษาอื่นๆ",
-    "fg.f7_icon": "🤝",
     "fg.f7_title": "ส่งให้มนุษย์ เมื่อต้องส่ง",
     "fg.f7_desc":
       "เมื่อ AI เจอเคสพิเศษ หรือเกินขอบเขต จะไม่ตอบเอง ส่งต่อให้ทีมอย่างราบรื่น",
-    "fg.f8_icon": "📱",
     "fg.f8_title": "เชื่อมต่อ Facebook, LINE OA, Website หรือ Instagram",
     "fg.f8_desc":
       "พร้อมรับลูกค้าใน ช่องทางที่คุณขายอยู่แล้ว ไม่ต้องย้ายระบบ ไม่ต้องย้ายลูกค้า",
@@ -83,42 +68,42 @@ const p = usePageTranslations(lang, page_ui);
 
 const features = [
   {
-    icon: p("fg.f1_icon"),
+    icon: "solar:fire-bold-duotone",
     title: p("fg.f1_title"),
     desc: p("fg.f1_desc"),
   },
   {
-    icon: p("fg.f2_icon"),
+    icon: "solar:box-bold-duotone",
     title: p("fg.f2_title"),
     desc: p("fg.f2_desc"),
   },
   {
-    icon: p("fg.f3_icon"),
+    icon: "solar:notebook-bold-duotone",
     title: p("fg.f3_title"),
     desc: p("fg.f3_desc"),
   },
   {
-    icon: p("fg.f4_icon"),
+    icon: "solar:chat-round-like-bold-duotone",
     title: p("fg.f4_title"),
     desc: p("fg.f4_desc"),
   },
   {
-    icon: p("fg.f5_icon"),
+    icon: "solar:tag-price-bold-duotone",
     title: p("fg.f5_title"),
     desc: p("fg.f5_desc"),
   },
   {
-    icon: p("fg.f6_icon"),
+    icon: "solar:chat-round-call-bold-duotone",
     title: p("fg.f6_title"),
     desc: p("fg.f6_desc"),
   },
   {
-    icon: p("fg.f7_icon"),
+    icon: "solar:shield-check-bold-duotone",
     title: p("fg.f7_title"),
     desc: p("fg.f7_desc"),
   },
   {
-    icon: p("fg.f8_icon"),
+    icon: "solar:point-on-map-perspective-bold-duotone",
     title: p("fg.f8_title"),
     desc: p("fg.f8_desc"),
   },
@@ -136,7 +121,9 @@ const features = [
       {
         features.map((feature) => (
           <div class="bg-white rounded-xl border border-slate-200 p-6 hover:shadow-md transition-shadow">
-            <div class="text-3xl mb-3">{feature.icon}</div>
+            <div class="text-3xl mb-3 text-indigo-600">
+              <Icon name={feature.icon} />
+            </div>
             <h3 class="font-bold text-slate-900 mb-2 text-sm">
               {feature.title}
             </h3>
