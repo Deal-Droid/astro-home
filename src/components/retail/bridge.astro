@@ -12,10 +12,13 @@ const page_ui: UILanguages = {
     "bridge.heading": "DealDroid AI",
     "bridge.subtitle":
       "Your always-online sales assistant — never on leave, never off-duty, never stops selling.",
-    "bridge.b1": "An AI Sales Agent trained as a 'pro salesperson' for your specific business",
-    "bridge.b2": "Handles chat surges during campaign peaks — no lead left behind",
+    "bridge.b1":
+      "An AI Sales Agent trained as a 'pro salesperson' for your specific business",
+    "bridge.b2":
+      "Handles chat surges during campaign peaks — no lead left behind",
     "bridge.b3": "Speaks in your brand voice, every single time",
-    "bridge.b4": "Closes sales, not just answers questions — built for conversion",
+    "bridge.b4":
+      "Closes sales, not just answers questions — built for conversion",
     "bridge.b5": "118+ languages supported, no extra headcount needed",
     "bridge.cta": "Request a Live Demo",
     "bridge.cta_link": "https://cal.com",
@@ -26,7 +29,8 @@ const page_ui: UILanguages = {
     "bridge.heading": "DealDroid AI",
     "bridge.subtitle":
       "พนักงานขาย AI ที่ไม่มีวันหยุด — ไม่เคยลา ไม่เคยออฟไลน์ ขายให้ตลอด 24 ชั่วโมง",
-    "bridge.b1": "AI Sales Agent ที่ถูกฝึกมาเป็น 'พนักงานขายมืออาชีพ' เฉพาะธุรกิจคุณ",
+    "bridge.b1":
+      "AI Sales Agent ที่ถูกฝึกมาเป็น 'พนักงานขายมืออาชีพ' เฉพาะธุรกิจคุณ",
     "bridge.b2": "รองรับแชทพุ่งช่วงแคมเปญ — ไม่พลาดทุกลูกค้า",
     "bridge.b3": "ตอบด้วยเสียงแบรนด์คุณ ทุกครั้งเหมือนกัน",
     "bridge.b4": "ปิดการขาย ไม่ใช่แค่ตอบคำถาม — สร้างมาเพื่อ Conversion",
@@ -161,7 +165,8 @@ const whatsappConversation: Msg[][] =
       <div>
         <!-- Badge -->
         <div class="mb-4">
-          <span class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+          <span
+            class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
             {p("bridge.badge")}
           </span>
         </div>
@@ -188,9 +193,25 @@ const whatsappConversation: Msg[][] =
         </div>
 
         <!-- CTA -->
-        <Link href={p("bridge.cta_link")} size="lg" style="primary" class="inline-flex items-center gap-2">
+        <Link
+          href={p("bridge.cta_link")}
+          size="lg"
+          style="primary"
+          class="inline-flex items-center gap-2">
           {p("bridge.cta")}
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+              points="12 5 19 12 12 19"></polyline></svg
+          >
         </Link>
       </div>
 
@@ -200,7 +221,7 @@ const whatsappConversation: Msg[][] =
           storeName={p("bridge.store_name")}
           conversations={whatsappConversation}
           theme="whatsapp"
-          typingDelay={1200}
+          typingDelay={2000}
           pauseBetween={10000}
         />
       </div>
