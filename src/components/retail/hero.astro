@@ -9,7 +9,6 @@ import lineSvg from "@assets/channels/line.svg";
 import whatsappSvg from "@assets/channels/whatsapp.svg";
 import instagramSvg from "@assets/channels/instagram.svg";
 import websiteSvg from "@assets/channels/website.svg";
-import shopeeSvg from "@assets/channels/shopee.svg";
 
 const page_ui: UILanguages = {
   en: {
@@ -64,22 +63,13 @@ const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
 const translatePath = useTranslatedPath(lang);
 
-const channels =
-  lang === "th"
-    ? [
-        { name: "Messenger", icon: messengerSvg.src },
-        { name: "LINE", icon: lineSvg.src },
-        { name: "WhatsApp", icon: whatsappSvg.src },
-        { name: "Instagram", icon: instagramSvg.src },
-        { name: "Website", icon: websiteSvg.src },
-      ]
-    : [
-        { name: "Messenger", icon: messengerSvg.src },
-        { name: "WhatsApp", icon: whatsappSvg.src },
-        { name: "Instagram", icon: instagramSvg.src },
-        { name: "Website", icon: websiteSvg.src },
-        { name: "Shopee", icon: shopeeSvg.src },
-      ];
+const channels = [
+  { name: "Messenger", icon: messengerSvg.src },
+  { name: "LINE", icon: lineSvg.src },
+  { name: "WhatsApp", icon: whatsappSvg.src },
+  { name: "Instagram", icon: instagramSvg.src },
+  { name: "Website", icon: websiteSvg.src },
+];
 
 const stats = [
   { value: p("hero.stat1_value"), label: p("hero.stat1_label") },
