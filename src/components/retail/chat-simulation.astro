@@ -8,6 +8,7 @@
  *   conversations: Array<Array<{ sender: 'bot' | 'customer', text: string }>> — Multiple conversation sets
  *   typingDelay?: number — ms between messages (default 1500)
  *   pauseBetween?: number — ms pause between conversation sets (default 3000)
+ *   theme?: 'default' | 'whatsapp' — Visual theme (default 'default')
  */
 interface Message {
   sender: "bot" | "customer";
@@ -19,6 +20,7 @@ interface Props {
   conversations: Message[][];
   typingDelay?: number;
   pauseBetween?: number;
+  theme?: "default" | "whatsapp";
 }
 
 const {
@@ -26,59 +28,127 @@ const {
   conversations,
   typingDelay = 1500,
   pauseBetween = 3000,
+  theme = "default",
 } = Astro.props;
+
+const isWhatsapp = theme === "whatsapp";
 ---
 
 <div
-  class="chat-simulation bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden max-w-sm w-full"
+  class:list={[
+    "chat-simulation flex flex-col rounded-2xl shadow-2xl overflow-hidden max-w-sm w-full h-[530px]",
+    isWhatsapp
+      ? "border border-slate-200"
+      : "bg-white border border-slate-200",
+  ]}
   data-delay={typingDelay}
   data-pause={pauseBetween}
-  data-conversations={JSON.stringify(conversations)}>
+  data-theme={theme}
+  data-conversations={JSON.stringify(conversations)}
+>
   <!-- Chat Header -->
-  <div
-    class="bg-white border-b text-slate-900 px-4 py-3 flex items-center gap-3">
-    <div
-      class="w-9 h-9 bg-indigo-50 rounded-full flex items-center justify-center backdrop-blur-sm">
-      <img src="/favicon.svg" alt="DealDroid" class="w-6 h-6" />
-    </div>
-    <div class="flex-1">
-      <div class="font-semibold text-sm">{storeName}</div>
-      <div class="flex items-center gap-1 text-xs text-indigo-400">
-        <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
-        online
+  {isWhatsapp ? (
+    <div class="shrink-0 bg-[#075E54] px-3 py-2.5 flex items-center gap-2.5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      <div class="w-9 h-9 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden">
+        <img src="/favicon.svg" alt={storeName} class="w-6 h-6" />
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-medium text-sm text-white truncate">{storeName}</div>
+        <div class="text-[11px] text-green-200">online</div>
+      </div>
+      <div class="flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
       </div>
     </div>
-  </div>
-  <!-- Chat Messages (rendered dynamically by JS) -->
-  <div
-    class="chat-messages p-4 space-y-3 h-[360px] bg-slate-50 overflow-hidden">
-    <!-- Typing indicator -->
-    <div
-      class="chat-typing hidden justify-start items-end gap-2"
-      aria-hidden="true">
-      <div
-        class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
-        <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+  ) : (
+    <div class="shrink-0 bg-white border-b text-slate-900 px-4 py-3 flex items-center gap-3">
+      <div class="w-9 h-9 bg-indigo-50 rounded-full flex items-center justify-center backdrop-blur-sm">
+        <img src="/favicon.svg" alt="DealDroid" class="w-6 h-6" />
       </div>
-      <div
-        class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
-        <div class="flex gap-1 items-center">
-          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
-          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
-          <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+      <div class="flex-1">
+        <div class="font-semibold text-sm">{storeName}</div>
+        <div class="flex items-center gap-1 text-xs text-indigo-400">
+          <span class="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
+          online
         </div>
       </div>
     </div>
-  </div>
-  <!-- Chat Input Bar -->
+  )}
+
+  <!-- Chat Messages: flex-1 fills remaining space -->
   <div
-    class="bg-white border-t border-slate-200 px-4 py-2.5 flex items-center gap-2">
-    <span class="text-xs text-slate-400 flex-1">Aa</span>
-    <span class="text-lg">😊</span>
+    class:list={[
+      "chat-messages flex-1 min-h-0 p-4 flex flex-col gap-3 overflow-y-auto no-scrollbar",
+      isWhatsapp ? "bg-[#ECE5DD]" : "bg-slate-50",
+    ]}
+  >
+    <div class="chat-spacer flex-grow"></div>
+    <!-- Typing Indicator: inside scroll area, opacity-only show/hide so height never changes -->
+    <div class="chat-typing" aria-hidden="true">
+      <!-- Default bot indicator so container has height from the start -->
+      {isWhatsapp ? (
+        <div class="flex items-end gap-2">
+          <div class="bg-[#DCF8C6] rounded-2xl rounded-bl-sm px-4 py-2.5">
+            <div class="flex gap-1 items-center">
+              <span class="typing-dot w-2 h-2 bg-slate-500 rounded-full"></span>
+              <span class="typing-dot w-2 h-2 bg-slate-500 rounded-full"></span>
+              <span class="typing-dot w-2 h-2 bg-slate-500 rounded-full"></span>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div class="flex items-end gap-2">
+          <div class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
+            <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+          </div>
+          <div class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-sm">
+            <div class="flex gap-1 items-center">
+              <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+              <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+              <span class="typing-dot w-2 h-2 bg-slate-400 rounded-full"></span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   </div>
+
+  <!-- Chat Input Bar -->
+  {isWhatsapp ? (
+    <div class="shrink-0 bg-[#F0F0F0] px-2 py-1.5 flex items-center gap-1">
+      <button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-200 text-slate-500 transition-colors" aria-label="Emoji">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </button>
+      <button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-200 text-slate-500 transition-colors" aria-label="Attach">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+      </button>
+      <button class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-200 text-slate-500 transition-colors" aria-label="Camera">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </button>
+      <span class="flex-1 bg-white rounded-full text-sm text-slate-400 px-4 py-2">Message</span>
+      <button class="w-9 h-9 flex items-center justify-center rounded-full bg-[#128C7E] text-white transition-colors" aria-label="Mic">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      </button>
+    </div>
+  ) : (
+    <div class="shrink-0 bg-white border-t border-slate-200 px-3 py-2 flex items-center gap-2">
+      <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors" aria-label="Attach">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </button>
+      <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 transition-colors" aria-label="Image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      </button>
+      <span class="flex-1 text-sm text-slate-400 px-1">Aa</span>
+      <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-indigo-500 transition-colors" aria-label="Send">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  )}
 </div>
 
-<style>
+<style is:global>
   .chat-messages {
     transition: opacity 0.4s ease;
   }
@@ -88,14 +158,22 @@ const {
 
   .chat-bubble {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(20px);
     transition:
-      opacity 0.4s ease,
-      transform 0.4s ease;
+      opacity 0.35s ease-out,
+      transform 0.35s ease-out;
   }
   .chat-bubble.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .chat-typing {
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+  }
+  .chat-typing.active {
+    opacity: 1;
   }
 
   .typing-dot {
@@ -123,18 +201,28 @@ const {
       opacity: 1;
     }
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 </style>
 
 <script>
-  function createBubble(msg: { sender: string; text: string }): HTMLElement {
+  function createBubble(
+    msg: { sender: string; text: string },
+    theme: string,
+  ): HTMLElement {
     const wrapper = document.createElement("div");
     const isCustomer = msg.sender === "customer";
-    wrapper.className = `chat-bubble flex gap-2 ${isCustomer ? "justify-end" : "justify-start items-end"}`;
-    wrapper.style.opacity = "0";
-    wrapper.style.transform = "translateY(8px)";
-    wrapper.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+    const isWhatsapp = theme === "whatsapp";
 
-    if (!isCustomer) {
+    wrapper.className = `chat-bubble flex gap-2 ${isCustomer ? "justify-end" : "justify-start items-end"}`;
+
+    if (!isCustomer && !isWhatsapp) {
       const avatar = document.createElement("div");
       avatar.className =
         "w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50";
@@ -144,15 +232,132 @@ const {
     }
 
     const bubble = document.createElement("div");
-    bubble.className = `rounded-2xl px-4 py-2.5 text-sm max-w-[85%] whitespace-pre-line ${
-      isCustomer
-        ? "bg-indigo-500 text-white rounded-br-md"
-        : "bg-white border border-slate-200 text-slate-700 rounded-bl-md shadow-sm"
-    }`;
-    bubble.textContent = msg.text;
-    wrapper.appendChild(bubble);
+    const baseClasses = "rounded-2xl px-3 py-1.5 text-[13.5px] max-w-[85%] whitespace-pre-line leading-relaxed";
 
+    if (isWhatsapp) {
+      bubble.className = `${baseClasses} ${
+        isCustomer
+          ? "bg-white text-slate-800 rounded-br-sm shadow-sm"
+          : "bg-[#DCF8C6] text-slate-800 rounded-bl-sm"
+      }`;
+    } else {
+      bubble.className = `${baseClasses} ${
+        isCustomer
+          ? "bg-indigo-500 text-white rounded-br-md"
+          : "bg-white border border-slate-200 text-slate-700 rounded-bl-md shadow-sm"
+      }`;
+    }
+
+    const text = msg.text;
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    if (urlRegex.test(text)) {
+      const parts = text.split(urlRegex);
+      parts.forEach((part) => {
+        if (part.match(urlRegex)) {
+          const link = document.createElement("a");
+          link.href = part;
+          link.textContent = part;
+          link.className = "text-blue-500 underline";
+          link.target = "_blank";
+          bubble.appendChild(link);
+        } else {
+          bubble.appendChild(document.createTextNode(part));
+        }
+      });
+    } else {
+      bubble.textContent = text;
+    }
+
+    if (isWhatsapp && isCustomer) {
+      const checks = document.createElement("span");
+      checks.textContent = " \u2713\u2713";
+      checks.className = "text-[10px] text-blue-500 ml-1";
+      bubble.appendChild(checks);
+    }
+
+    wrapper.appendChild(bubble);
     return wrapper;
+  }
+
+  function scrollBottom(el: HTMLElement) {
+    el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
+  }
+
+  function showBubble(bubble: HTMLElement) {
+    // Force reflow so browser sees initial state (opacity:0) before transitioning
+    bubble.offsetHeight;
+    bubble.classList.add("visible");
+  }
+
+  function buildTypingHTML(sender: string, theme: string): string {
+    const isCustomer = sender === "customer";
+    const isWhatsapp = theme === "whatsapp";
+    const dots = `<div class="flex gap-1 items-center">
+      <span class="typing-dot w-2 h-2 ${isWhatsapp ? "bg-slate-500" : "bg-slate-400"} rounded-full"></span>
+      <span class="typing-dot w-2 h-2 ${isWhatsapp ? "bg-slate-500" : "bg-slate-400"} rounded-full"></span>
+      <span class="typing-dot w-2 h-2 ${isWhatsapp ? "bg-slate-500" : "bg-slate-400"} rounded-full"></span>
+    </div>`;
+
+    if (isCustomer) {
+      // Customer: right-aligned, no avatar
+      const bubbleClass = isWhatsapp
+        ? "bg-white rounded-2xl rounded-br-sm px-4 py-2.5 shadow-sm"
+        : "bg-indigo-500 rounded-2xl rounded-br-md px-4 py-2.5";
+      const dotColor = isWhatsapp ? "" : "text-white";
+      return `<div class="flex justify-end">
+        <div class="${bubbleClass}">${dots.replace(/bg-slate-\d+/g, isWhatsapp ? "bg-slate-500" : "bg-white/60")}</div>
+      </div>`;
+    } else {
+      // Bot: left-aligned, with avatar (default theme only)
+      if (isWhatsapp) {
+        return `<div class="flex items-end gap-2">
+          <div class="bg-[#DCF8C6] rounded-2xl rounded-bl-sm px-4 py-2.5">${dots}</div>
+        </div>`;
+      } else {
+        return `<div class="flex items-end gap-2">
+          <div class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
+            <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+          </div>
+          <div class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-sm">${dots}</div>
+        </div>`;
+      }
+    }
+  }
+
+  function showTyping(indicator: HTMLElement | null, sender: string, theme: string) {
+    if (!indicator) return;
+    indicator.innerHTML = buildTypingHTML(sender, theme);
+    indicator.classList.add("active");
+  }
+
+  function hideTyping(indicator: HTMLElement | null) {
+    if (!indicator) return;
+    indicator.classList.remove("active");
+  }
+
+  function groupMessages(
+    msgs: { sender: string; text: string }[],
+  ): { sender: string; msgs: { sender: string; text: string }[] }[] {
+    const groups: { sender: string; msgs: { sender: string; text: string }[] }[] = [];
+    for (const msg of msgs) {
+      const last = groups[groups.length - 1];
+      if (last && last.sender === msg.sender) {
+        last.msgs.push(msg);
+      } else {
+        groups.push({ sender: msg.sender, msgs: [msg] });
+      }
+    }
+    return groups;
+  }
+
+  function insertBubble(bubble: HTMLElement, container: HTMLElement) {
+    // Insert before typing indicator so indicator stays at bottom
+    const typing = container.querySelector(".chat-typing");
+    if (typing) {
+      container.insertBefore(bubble, typing);
+    } else {
+      container.appendChild(bubble);
+    }
   }
 
   function initChatSimulations() {
@@ -161,54 +366,30 @@ const {
       container.setAttribute("data-initialized", "true");
 
       const delay = parseInt(container.getAttribute("data-delay") || "1500");
-      const pause = parseInt(
-        container.getAttribute("data-pause") || "3000",
-      );
+      const pause = parseInt(container.getAttribute("data-pause") || "3000");
+      const theme = container.getAttribute("data-theme") || "default";
       const conversations: { sender: string; text: string }[][] = JSON.parse(
         container.getAttribute("data-conversations") || "[]",
       );
 
       if (!conversations.length) return;
 
-      const messagesContainer = container.querySelector(
-        ".chat-messages",
-      ) as HTMLElement;
-      const typingIndicator = container.querySelector(
-        ".chat-typing",
-      ) as HTMLElement | null;
+      const messagesContainer = container.querySelector(".chat-messages") as HTMLElement;
+      const typingIndicator = container.querySelector(".chat-typing") as HTMLElement | null;
 
       let currentSet = 0;
       let isVisible = false;
 
       function showConversation(index: number) {
-        // Fade out existing messages
         messagesContainer.classList.add("fading");
 
         setTimeout(() => {
-          // Remove old bubbles (keep typing indicator)
-          const oldBubbles =
-            messagesContainer.querySelectorAll(".chat-bubble");
-          oldBubbles.forEach((b) => b.remove());
-
+          messagesContainer.querySelectorAll(".chat-bubble").forEach((b) => b.remove());
           messagesContainer.classList.remove("fading");
 
-          // Create new bubbles
-          const conversation = conversations[index];
-          const bubbles: HTMLElement[] = [];
+          const groups = groupMessages(conversations[index]);
 
-          conversation.forEach((msg) => {
-            const bubble = createBubble(msg);
-            if (typingIndicator) {
-              messagesContainer.insertBefore(bubble, typingIndicator);
-            } else {
-              messagesContainer.appendChild(bubble);
-            }
-            bubbles.push(bubble);
-          });
-
-          // Animate them in
-          animateMessages(bubbles, typingIndicator, delay, () => {
-            // After all messages shown, pause then move to next set
+          playConversation(groups, 0, delay, theme, messagesContainer, typingIndicator, () => {
             setTimeout(() => {
               currentSet = (currentSet + 1) % conversations.length;
               showConversation(currentSet);
@@ -234,36 +415,97 @@ const {
     });
   }
 
-  function animateMessages(
-    bubbles: HTMLElement[],
-    typingIndicator: HTMLElement | null,
+  function playConversation(
+    groups: { sender: string; msgs: { sender: string; text: string }[] }[],
+    groupIndex: number,
     delay: number,
-    onComplete?: () => void,
+    theme: string,
+    container: HTMLElement,
+    typingIndicator: HTMLElement | null,
+    onComplete: () => void,
   ) {
-    bubbles.forEach((bubble, index) => {
-      const typingDuration = Math.min(delay * 0.6, 800);
+    if (groupIndex >= groups.length) {
+      onComplete();
+      return;
+    }
+
+    const group = groups[groupIndex];
+    const isBot = group.sender === "bot";
+    const sender = group.sender;
+
+    if (isBot) {
+      const typingDuration = Math.min(delay * 0.7, 1200);
+      const prePause = groupIndex === 0 ? 0 : 400;
 
       setTimeout(() => {
-        if (typingIndicator) {
-          typingIndicator.classList.remove("hidden");
-          typingIndicator.classList.add("flex");
-        }
+        showTyping(typingIndicator, sender, theme);
+        scrollBottom(container);
 
         setTimeout(() => {
-          if (typingIndicator) {
-            typingIndicator.classList.add("hidden");
-            typingIndicator.classList.remove("flex");
-          }
-          bubble.classList.add("visible");
-          bubble.style.opacity = "1";
-          bubble.style.transform = "translateY(0)";
+          // Insert first bubble (opacity 0) BEFORE hiding indicator → no layout gap
+          const firstBubble = createBubble(group.msgs[0], theme);
+          insertBubble(firstBubble, container, typingIndicator);
+          hideTyping(typingIndicator);
+          showBubble(firstBubble);
+          scrollBottom(container);
 
-          if (index === bubbles.length - 1 && onComplete) {
-            onComplete();
-          }
+          // Remaining bubbles with stagger
+          group.msgs.slice(1).forEach((msg, i) => {
+            setTimeout(() => {
+              const bubble = createBubble(msg, theme);
+              insertBubble(bubble, container);
+              showBubble(bubble);
+              scrollBottom(container);
+            }, (i + 1) * 350);
+          });
+
+          const revealTime = (group.msgs.length - 1) * 350 + 200;
+          setTimeout(() => {
+            playConversation(groups, groupIndex + 1, delay, theme, container, typingIndicator, onComplete);
+          }, revealTime);
         }, typingDuration);
-      }, index * delay);
-    });
+      }, prePause);
+    } else {
+      const sender = group.sender;
+      const typingDuration = Math.min(delay * 0.6, 800);
+      const prePause = groupIndex === 0 ? 0 : 300;
+
+      setTimeout(() => {
+        showTyping(typingIndicator, sender, theme);
+        scrollBottom(container);
+
+        let i = 0;
+        function revealNext() {
+          if (i >= group.msgs.length) {
+            playConversation(groups, groupIndex + 1, delay, theme, container, typingIndicator, onComplete);
+            return;
+          }
+
+          const typingTime = Math.min(delay * 0.6, 800);
+          setTimeout(() => {
+            // Insert bubble BEFORE hiding indicator → no layout gap
+            const bubble = createBubble(group.msgs[i], theme);
+            insertBubble(bubble, container, typingIndicator);
+            hideTyping(typingIndicator);
+            showBubble(bubble);
+            scrollBottom(container);
+            i++;
+
+            if (i < group.msgs.length) {
+              setTimeout(() => {
+                showTyping(typingIndicator, sender, theme);
+                scrollBottom(container);
+                setTimeout(() => revealNext(), typingTime);
+              }, 300);
+            } else {
+              revealNext();
+            }
+          }, typingTime);
+        }
+
+        revealNext();
+      }, prePause);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", initChatSimulations);

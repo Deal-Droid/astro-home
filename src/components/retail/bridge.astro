@@ -1,52 +1,208 @@
 ---
 import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import ChatSimulation from "./chat-simulation.astro";
+import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
 
 const page_ui: UILanguages = {
   en: {
-    "bridge.heading": "How much more ad spend will you waste?",
-    "bridge.p1":
-      "Every dollar you spend on ads drives potential buyers to your inbox.",
-    "bridge.p2":
-      "But if your team is slow — or offline — those leads don't wait. They're gone in minutes.",
-    "bridge.p3":
-      "Campaign peaks are when you should be making the most money… but it's also when your team is most overwhelmed.",
-    "bridge.p4":
-      "Hiring more agents is a temporary fix. Costs scale with headcount, not revenue.",
-    "bridge.p5":
-      "And if they're not trained to close, they're just answering questions — not driving sales.",
+    "bridge.badge": "The Answer You've Been Looking For",
+    "bridge.heading": "DealDroid AI",
+    "bridge.subtitle":
+      "Your always-online sales assistant — never on leave, never off-duty, never stops selling.",
+    "bridge.b1": "An AI Sales Agent trained as a 'pro salesperson' for your specific business",
+    "bridge.b2": "Handles chat surges during campaign peaks — no lead left behind",
+    "bridge.b3": "Speaks in your brand voice, every single time",
+    "bridge.b4": "Closes sales, not just answers questions — built for conversion",
+    "bridge.b5": "118+ languages supported, no extra headcount needed",
+    "bridge.cta": "Request a Live Demo",
+    "bridge.cta_link": "https://cal.com",
+    "bridge.store_name": "TechGear SG",
   },
   th: {
-    "bridge.heading": "แล้วคุณจะต้องเสียค่า Ads อีกเท่าไหร่?",
-    "bridge.p1": "ทุกบาทที่คุณจ่ายค่า Ads กำลังพาลูกค้าเข้ามาที่ Inbox",
-    "bridge.p2":
-      "แต่ถ้า Admin ไม่พร้อม หรือ ตอบไม่ทัน ลูกค้าก็ไม่รอ และหายไปในไม่กี่นาที",
-    "bridge.p3":
-      'แคมเปญพีคๆ คือช่วงที่ทำเงินได้มากที่สุด… แต่ก็มักเป็นช่วงที่ทีมคุณ "รับมือไม่ไหว" มากที่สุดเช่นกัน',
-    "bridge.p4":
-      "การจ้าง Admin เพิ่มแก้ได้แค่ชั่วคราว เพราะต้นทุนขยายตามจำนวนคน ไม่ใช่ตามยอดขาย",
-    "bridge.p5":
-      "และ Admin ที่ไม่ได้ถูกฝึกมาเพื่อปิดการขาย ก็ทำได้แค่ตอบคำถาม แต่ไม่ได้ช่วยเพิ่ม Conversion",
+    "bridge.badge": "คำตอบที่คุณมองหา",
+    "bridge.heading": "DealDroid AI",
+    "bridge.subtitle":
+      "พนักงานขาย AI ที่ไม่มีวันหยุด — ไม่เคยลา ไม่เคยออฟไลน์ ขายให้ตลอด 24 ชั่วโมง",
+    "bridge.b1": "AI Sales Agent ที่ถูกฝึกมาเป็น 'พนักงานขายมืออาชีพ' เฉพาะธุรกิจคุณ",
+    "bridge.b2": "รองรับแชทพุ่งช่วงแคมเปญ — ไม่พลาดทุกลูกค้า",
+    "bridge.b3": "ตอบด้วยเสียงแบรนด์คุณ ทุกครั้งเหมือนกัน",
+    "bridge.b4": "ปิดการขาย ไม่ใช่แค่ตอบคำถาม — สร้างมาเพื่อ Conversion",
+    "bridge.b5": "รองรับ 118+ ภาษา ไม่ต้องจ้างคนเพิ่ม",
+    "bridge.cta": "นัด Demo สด",
+    "bridge.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "bridge.store_name": "TechGear SG",
   },
 } as const;
 
 const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
+
+type Msg = { sender: "bot" | "customer"; text: string };
+
+const benefits = [
+  { icon: "fluent:bot-24-regular", text: p("bridge.b1") },
+  { icon: "fluent:clipboard-checkmark-24-regular", text: p("bridge.b2") },
+  { icon: "fluent:chat-24-regular", text: p("bridge.b3") },
+  { icon: "fluent:chart-multiple-24-regular", text: p("bridge.b4") },
+  { icon: "fluent:globe-24-regular", text: p("bridge.b5") },
+];
+
+const whatsappConversation: Msg[][] =
+  lang === "th"
+    ? [
+        [
+          { sender: "customer", text: "สวัสดีค่ะ" },
+          {
+            sender: "bot",
+            text: "สวัสดีค่ะ! ยินดีต้อนรับสู่ TechGear SG 😊\nเราเป็นตัวแทนจำหน่ายอย่างเป็นทางการ สินค้าแท้ 100% รับประกัน จัดส่งฟรีทั่วไทย\n\nวันนี้หาอะไรดีคะ?\n🎧 หูฟัง & เครื่องเสียง\n📷 กล้อง & โดรน\n🎮 อุปกรณ์เกมมิ่ง",
+          },
+          {
+            sender: "customer",
+            text: "อยากได้หูฟัง noise-cancelling ดีๆ งบประมาณ 15,000 บาท",
+          },
+          {
+            sender: "bot",
+            text: "เลือกดีมากค่ะ! แนะนำ Sony WH-1000XM5:\n✅ Noise Cancelling อันดับ 1\n✅ แบตเตอรี่ 30 ชม.\n✅ เชื่อมต่อหลายเครื่องพร้อมกัน\n\nราคา 14,990 บาท — อยู่ในงบเลยค่ะ! 👌",
+          },
+          { sender: "customer", text: "ดูดีมาก! สั่งได้เลยไหมคะ?" },
+          {
+            sender: "bot",
+            text: "ได้เลยค่ะ! จัดส่งฟรีวันต่อไป 🚚\nขอชื่อและเบอร์โทรศัพท์หน่อยค่ะ",
+          },
+          { sender: "customer", text: "สมหญิง ใจดี" },
+          { sender: "customer", text: "081-234-5678" },
+          {
+            sender: "bot",
+            text: "ขอบคุณค่ะ! แล้วที่อยู่จัดส่งล่ะคะ?",
+          },
+          {
+            sender: "customer",
+            text: "123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110",
+          },
+          {
+            sender: "bot",
+            text: "ยืนยันออเดอร์นะคะ:\n\nSony WH-1000XM5 x1\nราคา 14,990 บาท\nจัดส่งฟรี\n\nจัดส่งถึง:\nสมหญิง ใจดี\n123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110\nเบอร์ติดต่อ: 081-234-5678\n\nข้อมูลถูกต้องไหมคะ?",
+          },
+          { sender: "customer", text: "ถูกต้องค่ะ!" },
+          {
+            sender: "bot",
+            text: "ชำระเงินได้ที่ลิงก์นี้เลยค่ะ:\ntopay.me/pDLTRS3",
+          },
+          {
+            sender: "bot",
+            text: "ได้รับชำระแล้ว!\n✅ ยืนยันออเดอร์สำเร็จ",
+          },
+          {
+            sender: "bot",
+            text: "ทางเราจะจัดเตรียมสินค้าให้ทันทีค่ะ\nขอบคุณที่เลือก TechGear SG นะคะ! 🙏",
+          },
+          { sender: "customer", text: "ขอบคุณมากค่ะ! 😊" },
+        ],
+      ]
+    : [
+        [
+          { sender: "customer", text: "Hi there!" },
+          {
+            sender: "bot",
+            text: "Hello! Welcome to TechGear SG 😊\nWe're an authorized dealer with 100% genuine products, manufacturer warranty, and free delivery across Singapore.\n\nWhat are you looking for today?\n🎧 Headphones & Audio\n📷 Cameras & Drones\n🎮 Gaming Accessories",
+          },
+          {
+            sender: "customer",
+            text: "I need good noise-cancelling headphones, budget around S$500",
+          },
+          {
+            sender: "bot",
+            text: "Great choice! I'd recommend the Sony WH-1000XM5:\n✅ Industry-leading ANC\n✅ 30-hour battery life\n✅ Multipoint connection\n\nPrice: S$449 — well within your budget! 👌",
+          },
+          { sender: "customer", text: "Looks perfect! Can I order now?" },
+          {
+            sender: "bot",
+            text: "Absolutely! Free next-day delivery within Singapore 🚚\nCould I get your full name and contact number please?",
+          },
+          { sender: "customer", text: "James Tan" },
+          { sender: "customer", text: "+65 9123 4567" },
+          {
+            sender: "bot",
+            text: "Thanks for the info, James!\nAnd your delivery address please?",
+          },
+          {
+            sender: "customer",
+            text: "123 Orchard Road, #05-01 Ion Orchard, Singapore 238858",
+          },
+          {
+            sender: "bot",
+            text: "Perfect, thanks!\n\nLet me confirm your order, James:\nSony WH-1000XM5 x1\nPrice: S$449\nFree next-day delivery\n\nDelivery to:\nJames Tan\n123 Orchard Road, #05-01 Ion Orchard, Singapore 238858\nContact: +65 9123 4567\n\nEverything correct?",
+          },
+          { sender: "customer", text: "Yes, all good!" },
+          {
+            sender: "bot",
+            text: "Thanks for confirming!\nTo complete your order, please make payment via this link:\ntopay.me/pDLTRS3",
+          },
+          {
+            sender: "bot",
+            text: "Payment received!\n✅ Order confirmed successfully",
+          },
+          {
+            sender: "bot",
+            text: "Our team will prepare your shipment right away.\nThank you for choosing TechGear SG! 🙏",
+          },
+          { sender: "customer", text: "Thanks so much! 😊" },
+        ],
+      ];
 ---
 
-<section class="py-16 bg-slate-900 text-white">
+<section class="py-16 lg:py-24 bg-[#f5f5f7]">
   <Container>
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8">
-        {p("bridge.heading")}
-      </h2>
-      <div class="space-y-5 text-lg text-slate-300 leading-relaxed">
-        <p>{p("bridge.p1")}</p>
-        <p>{p("bridge.p2")}</p>
-        <p>{p("bridge.p3")}</p>
-        <p>{p("bridge.p4")}</p>
-        <p>{p("bridge.p5")}</p>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Left: Benefits List -->
+      <div>
+        <!-- Badge -->
+        <div class="mb-4">
+          <span class="inline-block bg-blue-100 text-blue-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+            {p("bridge.badge")}
+          </span>
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+          {p("bridge.heading")}
+        </h2>
+        <p class="text-lg text-slate-600 mb-8 max-w-lg">
+          {p("bridge.subtitle")}
+        </p>
+
+        <!-- Benefit Items -->
+        <div class="space-y-4 mb-8">
+          {
+            benefits.map((b) => (
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 shrink-0 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+                  <Icon name={b.icon} class="w-5 h-5" />
+                </div>
+                <p class="text-slate-700 pt-2 leading-relaxed">{b.text}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- CTA -->
+        <Link href={p("bridge.cta_link")} size="lg" style="primary" class="inline-flex items-center gap-2">
+          {p("bridge.cta")}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </Link>
+      </div>
+
+      <!-- Right: WhatsApp Chat Simulation -->
+      <div class="flex justify-center">
+        <ChatSimulation
+          storeName={p("bridge.store_name")}
+          conversations={whatsappConversation}
+          theme="whatsapp"
+          typingDelay={1200}
+          pauseBetween={10000}
+        />
       </div>
     </div>
   </Container>
