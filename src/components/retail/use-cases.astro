@@ -1,7 +1,8 @@
 ---
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
-import { usePageTranslations } from "../../i18n/utils";
+import ChatSimulation from "./chat-simulation.astro";
+import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
 
 const page_ui: UILanguages = {
@@ -9,68 +10,240 @@ const page_ui: UILanguages = {
     "uc.badge": "Conversation Use Cases",
     "uc.heading": "From first hello to closed deal",
     "uc.subheading": "Real scenarios DealDroid AI handles every day",
-    "uc.tab1": "First Contact",
-    "uc.tab1_desc":
-      "Welcome with brand voice + store info\n\n✅ Customer feels confident from the very first message",
-    "uc.tab2": "Product Recommendation",
-    "uc.tab2_desc": "Understands needs + suggests the right fit",
-    "uc.tab3": "Objection Handling",
-    "uc.tab3_desc": "Addresses concerns, builds trust, moves toward close",
-    "uc.tab4": "Closing the Sale",
-    "uc.tab4_desc": "Summarizes order, collects delivery info, sends payment",
-    "uc.tab5": "FAQ Auto-Reply",
-    "uc.tab5_desc": "Handles repetitive questions instantly",
-    "uc.tab6": "Out-of-Scope Handling",
-    "uc.tab6_desc": "Knows its limits, hands off with full context",
     "uc.mid_cta_heading": "See DealDroid Handle Your Use Case →",
     "uc.mid_cta_link": "https://cal.com",
     "uc.store_name": "TechGear SG",
-    "uc.chat_customer": "Hi! I'm interested in your products",
-    "uc.chat_bot":
-      "Hey there! Welcome to TechGear SG 🎉\n\nWe're an authorized dealer for premium electronics — 100% authentic with full local warranty and free delivery across Singapore!\n\nWhat are you looking for today?\n\n🎧 Headphones & Audio\n📷 Cameras & Drones\n📱 Accessories",
   },
   th: {
     "uc.badge": "Conversation Use Cases",
     "uc.heading": "จากทักครั้งแรก จนปิดการขาย",
     "uc.subheading": "สถานการณ์จริงที่ DealDroid AI พร้อมรับมือ",
-    "uc.tab1": "ทักครั้งแรก",
-    "uc.tab1_desc":
-      'ต้อนรับด้วย Brand Voice + ข้อมูลร้าน\n\n✅ ลูกค้ารู้สึก "มั่นใจ" ตั้งแต่ข้อความแรก และพร้อมคุยต่อ',
-    "uc.tab2": "แนะนำสินค้า",
-    "uc.tab2_desc": "จับความต้องการ + แนะนำตัวเลือกที่ใช่",
-    "uc.tab3": "โน้มน้าวไปในทางปิดการขาย",
-    "uc.tab3_desc":
-      'แก้ข้อกังวล ชี้ความคุ้มค่า เปลี่ยน "ลังเล" เป็น "พร้อมซื้อ"',
-    "uc.tab4": "ปิดการขาย",
-    "uc.tab4_desc":
-      "สรุปออเดอร์ ถามข้อมูลจัดส่ง คำนวนค่าจัดส่ง และแจ้งวิธีชำระเงิน",
-    "uc.tab5": "ตอบคำถามทั่วไป",
-    "uc.tab5_desc": "ตอบคำถามซ้ำๆ ที่ลูกค้าถามบ่อย",
-    "uc.tab6": "เคสนอกขอบเขต",
-    "uc.tab6_desc": "รู้ขีดจำกัดตัวเอง ส่งต่อให้ Supervisor",
     "uc.mid_cta_heading": "อยากดูตัวอย่างที่ตรงกับธุรกิจคุณ?",
     "uc.mid_cta_desc":
       "นัดคุยวิเคราะห์ Inbox ฟรี 30 นาที แล้วเราจะ Demo ให้ตรงเคสของคุณเลย",
     "uc.mid_cta_button": "นัดคุยวิเคราะห์ Inbox ฟรี",
     "uc.mid_cta_link": "https://line.me/R/ti/p/@dealdroid",
     "uc.store_name": "DJI 13 Store",
-    "uc.chat_customer": "สวัสดีค่ะ สนใจสินค้า อยากสอบถามหน่อย",
-    "uc.chat_bot":
-      "สวัสดีครับ! ยินดีต้อนรับสู่ DJI 13 Store 🎉\n\nเราเป็นตัวแทนจำหน่าย DJI อย่างเป็นทางการ ของแท้ 100% พร้อมรับประกันศูนย์และส่งฟรีทั่วไทยครับ\n\nวันนี้สนใจสินค้าประเภทไหนเป็นพิเศษครับ?\n\n🚁 โดรน\n📷 กล้อง Action Camera\n🎒 อุปกรณ์เสริม",
   },
 } as const;
 
 const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
+const translatePath = useTranslatedPath(lang);
 
-const tabs = [
-  { key: "tab1", title: p("uc.tab1"), desc: p("uc.tab1_desc") },
-  { key: "tab2", title: p("uc.tab2"), desc: p("uc.tab2_desc") },
-  { key: "tab3", title: p("uc.tab3"), desc: p("uc.tab3_desc") },
-  { key: "tab4", title: p("uc.tab4"), desc: p("uc.tab4_desc") },
-  { key: "tab5", title: p("uc.tab5"), desc: p("uc.tab5_desc") },
-  { key: "tab6", title: p("uc.tab6"), desc: p("uc.tab6_desc") },
-];
+type Msg = { sender: "bot" | "customer"; text: string };
+
+interface TabData {
+  key: string;
+  title: string;
+  desc: string;
+  conversation: Msg[];
+}
+
+const storeName = p("uc.store_name");
+
+const tabs: TabData[] =
+  lang === "th"
+    ? [
+        {
+          key: "tab1",
+          title: "ทักครั้งแรก",
+          desc: "ต้อนรับด้วย Brand Voice + ข้อมูลร้าน",
+          conversation: [
+            {
+              sender: "customer",
+              text: "สวัสดีค่ะ สนใจสินค้า อยากสอบถามหน่อย",
+            },
+            {
+              sender: "bot",
+              text: "สวัสดีครับ! ยินดีต้อนรับสู่ DJI 13 Store 🎉\n\nเราเป็นตัวแทนจำหน่าย DJI อย่างเป็นทางการ ของแท้ 100% พร้อมรับประกันศูนย์และส่งฟรีทั่วไทยครับ\n\nวันนี้สนใจสินค้าประเภทไหนเป็นพิเศษครับ?\n\n🚁 โดรน\n📷 กล้อง Action Camera\n🎒 อุปกรณ์เสริม",
+            },
+          ],
+        },
+        {
+          key: "tab2",
+          title: "แนะนำสินค้า",
+          desc: "จับความต้องการ + แนะนำตัวเลือกที่ใช่",
+          conversation: [
+            {
+              sender: "customer",
+              text: "หูฟังไร้สาย งบประมาณ 3,000 บาท มีอะไรแนะนำมั้ยคะ",
+            },
+            {
+              sender: "bot",
+              text: "งบ 3,000 บาท แนะนำ 2 รุ่นนี้เลยครับ:\n\n🎧 Sony WF-C700N — 2,990 บาท\n✅ Noise Cancelling ดี\n✅ กันน้ำ IPX4\n✅ แบต 15 ชั่วโมง\n\n🎧 JBL Tune 230NC — 2,490 บาท\n✅ เบสหนัก\n✅ Active Noise Cancelling\n✅ แบต 10 ชั่วโมง\n\nชอบรุ่นไหนเป็นพิเศษครับ? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab3",
+          title: "โน้มน้าวไปในทางปิดการขาย",
+          desc: "แก้ข้อกังวล ชี้ความคุ้มค่า เปลี่ยนลังเลเป็นพร้อมซื้อ",
+          conversation: [
+            {
+              sender: "customer",
+              text: "ราคาแพงกว่าร้านอื่นนะคะ ทำไมถึงควรซื้อกับร้านนี้",
+            },
+            {
+              sender: "bot",
+              text: "เข้าใจค่ะ! ราคาอาจสูงกว่านิดหน่อย แต่คุณได้มากกว่าค่ะ:\n\n✅ รับประกันศูนย์ 1 ปีเต็ม\n✅ อุปกรณ์เสริมฟรี กระเป๋าหูฟัง + สติกเกอร์\n✅ ส่งฟรีทั่วไทย 1-2 วันถึง\n✅ มีเซอร์วิสหลังขายตลอดอายุการใช้งาน\n\nร้านอื่นอาจถูกกว่า 200-300 บาท แต่ไม่มีบริการพวกนี้ค่ะ\n\nสนใจสั่งวันนี้มั้ยคะ? 🎁",
+            },
+          ],
+        },
+        {
+          key: "tab4",
+          title: "ปิดการขาย",
+          desc: "สรุปออเดอร์ ถามข้อมูลจัดส่ง คำนวณค่าจัดส่ง และแจ้งวิธีชำระเงิน",
+          conversation: [
+            {
+              sender: "customer",
+              text: "เอา Sony WF-C700N ค่ะ",
+            },
+            {
+              sender: "bot",
+              text: "ดีมากครับ! สรุปออเดอร์ให้ครับ:\n\n🎧 Sony WF-C700N — 2,990 บาท\n📦 ส่งฟรี\n🎁 กระเป๋าหูฟังฟรี\n\n💰 รวม 2,990 บาท\n\nขอชื่อ-ที่อยู่จัดส่งหน่อยครับ 📦",
+            },
+            {
+              sender: "customer",
+              text: "ส่งที่ 123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110",
+            },
+            {
+              sender: "bot",
+              text: "บันทึกแล้วครับ! 📝\n\nชำระเงินได้เลยที่:\n💳 PromptPay: 08X-XXX-XXXX\nหรือ\n🏦 โอนเข้าบัญชี กสิกรไทย\nชื่อบัญชี: DJI 13 Store\n\nส่งหลักฐานการโอนมาได้เลยครับ จะจัดส่งให้วันนี้เลย 🚀",
+            },
+          ],
+        },
+        {
+          key: "tab5",
+          title: "ตอบคำถามทั่วไป",
+          desc: "ตอบคำถามซ้ำๆ ที่ลูกค้าถามบ่อย",
+          conversation: [
+            {
+              sender: "customer",
+              text: "จัดส่งกี่วันคะ มีเก็บเงินปลายทางมั้ย",
+            },
+            {
+              sender: "bot",
+              text: "จัดส่ง 1-2 วันทำการค่ะ!\n\n🚚 ส่งฟรีทั่วไทย (สั่ง 1,000+ บาท)\n📦 แพ็คอย่างดี กันกระแทก\n\n✅ มีเก็บเงินปลายทางค่ะ (COD)\nกรุงเทพฯ และปริมณฑล ส่งวันรุ่งขึ้น\nต่างจังหวัด 1-2 วันทำการ\n\nต้องการสั่งเลยมั้ยคะ? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab6",
+          title: "เคสนอกขอบเขต",
+          desc: "รู้ขีดจำกัดตัวเอง ส่งต่อให้ Supervisor",
+          conversation: [
+            {
+              sender: "customer",
+              text: "รับผ่อน 0% มั้ยคะ ผ่อนกี่เดือน",
+            },
+            {
+              sender: "bot",
+              text: "ตอนนี้ทางร้านยังไม่รับผ่อน 0% โดยตรงนะคะ\n\nแต่ทางเรามีเจ้าหน้าที่ที่ช่วยเรื่องนี้ได้ค่ะ!\n\n👥 ให้พนักงานติดต่อกลับไปได้มั้ยคะ?\nขอเบอร์โทรไว้ เดี๋ยวทีมส่งข้อมูลผ่อน 0% ให้ภายในวันนี้เลยค่ะ 😊",
+            },
+          ],
+        },
+      ]
+    : [
+        {
+          key: "tab1",
+          title: "First Contact",
+          desc: "Welcome with brand voice + store info",
+          conversation: [
+            {
+              sender: "customer",
+              text: "Hi! I'm interested in your products",
+            },
+            {
+              sender: "bot",
+              text: "Hey there! Welcome to TechGear SG 🎉\n\nWe're an authorized dealer for premium electronics — 100% authentic with full local warranty and free delivery across Singapore!\n\nWhat are you looking for today?\n\n🎧 Headphones & Audio\n📷 Cameras & Drones\n📱 Accessories",
+            },
+          ],
+        },
+        {
+          key: "tab2",
+          title: "Product Recommendation",
+          desc: "Understands needs + suggests the right fit",
+          conversation: [
+            {
+              sender: "customer",
+              text: "Looking for wireless earbuds around $200, any recommendations?",
+            },
+            {
+              sender: "bot",
+              text: "Great budget! Here are my top 2 picks:\n\n🎧 Sony WF-C700N — S$198\n✅ Best-in-class noise cancelling\n✅ IPX4 water resistant\n✅ 15hr battery life\n\n🎧 Samsung Galaxy Buds2 Pro — S$188\n✅ Premium sound quality\n✅ 360 Audio\n✅ Compact fit\n\nWhich one catches your eye? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab3",
+          title: "Objection Handling",
+          desc: "Addresses concerns, builds trust, moves toward close",
+          conversation: [
+            {
+              sender: "customer",
+              text: "That's more expensive than other stores. Why should I buy here?",
+            },
+            {
+              sender: "bot",
+              text: "Great question! Here's what you get with us:\n\n✅ Full 1-year local warranty\n✅ Free accessories bundle (case + pouch)\n✅ Free next-day delivery across Singapore\n✅ Lifetime after-sales support\n\nOther stores may be S$10-20 cheaper, but without these perks.\n\nWant me to help you place an order today? 🎁",
+            },
+          ],
+        },
+        {
+          key: "tab4",
+          title: "Closing the Sale",
+          desc: "Summarizes order, collects delivery info, sends payment",
+          conversation: [
+            {
+              sender: "customer",
+              text: "I'll take the Sony WF-C700N",
+            },
+            {
+              sender: "bot",
+              text: "Great choice! Here's your order summary:\n\n🎧 Sony WF-C700N — S$198\n🚚 Free next-day delivery\n🎁 Free carrying case\n\n💰 Total: S$198\n\nPlease share your delivery address 📦",
+            },
+            {
+              sender: "customer",
+              text: "123 Orchard Road, #05-67, Singapore 238858",
+            },
+            {
+              sender: "bot",
+              text: "Got it! 📝\n\nPayment options:\n💳 PayNow: 8XXX-XXXX\n🏦 Bank Transfer: DBS\nAccount: TechGear SG\n\nSend us the payment screenshot and we'll ship it out today! 🚀",
+            },
+          ],
+        },
+        {
+          key: "tab5",
+          title: "FAQ Auto-Reply",
+          desc: "Handles repetitive questions instantly",
+          conversation: [
+            {
+              sender: "customer",
+              text: "How long does shipping take? Do you offer COD?",
+            },
+            {
+              sender: "bot",
+              text: "We deliver within Singapore:\n\n🚚 Free delivery on orders S$50+\n📦 Well-packed with bubble wrap\n✅ COD available!\n\n📍 Singapore: Next business day\n\nReady to order? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab6",
+          title: "Out-of-Scope Handling",
+          desc: "Knows its limits, hands off with full context",
+          conversation: [
+            {
+              sender: "customer",
+              text: "Do you offer 0% installment plans?",
+            },
+            {
+              sender: "bot",
+              text: "We don't offer direct installment plans at the moment.\n\nBut our team can help you with that!\n\n👥 Would you like a staff member to reach out?\nShare your number and we'll send you installment options within the day 😊",
+            },
+          ],
+        },
+      ];
 ---
 
 <section class="py-16 bg-slate-50">
@@ -87,66 +260,55 @@ const tabs = [
     </div>
 
     <!-- Tabbed Use Cases -->
-    <div class="max-w-4xl mx-auto" x-data="{ activeTab: 'tab1' }">
-      <!-- Tab buttons -->
-      <div class="flex flex-wrap gap-2 justify-center mb-8">
-        {
-          tabs.map((tab) => (
-            <button
-              x-on:click={`activeTab = '${tab.key}'`}
-              x-bind:class={`activeTab === '${tab.key}' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'`}
-              class="px-4 py-2 text-sm font-medium rounded-full border transition-colors">
-              {tab.title}
-            </button>
-          ))
-        }
-      </div>
+    <div class="max-w-5xl mx-auto" x-data="{ activeTab: 'tab1' }">
+      <div class="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
+        <!-- Left: Vertical Tabs -->
+        <div class="md:col-span-2">
+          <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+            {
+              tabs.map((tab, i) => (
+                <button
+                  x-on:click={`activeTab = '${tab.key}'`}
+                  x-bind:class={`activeTab === '${tab.key}' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'`}
+                  class="w-full text-left p-3 md:p-4 rounded-xl transition-all flex items-start gap-3">
+                  <span
+                    x-bind:class={`activeTab === '${tab.key}' ? 'bg-white/20 text-white' : 'bg-indigo-100 text-indigo-600'`}
+                    class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-colors">
+                    {i + 1}
+                  </span>
+                  <div class="min-w-0">
+                    <div class="font-semibold text-sm leading-tight">
+                      {tab.title}
+                    </div>
+                    <div
+                      x-bind:class={`activeTab === '${tab.key}' ? 'text-indigo-100' : 'text-slate-500'`}
+                      class="hidden md:block text-xs mt-1 transition-colors">
+                      {tab.desc}
+                    </div>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+        </div>
 
-      <!-- Tab content -->
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <!-- Description -->
-        <div>
+        <!-- Right: Chat Simulations -->
+        <div class="md:col-span-3 flex justify-center">
           {
             tabs.map((tab) => (
-              <div x-show={`activeTab === '${tab.key}'`} x-cloak>
-                <h3 class="text-xl font-bold text-slate-900 mb-3">
-                  {tab.title}
-                </h3>
-                <p class="text-slate-600 whitespace-pre-line">{tab.desc}</p>
+              <div
+                x-show={`activeTab === '${tab.key}'`}
+                x-cloak
+                class="w-full max-w-sm">
+                <ChatSimulation
+                  storeName={storeName}
+                  conversations={[tab.conversation]}
+                  typingDelay={1200}
+                  pauseBetween={8000}
+                />
               </div>
             ))
           }
-        </div>
-
-        <!-- Chat Mockup -->
-        <div
-          class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden max-w-sm mx-auto w-full">
-          <!-- Chat Header -->
-          <div
-            class="bg-indigo-600 text-white px-4 py-3 flex items-center gap-3">
-            <div
-              class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
-              {p("uc.store_name").charAt(0)}
-            </div>
-            <div>
-              <div class="font-semibold text-sm">{p("uc.store_name")}</div>
-            </div>
-          </div>
-          <!-- Messages -->
-          <div class="p-4 space-y-3 bg-slate-50 min-h-[260px]">
-            <div class="flex justify-end">
-              <div
-                class="bg-indigo-500 text-white rounded-2xl rounded-br-md px-4 py-2 text-sm max-w-[80%]">
-                {p("uc.chat_customer")}
-              </div>
-            </div>
-            <div class="flex justify-start">
-              <div
-                class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2 text-sm max-w-[85%] text-slate-700 whitespace-pre-line shadow-sm">
-                {p("uc.chat_bot")}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
