@@ -26,6 +26,7 @@ interface Props {
   typingDelay?: number;
   pauseBetween?: number;
   theme?: "default" | "whatsapp";
+  loop?: boolean;
 }
 
 const {
@@ -34,6 +35,7 @@ const {
   typingDelay = 3000,
   pauseBetween = 6000,
   theme = "default",
+  loop = true,
 } = Astro.props;
 
 const isWhatsapp = theme === "whatsapp";
@@ -58,7 +60,8 @@ const storeLogo =
   data-theme={theme}
   data-conversations={JSON.stringify(conversations)}
   data-logo={storeLogo}
-  data-store-name={storeName}>
+  data-store-name={storeName}
+  data-loop={loop ? "true" : "false"}>
   <!-- Chat Header -->
   {
     isWhatsapp ? (
@@ -577,6 +580,7 @@ const storeLogo =
       const theme = container.getAttribute("data-theme") || "default";
       const logo = container.getAttribute("data-logo") || "/favicon.svg";
       const sn = container.getAttribute("data-store-name") || "";
+      const shouldLoop = container.getAttribute("data-loop") !== "false";
       const conversations: { sender: string; text: string }[][] = JSON.parse(
         container.getAttribute("data-conversations") || "[]",
       );
@@ -592,8 +596,10 @@ const storeLogo =
 
       let currentSet = 0;
       let isVisible = false;
+      let hasStarted = false;
 
       function showConversation(index: number) {
+        hasStarted = true;
         messagesContainer.classList.add("fading");
 
         setTimeout(() => {
@@ -614,14 +620,29 @@ const storeLogo =
             logo,
             sn,
             () => {
-              setTimeout(() => {
-                currentSet = (currentSet + 1) % conversations.length;
-                showConversation(currentSet);
-              }, pause);
+              if (shouldLoop) {
+                setTimeout(() => {
+                  currentSet = (currentSet + 1) % conversations.length;
+                  showConversation(currentSet);
+                }, pause);
+              } else {
+                container.dispatchEvent(new CustomEvent("chat-complete", { bubbles: true }));
+              }
             },
           );
         }, 400);
       }
+
+      // Listen for reset event to restart conversation
+      container.addEventListener("chat-reset", () => {
+        if (!hasStarted) return; // Don't reset before first play
+        currentSet = 0;
+        messagesContainer
+          .querySelectorAll(".chat-bubble")
+          .forEach((b) => b.remove());
+        hideTyping(typingIndicator);
+        showConversation(0);
+      });
 
       const observer = new IntersectionObserver(
         (entries) => {

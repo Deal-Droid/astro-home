@@ -277,15 +277,33 @@ const tabs: TabData[] =
     </div>
 
     <!-- Tabbed Use Cases -->
-    <div class="max-w-6xl mx-auto" x-data="{ activeTab: 'tab1' }">
-      <div class="grid lg:grid-cols-5 gap-6 lg:gap-10 items-start">
+    <div class="max-w-6xl mx-auto" x-data="{
+      activeTab: 'tab1',
+      autoPlay: true,
+      tabKeys: ['tab1','tab2','tab3','tab4','tab5','tab6'],
+      nextTab() {
+        const i = this.tabKeys.indexOf(this.activeTab);
+        this.activeTab = this.tabKeys[(i + 1) % this.tabKeys.length];
+      },
+      handleComplete(tabKey) {
+        if (this.autoPlay && this.activeTab === tabKey) {
+          setTimeout(() => this.nextTab(), 2000);
+        }
+      }
+    }" x-effect="
+      $nextTick(() => {
+        const el = $el.querySelector(`[data-tab-key='${activeTab}'] .chat-simulation`);
+        if (el) el.dispatchEvent(new CustomEvent('chat-reset'));
+      });
+    ">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
         <!-- Left: Tabs -->
-        <div class="lg:col-span-3">
-          <div class="grid grid-cols-2 gap-3">
+        <div class="lg:col-span-5 lg:col-start-2">
+          <div class="grid grid-cols-1 gap-1">
             {
               tabs.map((tab, i) => (
                 <button
-                  x-on:click={`activeTab = '${tab.key}'`}
+                  x-on:click={`autoPlay = false; activeTab = '${tab.key}'`}
                   x-bind:class={`activeTab === '${tab.key}' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'`}
                   class="w-full text-left p-3 md:p-4 rounded-xl transition-all flex items-start gap-3">
                   <span
@@ -317,18 +335,21 @@ const tabs: TabData[] =
         </div>
 
         <!-- Right: Chat Simulations -->
-        <div class="lg:col-span-2 flex justify-center lg:sticky lg:top-24">
+        <div class="lg:col-span-6 flex justify-center lg:sticky lg:top-24">
           {
             tabs.map((tab) => (
               <div
                 x-show={`activeTab === '${tab.key}'`}
                 x-cloak
+                data-tab-key={tab.key}
+                x-on:chat-complete={`handleComplete('${tab.key}')`}
                 class="w-full max-w-md">
                 <ChatSimulation
                   storeName={storeName}
                   conversations={[tab.conversation]}
                   typingDelay={1200}
                   pauseBetween={8000}
+                  loop={false}
                 />
               </div>
             ))
