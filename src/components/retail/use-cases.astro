@@ -276,11 +276,11 @@ const tabs: TabData[] =
     </div>
 
     <!-- Tabbed Use Cases -->
-    <div class="max-w-5xl mx-auto" x-data="{ activeTab: 'tab1' }">
-      <div class="grid md:grid-cols-5 gap-6 md:gap-8 items-start">
-        <!-- Left: Vertical Tabs -->
-        <div class="md:col-span-2">
-          <div class="grid grid-cols-2 md:grid-cols-1 gap-2">
+    <div class="max-w-6xl mx-auto" x-data="{ activeTab: 'tab1' }">
+      <div class="grid lg:grid-cols-5 gap-6 lg:gap-10 items-start">
+        <!-- Left: Tabs -->
+        <div class="lg:col-span-3">
+          <div class="grid grid-cols-2 gap-3">
             {
               tabs.map((tab, i) => (
                 <button
@@ -289,22 +289,22 @@ const tabs: TabData[] =
                   class="w-full text-left p-3 md:p-4 rounded-xl transition-all flex items-start gap-3">
                   <span
                     x-bind:class={`activeTab === '${tab.key}' ? 'bg-white/20 text-white' : 'bg-indigo-100 text-indigo-600'`}
-                    class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-colors">
+                    class="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-bold shrink-0 transition-colors">
                     {i + 1}
                   </span>
                   <div class="min-w-0">
-                    <div class="font-semibold text-sm leading-tight">
+                    <div class="font-semibold text-sm md:text-base leading-tight">
                       {tab.title}
                     </div>
                     <div
-                      x-bind:class={`activeTab === '${tab.key}' ? 'text-indigo-100' : 'text-slate-500'`}
-                      class="hidden md:block text-xs mt-1 transition-colors">
+                      x-bind:class={`activeTab === '${tab.key}' ? 'text-white/80' : 'text-slate-500'`}
+                      class="hidden md:block text-xs md:text-sm mt-1 transition-colors">
                       {tab.desc}
                     </div>
                     <div
                       x-show={`activeTab === '${tab.key}'`}
                       x-cloak
-                      class="mt-2 text-sm font-medium flex items-center gap-1.5 text-teal-300">
+                      class="mt-2 text-xs md:text-sm font-medium flex items-center gap-1.5 text-white/90">
                       <span>✅</span>
                       <span>{tab.checkText}</span>
                     </div>
@@ -316,13 +316,13 @@ const tabs: TabData[] =
         </div>
 
         <!-- Right: Chat Simulations -->
-        <div class="md:col-span-3 flex justify-center">
+        <div class="lg:col-span-2 flex justify-center lg:sticky lg:top-24">
           {
             tabs.map((tab) => (
               <div
                 x-show={`activeTab === '${tab.key}'`}
                 x-cloak
-                class="w-full max-w-sm">
+                class="w-full max-w-md">
                 <ChatSimulation
                   storeName={storeName}
                   conversations={[tab.conversation]}
