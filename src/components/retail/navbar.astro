@@ -7,17 +7,18 @@ import { Image } from "astro:assets";
 import logoImage from "../../assets/logo.svg";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
     "nav.cta_results": "See Results",
     "nav.cta_audit": "Get Free Inbox Audit",
-    "nav.cta_link": "https://cal.com",
+    "nav.cta_link": config.retail.register.en,
   },
   th: {
     "nav.cta_results": "ดูผลลัพธ์จริง",
     "nav.cta_audit": "นัดคุยวิเคราะห์ Inbox ฟรี",
-    "nav.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "nav.cta_link": config.retail.register.th,
   },
 } as const;
 

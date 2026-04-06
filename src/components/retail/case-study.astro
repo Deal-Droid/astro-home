@@ -5,6 +5,7 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 import djiScreenshot from "@assets/customer/dji13store-facebook.png";
 import messengerSvg from "@assets/channels/messenger.svg";
 import lineSvg from "@assets/channels/line.svg";
@@ -32,7 +33,7 @@ const page_ui: UILanguages = {
     "cs.stat4_label": "Coverage when staff is offline",
     "cs.stat_summary": "Handled all ad traffic without hiring additional staff",
     "cs.cta": "See the Full Case Study in Your Free Inbox Audit",
-    "cs.cta_link": "https://cal.com",
+    "cs.cta_link": config.retail.register.en,
     "cs.channels": "Messenger · Website",
   },
   th: {
@@ -55,7 +56,7 @@ const page_ui: UILanguages = {
     "cs.stat4_label": "ดูแลลูกค้าให้ในเมื่อ admin ไม่อยู่",
     "cs.stat_summary": "ช่วยรับทราฟฟิกจากแอดได้ โดยไม่ต้องเพิ่มแอดมิน",
     "cs.cta": "ขอดูรายละเอียด Full Case Study ใน ช่วงนัดคุยวิเคราะห์ Inbox",
-    "cs.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "cs.cta_link": config.retail.register.th,
     "cs.channels": "Messenger · LINE · Website",
   },
 } as const;

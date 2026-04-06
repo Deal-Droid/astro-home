@@ -4,6 +4,7 @@ import Link from "@components/ui/link.astro";
 import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
@@ -28,7 +29,7 @@ const page_ui: UILanguages = {
     "aud.not3":
       "Looking for a basic scripted chatbot that can only follow fixed flows",
     "aud.cta": "Get Free Inbox Audit — Consult Before You Decide",
-    "aud.cta_link": "https://cal.com",
+    "aud.cta_link": config.retail.register.en,
     "aud.sub1": "AI starts selling in your inbox within 48 hours after onboarding",
     "aud.sub2": "Our AI Expert team handles the full setup for you",
   },
@@ -50,7 +51,7 @@ const page_ui: UILanguages = {
     "aud.not2": "Ad spend ต่ำกว่า 50,000 บาท/เดือน",
     "aud.not3": 'ต้องการ "chatbot ราคาถูก" ทั่วไป ที่ตอบได้แค่ตามที่กำหนด',
     "aud.cta": "นัดคุยวิเคราะห์ Inbox ฟรี — ปรึกษาก่อนตัดสินใจ",
-    "aud.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "aud.cta_link": config.retail.register.th,
     "aud.sub1": "AI เริ่มขายจริงใน inbox ของคุณภายใน 48 ชั่วโมงหลังตัดสินใจ",
     "aud.sub2": "ทีมงาน AI Expert พร้อม Setup ให้ทั้งหมด",
   },

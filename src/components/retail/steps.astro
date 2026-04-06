@@ -3,6 +3,7 @@ import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
@@ -22,7 +23,7 @@ const page_ui: UILanguages = {
     "steps.worry_desc":
       "No problem! Our AI Expert team handles the entire setup with you — hands-on until you're live and selling.",
     "steps.worry_cta": "Get Free Inbox Audit",
-    "steps.worry_link": "https://cal.com",
+    "steps.worry_link": config.retail.register.en,
   },
   th: {
     "steps.heading": "เริ่มใช้ง่าย AI เริ่มรับลูกค้าภายใน 48 ชั่วโมง",
@@ -41,7 +42,7 @@ const page_ui: UILanguages = {
     "steps.worry_desc":
       "ไม่มีปัญหา! ทีมงาน AI Expert พร้อม Setup ให้แบบจับมือทำไปด้วยกัน จนเปิดขายได้",
     "steps.worry_cta": "นัดคุยวิเคราะห์ Inbox ฟรี",
-    "steps.worry_link": "https://line.me/R/ti/p/@dealdroid",
+    "steps.worry_link": config.retail.register.th,
   },
 } as const;
 

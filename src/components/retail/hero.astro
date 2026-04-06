@@ -4,6 +4,7 @@ import Link from "@components/ui/link.astro";
 import ChatSimulation from "./chat-simulation.astro";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 import messengerSvg from "@assets/channels/messenger.svg";
 import lineSvg from "@assets/channels/line.svg";
 import whatsappSvg from "@assets/channels/whatsapp.svg";
@@ -34,7 +35,7 @@ const page_ui: UILanguages = {
     "hero.chat_reply1":
       "Hey there! 👋 The Sony WH-1000XM5 is S$449.\n\n🎧 Right now we have a bundle deal — get a free carrying case worth S$59!\n\n📦 Only 5 left in stock.",
     "hero.chat_msg2": "Deal! I'll take one.",
-    "hero.cta_link": "https://cal.com",
+    "hero.cta_link": config.retail.register.en,
   },
   th: {
     "hero.badge": "AI Sales Agent สำหรับ Brand ที่มียอดขายจริงจัง",
@@ -56,7 +57,7 @@ const page_ui: UILanguages = {
     "hero.chat_msg1": "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ?",
     "hero.chat_reply1": "อาหารสุนัข Happy Pup – Duck ราคา 140 บาท ครับ",
     "hero.chat_msg2": "เอา 2 ถุง",
-    "hero.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "hero.cta_link": config.retail.register.th,
   },
 } as const;
 

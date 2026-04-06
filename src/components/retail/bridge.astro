@@ -5,6 +5,7 @@ import ChatSimulation from "./chat-simulation.astro";
 import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
@@ -21,7 +22,7 @@ const page_ui: UILanguages = {
       "Closes sales, not just answers questions — built for conversion",
     "bridge.b5": "118+ languages supported, no extra headcount needed",
     "bridge.cta": "Request a Live Demo",
-    "bridge.cta_link": "https://cal.com",
+    "bridge.cta_link": config.retail.register.en,
     "bridge.store_name": "TechGear SG",
   },
   th: {
@@ -36,7 +37,7 @@ const page_ui: UILanguages = {
     "bridge.b4": "ปิดการขาย ไม่ใช่แค่ตอบคำถาม — สร้างมาเพื่อ Conversion",
     "bridge.b5": "รองรับ 118+ ภาษา ไม่ต้องจ้างคนเพิ่ม",
     "bridge.cta": "นัด Demo สด",
-    "bridge.cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "bridge.cta_link": config.retail.register.th,
     "bridge.store_name": "TechGear SG",
   },
 } as const;

@@ -3,6 +3,8 @@ import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
+import lineSvg from "@assets/channels/line.svg";
 
 const page_ui: UILanguages = {
   en: {
@@ -15,8 +17,8 @@ const page_ui: UILanguages = {
     "fcta.trust2": "No commitment",
     "fcta.trust3": "Go live in 48 hours",
     "fcta.scarcity": "Limited spots · Only 3 brands accepted this week",
-    "fcta.primary_link": "https://cal.com",
-    "fcta.secondary_link": "https://wa.me",
+    "fcta.primary_link": config.retail.register.en,
+    "fcta.secondary_link": config.retail.register.en,
   },
   th: {
     "fcta.heading":
@@ -29,8 +31,8 @@ const page_ui: UILanguages = {
     "fcta.trust2": "ไม่มีข้อผูกมัด",
     "fcta.trust3": "Live ได้ใน 48 ชั่วโมง",
     "fcta.scarcity": "รับจำนวนจำกัด · สัปดาห์นี้รับไม่เกิน 3 แบรนด์",
-    "fcta.primary_link": "https://line.me/R/ti/p/@dealdroid",
-    "fcta.secondary_link": "https://line.me/R/ti/p/@dealdroid",
+    "fcta.primary_link": config.retail.register.th,
+    "fcta.secondary_link": config.retail.line,
   },
 } as const;
 
@@ -53,7 +55,8 @@ const trustSignals = [p("fcta.trust1"), p("fcta.trust2"), p("fcta.trust3")];
         <Link href={p("fcta.primary_link")} size="lg" style="inverted">
           {p("fcta.primary_btn")}
         </Link>
-        <Link href={p("fcta.secondary_link")} size="lg" style="outline">
+        <Link href={p("fcta.secondary_link")} size="lg" style="outline" class="inline-flex items-center gap-2">
+          <img src={lineSvg.src} alt="LINE" class="w-5 h-5" />
           {p("fcta.secondary_text")}
         </Link>
       </div>

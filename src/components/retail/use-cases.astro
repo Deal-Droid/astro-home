@@ -4,6 +4,7 @@ import Link from "@components/ui/link.astro";
 import ChatSimulation from "./chat-simulation.astro";
 import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
@@ -14,7 +15,7 @@ const page_ui: UILanguages = {
     "uc.mid_cta_desc":
       "Book a free 30-minute inbox analysis and we'll demo your exact use case",
     "uc.mid_cta_button": "Book Free Inbox Analysis",
-    "uc.mid_cta_link": "https://cal.com",
+    "uc.mid_cta_link": config.retail.register.en,
     "uc.store_name": "TechGear SG",
   },
   th: {
@@ -25,7 +26,7 @@ const page_ui: UILanguages = {
     "uc.mid_cta_desc":
       "นัดคุยวิเคราะห์ Inbox ฟรี 30 นาที แล้วเราจะ Demo ให้ตรงเคสของคุณเลย",
     "uc.mid_cta_button": "นัดคุยวิเคราะห์ Inbox ฟรี",
-    "uc.mid_cta_link": "https://line.me/R/ti/p/@dealdroid",
+    "uc.mid_cta_link": config.retail.register.th,
     "uc.store_name": "DJI 13 Store",
   },
 } as const;
