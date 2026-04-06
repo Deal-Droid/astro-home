@@ -76,7 +76,7 @@ const heroImage = heroImages[lang];
             size="lg"
             style="outline"
             rel="noopener"
-            href={translatedPath("/contact")}
+            href={lang === "th" ? config.retail.register.th : config.retail.register.en}
             class="flex gap-1 items-center justify-center"
             target="_blank">
             {p("hero.cta")}

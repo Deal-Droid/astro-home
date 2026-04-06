@@ -44,7 +44,7 @@ const p = usePageTranslations(lang, page_ui);
     <Link href={config.urls.register} size="lg">
       {p("hero.cta.primary")}
     </Link>
-    <Link href={config.urls.register} size="lg" style="outline">
+    <Link href={lang === "th" ? config.retail.register.th : config.retail.register.en} size="lg" style="outline">
       {p("hero.cta.secondary")}
     </Link>
   </div>
