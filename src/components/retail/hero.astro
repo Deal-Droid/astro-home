@@ -9,6 +9,8 @@ import lineSvg from "@assets/channels/line.svg";
 import whatsappSvg from "@assets/channels/whatsapp.svg";
 import instagramSvg from "@assets/channels/instagram.svg";
 import websiteSvg from "@assets/channels/website.svg";
+import happyPupDuck from "@assets/brands/happy-pup-duck.jpg";
+import happyPupFish from "@assets/brands/happy-pup-fish.jpg";
 
 const page_ui: UILanguages = {
   en: {
@@ -50,11 +52,10 @@ const page_ui: UILanguages = {
     "hero.stat4_value": "↗ Peak",
     "hero.stat4_label": "รองรับแชทพุ่งช่วงแคมเปญ",
     "hero.channels_label": "เชื่อมต่อกับ",
-    "hero.store_name": "DJI 13 Store",
-    "hero.chat_msg1": "DJI Mini 4 Pro ราคาเท่าไหร่คะ?",
-    "hero.chat_reply1":
-      "DJI Mini 4 Pro ราคา 27,990 บาทครับ\nตอนนี้ซื้อคู่กับ DJI RC 2 ลดเพิ่มอีก 2,000 บาท!\n\n📦 เหลือ 3 ตัวสุดท้ายครับ",
-    "hero.chat_msg2": "ขอดูรูปหน่อยได้มั้ยค่ะ",
+    "hero.store_name": "Mochi",
+    "hero.chat_msg1": "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ?",
+    "hero.chat_reply1": "อาหารสุนัข Happy Pup – Duck ราคา 140 บาท ครับ",
+    "hero.chat_msg2": "เอา 2 ถุง",
     "hero.cta_link": "https://line.me/R/ti/p/@dealdroid",
   },
 } as const;
@@ -78,43 +79,81 @@ const stats = [
   { value: p("hero.stat4_value"), label: p("hero.stat4_label") },
 ];
 
-type Msg = { sender: "bot" | "customer"; text: string };
+type Msg = { sender: "bot" | "customer"; text: string; image?: string };
 
 const chatConversations: Msg[][] =
   lang === "th"
     ? [
-        // Set A - สอบถามของแท้
+        // Set A - สั่งซื้ออาหารสุนัข
         [
-          { sender: "customer", text: "ของแท้ไหมคะ กลัวของปลอมอ่ะ" },
+          { sender: "customer", text: "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ" },
           {
             sender: "bot",
-            text: "แท้ 100% ค่ะ! เราเป็นตัวแทนจำหน่ายอย่างเป็นทางการ\n\n✅ รับประกัน 1 ปี\n✅ ออกใบเสร็จให้\n✅ สั่งซื้อมาจากผู้แจกจ่ายที่ได้รับอนุญาตโดยตรง\n\nซื้อกับเราสบายใจได้เลยค่ะ 😊",
+            text: "อาหารสุนัข Happy Pup – Duck ราคา 140 บาท ครับ",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupDuck.src,
+          },
+          {
+            sender: "bot",
+            text: "สนใจรับไปเลยมั๊ยคะ 😊",
+          },
+          { sender: "customer", text: "เอา 2 ถุง" },
+          {
+            sender: "bot",
+            text: "ยินดีเลยค่ะ 🎉\n\nใส่สินค้า Happy Pup Dog Food – Duck - 10kg จำนวน 2 ถุง ในตะกร้าแล้ว\nราคารวมอยู่ที่ 280 บาท\n\nคุณลูกค้าจะจ่ายเป็นโอนเงิน หรือเก็บเงินปลายทางดีคะ",
+          },
+          { sender: "customer", text: "เก็บเงินปลายทางค่ะ" },
+          {
+            sender: "bot",
+            text: "ได้เลยค่ะ คุณลูกค้าแจ้งชื่อ-ที่อยู่เพื่อจัดส่งให้ถูกต้องได้เลยค่ะ 📦",
           },
         ],
-        // Set B - สอบถามราคา
+        // Set B - ถามบริการอาบน้ำ (out of scope)
         [
-          {
-            sender: "customer",
-            text: "DJI Mini 4 Pro ราคาเท่าไหร่คะ?",
-          },
+          { sender: "customer", text: "อาบน้ำหมา ราคาเท่าไรคะ?" },
           {
             sender: "bot",
-            text: "DJI Mini 4 Pro ราคา 27,990 บาทครับ\nตอนนี้ซื้อคู่กับ DJI RC 2 ลดเพิ่มอีก 2,000 บาท!\n\n📦 เหลือ 3 ตัวสุดท้ายครับ",
+            text: "ขออภัยค่ะ ทางร้านไม่มีบริการอาบน้ำสุนัข\n\nแต่มีอาหารสุนัขคุณภาพดี เช่น Happy Pup Dog Food – Ocean Fish และ Happy Pup Dog Food – Duck ซึ่งเป็นอาหารที่ดีต่อสุขภาพสุนัข\n\nคุณลูกค้าสนใจรับไปลองดูมั๊ยคะ? 😊",
           },
+          { sender: "customer", text: "ขอคิดดูก่อนนะคะ" },
           {
-            sender: "customer",
-            text: "ขอดูรูปหน่อยได้มั้ยค่ะ",
+            sender: "bot",
+            text: "ได้เลยค่ะ ถ้าคุณลูกค้าสนใจหรือมีคำถามเพิ่มเติมเกี่ยวกับอาหารสุนัข Happy Pup สามารถทักมาหาเราได้ตลอดเลยนะคะ",
           },
+          { sender: "bot", text: "ยินดีให้คำแนะนำค่ะ 😊" },
         ],
-        // Set C - สอบถามสาขา
+        // Set C - อาหารสำหรับหมาแพ้ง่าย
         [
           {
             sender: "customer",
-            text: "มีหน้าร้านให้แวะชมไหมคะ?",
+            text: "สนใจอาหารสำหรับน้องหมาแพ้ง่ายค่ะ",
           },
           {
             sender: "bot",
-            text: "มีค่ะ! มี 2 สาขา:\n\n📍 สาขาทองหล่อ\nเปิด 11:00–21:00 ทุกวัน\n📞 02-123-4567\n\n📍 สาขาเซ็นทรัล เวิลด์\nเปิด 10:00–22:00 ทุกวัน\n📞 02-789-0123\n\nแวะมาเลือกชมได้เลยค่ะ 😊",
+            text: "เรามีอาหารเม็ดสำหรับสุนัขแพ้ง่าย เช่น สูตรเนื้อปลาแซลมอนและปลาทูน่า สนใจลองดูมั๊ยคะ? 😊",
+          },
+          { sender: "customer", text: "มีอะไรบ้างคะ" },
+          {
+            sender: "bot",
+            text: "เรามีอาหารสุนัขสำหรับแพ้ง่าย 2 สูตรหลัก ได้แก่\n\n• สูตรเนื้อปลา (Ocean Fish) – ไม่มีข้าวและกลูเตน มีโอเมก้า 3 & 6 ช่วยบำรุงขนและผิว\n• สูตรเนื้อเป็ด (Duck) – ง่ายต่อการย่อย ไม่มีสารก่อภูมิแพ้ และเพิ่มผักเสริมโภชนาการ\n\nสนใจตัวไหนดีคะ?",
+          },
+          { sender: "customer", text: "ปลาค่ะ" },
+          {
+            sender: "bot",
+            text: "สูตรเนื้อปลา (Ocean Fish) นี้เหมาะสำหรับน้องหมาที่แพ้สัตว์ปีก มีโปรตีนจากปลาแซลมอนและปลาทูน่า ช่วยบำรุงขนให้นุ่มสวย และผิวหนังแข็งแรง ไม่มีข้าวหรือกลูเตน 🐾",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupFish.src,
+          },
+          { sender: "customer", text: "โอเคค่ะ เอา 1 ถุง" },
+          {
+            sender: "bot",
+            text: "เยี่ยมเลยค่ะ 🎉\n\nใส่สินค้า Happy Pup Dog Food – Ocean Fish - 10kg จำนวน 1 ถุง ในตะกร้าแล้ว\nราคารวมอยู่ที่ 150 บาท\n\nคุณลูกค้าจะจ่ายเป็นโอนเงิน หรือเก็บเงินปลายทางดีคะ",
           },
         ],
       ]
@@ -216,7 +255,8 @@ const chatConversations: Msg[][] =
         <ChatSimulation
           storeName={p("hero.store_name")}
           conversations={chatConversations}
-          pauseBetween={4000}
+          typingDelay={6000}
+          pauseBetween={8000}
         />
       </div>
     </div>

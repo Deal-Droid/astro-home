@@ -10,9 +10,14 @@
  *   pauseBetween?: number — ms pause between conversation sets (default 3000)
  *   theme?: 'default' | 'whatsapp' — Visual theme (default 'default')
  */
+import dji13storeLogo from "@assets/brands/dji13store-BW.png";
+import techgearLogo from "@assets/brands/TechGear.png";
+import mochiLogo from "@assets/brands/mochi.jpg";
+
 interface Message {
   sender: "bot" | "customer";
   text: string;
+  image?: string;
 }
 
 interface Props {
@@ -32,6 +37,15 @@ const {
 } = Astro.props;
 
 const isWhatsapp = theme === "whatsapp";
+
+const storeLogo =
+  storeName === "DJI 13 Store"
+    ? dji13storeLogo.src
+    : storeName === "TechGear SG"
+      ? techgearLogo.src
+      : storeName === "Mochi"
+        ? mochiLogo.src
+        : "/favicon.svg";
 ---
 
 <div
@@ -42,7 +56,9 @@ const isWhatsapp = theme === "whatsapp";
   data-delay={typingDelay}
   data-pause={pauseBetween}
   data-theme={theme}
-  data-conversations={JSON.stringify(conversations)}>
+  data-conversations={JSON.stringify(conversations)}
+  data-logo={storeLogo}
+  data-store-name={storeName}>
   <!-- Chat Header -->
   {
     isWhatsapp ? (
@@ -59,8 +75,8 @@ const isWhatsapp = theme === "whatsapp";
           stroke-linejoin="round">
           <polyline points="15 18 9 12 15 6" />
         </svg>
-        <div class="w-9 h-9 bg-slate-300 rounded-full flex items-center justify-center overflow-hidden">
-          <img src="/favicon.svg" alt={storeName} class="w-6 h-6" />
+        <div class="w-9 h-9 bg-slate-300 rounded-full overflow-hidden">
+          <img src={storeLogo} alt={storeName} class="w-full h-full object-cover" />
         </div>
         <div class="flex-1 min-w-0">
           <div class="font-medium text-sm text-white truncate">{storeName}</div>
@@ -95,8 +111,8 @@ const isWhatsapp = theme === "whatsapp";
       </div>
     ) : (
       <div class="shrink-0 bg-white border-b text-slate-900 px-4 py-3 flex items-center gap-3">
-        <div class="w-9 h-9 bg-indigo-50 rounded-full flex items-center justify-center backdrop-blur-sm">
-          <img src="/favicon.svg" alt="DealDroid" class="w-6 h-6" />
+        <div class="w-9 h-9 bg-indigo-50 rounded-full overflow-hidden">
+          <img src={storeLogo} alt={storeName} class="w-full h-full object-cover" />
         </div>
         <div class="flex-1">
           <div class="font-semibold text-sm">{storeName}</div>
@@ -132,8 +148,8 @@ const isWhatsapp = theme === "whatsapp";
           </div>
         ) : (
           <div class="flex items-end gap-2">
-            <div class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
-              <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+            <div class="w-6 h-6 shrink-0 rounded-full overflow-hidden bg-indigo-50">
+              <img src={storeLogo} alt={storeName} class="w-full h-full object-cover" />
             </div>
             <div class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-sm">
               <div class="flex gap-1 items-center">
@@ -367,8 +383,10 @@ const isWhatsapp = theme === "whatsapp";
 
 <script>
   function createBubble(
-    msg: { sender: string; text: string },
+    msg: { sender: string; text: string; image?: string },
     theme: string,
+    logo: string,
+    storeName: string,
   ): HTMLElement {
     const wrapper = document.createElement("div");
     const isCustomer = msg.sender === "customer";
@@ -379,9 +397,9 @@ const isWhatsapp = theme === "whatsapp";
     if (!isCustomer && !isWhatsapp) {
       const avatar = document.createElement("div");
       avatar.className =
-        "w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50";
+        "w-6 h-6 shrink-0 rounded-full overflow-hidden bg-indigo-50";
       avatar.innerHTML =
-        '<img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />';
+        `<img src="${logo}" alt="${storeName}" class="w-full h-full object-cover" />`;
       wrapper.appendChild(avatar);
     }
 
@@ -423,6 +441,31 @@ const isWhatsapp = theme === "whatsapp";
       bubble.textContent = text;
     }
 
+    // Image-only bubble: return a standalone chat-bubble wrapper
+    if (msg.image && !msg.text) {
+      const bubbleBase = "rounded-2xl px-1 py-1 max-w-[85%]";
+      let bubbleClass = "";
+      if (isWhatsapp) {
+        bubbleClass = isCustomer
+          ? `${bubbleBase} bg-white rounded-br-sm shadow-sm`
+          : `${bubbleBase} bg-[#DCF8C6] rounded-bl-sm`;
+      } else {
+        bubbleClass = isCustomer
+          ? `${bubbleBase} bg-indigo-500 rounded-br-md`
+          : `${bubbleBase} bg-white border border-slate-200 rounded-bl-md shadow-sm`;
+      }
+
+      const imgWrap = document.createElement("div");
+      imgWrap.className = bubbleClass;
+      const img = document.createElement("img");
+      img.src = msg.image;
+      img.className = "rounded-xl max-w-full";
+      img.loading = "lazy";
+      imgWrap.appendChild(img);
+      wrapper.appendChild(imgWrap);
+      return wrapper;
+    }
+
     if (isWhatsapp && isCustomer) {
       const checks = document.createElement("span");
       checks.textContent = " \u2713\u2713";
@@ -444,7 +487,7 @@ const isWhatsapp = theme === "whatsapp";
     bubble.classList.add("visible");
   }
 
-  function buildTypingHTML(sender: string, theme: string): string {
+  function buildTypingHTML(sender: string, theme: string, logo: string, storeName: string): string {
     const isCustomer = sender === "customer";
     const isWhatsapp = theme === "whatsapp";
     const dots = `<div class="flex gap-1 items-center">
@@ -470,8 +513,8 @@ const isWhatsapp = theme === "whatsapp";
         </div>`;
       } else {
         return `<div class="flex items-end gap-2">
-          <div class="w-6 h-6 shrink-0 rounded-full flex items-center justify-center bg-indigo-50">
-            <img src="/favicon.svg" alt="DealDroid" class="w-4 h-4" />
+          <div class="w-6 h-6 shrink-0 rounded-full overflow-hidden bg-indigo-50">
+            <img src="${logo}" alt="${storeName}" class="w-full h-full object-cover" />
           </div>
           <div class="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-2.5 shadow-sm">${dots}</div>
         </div>`;
@@ -483,9 +526,11 @@ const isWhatsapp = theme === "whatsapp";
     indicator: HTMLElement | null,
     sender: string,
     theme: string,
+    logo: string,
+    storeName: string,
   ) {
     if (!indicator) return;
-    indicator.innerHTML = buildTypingHTML(sender, theme);
+    indicator.innerHTML = buildTypingHTML(sender, theme, logo, storeName);
     indicator.classList.add("active");
   }
 
@@ -530,6 +575,8 @@ const isWhatsapp = theme === "whatsapp";
       const delay = parseInt(container.getAttribute("data-delay") || "1500");
       const pause = parseInt(container.getAttribute("data-pause") || "3000");
       const theme = container.getAttribute("data-theme") || "default";
+      const logo = container.getAttribute("data-logo") || "/favicon.svg";
+      const sn = container.getAttribute("data-store-name") || "";
       const conversations: { sender: string; text: string }[][] = JSON.parse(
         container.getAttribute("data-conversations") || "[]",
       );
@@ -564,6 +611,8 @@ const isWhatsapp = theme === "whatsapp";
             theme,
             messagesContainer,
             typingIndicator,
+            logo,
+            sn,
             () => {
               setTimeout(() => {
                 currentSet = (currentSet + 1) % conversations.length;
@@ -598,6 +647,8 @@ const isWhatsapp = theme === "whatsapp";
     theme: string,
     container: HTMLElement,
     typingIndicator: HTMLElement | null,
+    logo: string,
+    storeName: string,
     onComplete: () => void,
   ) {
     if (groupIndex >= groups.length) {
@@ -614,12 +665,12 @@ const isWhatsapp = theme === "whatsapp";
       const prePause = groupIndex === 0 ? 0 : 400;
 
       setTimeout(() => {
-        showTyping(typingIndicator, sender, theme);
+        showTyping(typingIndicator, sender, theme, logo, storeName);
         scrollBottom(container);
 
         setTimeout(() => {
           // Insert first bubble (opacity 0) BEFORE hiding indicator → no layout gap
-          const firstBubble = createBubble(group.msgs[0], theme);
+          const firstBubble = createBubble(group.msgs[0], theme, logo, storeName);
           insertBubble(firstBubble, container);
           hideTyping(typingIndicator);
           showBubble(firstBubble);
@@ -629,7 +680,7 @@ const isWhatsapp = theme === "whatsapp";
           group.msgs.slice(1).forEach((msg, i) => {
             setTimeout(
               () => {
-                const bubble = createBubble(msg, theme);
+                const bubble = createBubble(msg, theme, logo, storeName);
                 insertBubble(bubble, container);
                 showBubble(bubble);
                 scrollBottom(container);
@@ -647,6 +698,8 @@ const isWhatsapp = theme === "whatsapp";
               theme,
               container,
               typingIndicator,
+              logo,
+              storeName,
               onComplete,
             );
           }, revealTime);
@@ -658,7 +711,7 @@ const isWhatsapp = theme === "whatsapp";
       const prePause = groupIndex === 0 ? 0 : 300;
 
       setTimeout(() => {
-        showTyping(typingIndicator, sender, theme);
+        showTyping(typingIndicator, sender, theme, logo, storeName);
         scrollBottom(container);
 
         let i = 0;
@@ -671,6 +724,8 @@ const isWhatsapp = theme === "whatsapp";
               theme,
               container,
               typingIndicator,
+              logo,
+              storeName,
               onComplete,
             );
             return;
@@ -679,7 +734,7 @@ const isWhatsapp = theme === "whatsapp";
           const typingTime = delay * 0.6;
           setTimeout(() => {
             // Insert bubble BEFORE hiding indicator → no layout gap
-            const bubble = createBubble(group.msgs[i], theme);
+            const bubble = createBubble(group.msgs[i], theme, logo, storeName);
             insertBubble(bubble, container);
             hideTyping(typingIndicator);
             showBubble(bubble);
@@ -688,7 +743,7 @@ const isWhatsapp = theme === "whatsapp";
 
             if (i < group.msgs.length) {
               setTimeout(() => {
-                showTyping(typingIndicator, sender, theme);
+                showTyping(typingIndicator, sender, theme, logo, storeName);
                 scrollBottom(container);
                 setTimeout(() => revealNext(), typingTime);
               }, 300);
