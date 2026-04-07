@@ -8,28 +8,30 @@ import lineSvg from "@assets/channels/line.svg";
 
 const page_ui: UILanguages = {
   en: {
+    "fcta.pre_heading":
+      "Every day your admin is still slow to respond, you're paying for Ads that will never return",
     "fcta.heading": "Ready to stop losing revenue to slow chat responses?",
     "fcta.desc":
       "Book a free 30-minute Inbox Audit — we'll analyze your inbox, show you where you're losing sales, map out a clear AI strategy, and demo success stories like DJI13Store.",
-    "fcta.primary_btn": "Get Free Inbox Audit — 30 min",
+    "fcta.primary_btn": "Get Free Inbox Audit",
     "fcta.secondary_text": "Chat on LINE First",
-    "fcta.trust1": "Free inbox analysis",
-    "fcta.trust2": "No commitment",
-    "fcta.trust3": "Go live in 48 hours",
+    "fcta.trust":
+      "✨ Free inbox analysis · No commitment · Go live in 48 hours",
     "fcta.scarcity": "Limited spots · Only 3 brands accepted this week",
     "fcta.primary_link": config.retail.register.en,
     "fcta.secondary_link": config.retail.line,
   },
   th: {
+    "fcta.pre_heading":
+      "ในทุกวันที่ Admin ยังตอบช้า คุณกำลังจ่ายเงินค่า Ads เสียไปแบบไม่มีวันหวนคืน",
     "fcta.heading":
       "พร้อมหยุดสูญเสียรายได้จากการรับลูกค้าแบบไม่มีประสิทธิภาพหรือยัง?",
     "fcta.desc":
       "นัดคุยวิเคราะห์ Inbox ฟรี 30 นาที — เราจะวิเคราะห์ inbox ของคุณ ชี้จุดที่กำลังเสียยอดขาย และวางแผนการใช้ AI ที่ชัดเจน พร้อม Demo ความสำเร็จของ Brand อย่าง DJI13Store",
     "fcta.primary_btn": "นัดคุยวิเคราะห์ Inbox ฟรี",
     "fcta.secondary_text": "คุยทาง LINE ก่อน",
-    "fcta.trust1": "วิเคราะห์ Inbox ให้ฟรี",
-    "fcta.trust2": "ไม่มีข้อผูกมัด",
-    "fcta.trust3": "Live ได้ใน 48 ชั่วโมง",
+    "fcta.trust":
+      "✨ วิเคราะห์ Inbox ให้ฟรี · ไม่มีข้อผูกมัด · Live ได้ใน 48 ชั่วโมงหลังตัดสินใจ",
     "fcta.scarcity": "รับจำนวนจำกัด · สัปดาห์นี้รับไม่เกิน 3 แบรนด์",
     "fcta.primary_link": config.retail.register.th,
     "fcta.secondary_link": config.retail.line,
@@ -38,38 +40,40 @@ const page_ui: UILanguages = {
 
 const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
-
-const trustSignals = [p("fcta.trust1"), p("fcta.trust2"), p("fcta.trust3")];
 ---
 
 <section
   class="py-16 bg-gradient-to-b from-indigo-600 to-indigo-700 text-white overflow-hidden">
   <Container>
     <div class="max-w-2xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">{p("fcta.heading")}</h2>
+      <p class="text-indigo-200 text-sm font-medium mb-4">
+        {p("fcta.pre_heading")}
+      </p>
+      <h2
+        class="text-3xl md:text-4xl font-bold leading-[1.4] md:leading-[1.4] mb-4">
+        {p("fcta.heading")}
+      </h2>
       <p class="text-indigo-100 mb-8 text-lg">{p("fcta.desc")}</p>
 
       <!-- Buttons -->
       <div
-        class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
         <Link href={p("fcta.primary_link")} size="lg" style="inverted">
           {p("fcta.primary_btn")}
         </Link>
-        <Link href={p("fcta.secondary_link")} size="lg" style="outline" class="inline-flex items-center gap-2">
+        <Link
+          href={p("fcta.secondary_link")}
+          size="lg"
+          style="ghost"
+          class="inline-flex items-center gap-2">
           <img src={lineSvg.src} alt="LINE" class="w-5 h-5" />
           {p("fcta.secondary_text")}
         </Link>
       </div>
 
-      <!-- Trust Signals -->
-      <div class="flex flex-wrap justify-center gap-6 mb-6 text-sm">
-        {
-          trustSignals.map((signal) => (
-            <div class="flex items-center gap-2">
-              <span>✓</span> {signal}
-            </div>
-          ))
-        }
+      <!-- Divider + Trust -->
+      <div class="border-t border-white/20 pt-6 mb-4">
+        <p class="text-indigo-100 text-sm">{p("fcta.trust")}</p>
       </div>
 
       <!-- Scarcity -->
