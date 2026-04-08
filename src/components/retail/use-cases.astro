@@ -2,7 +2,7 @@
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
 import ChatSimulation from "./chat-simulation.astro";
-import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
+import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
 import { config } from "../../config";
 
@@ -33,7 +33,6 @@ const page_ui: UILanguages = {
 
 const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
-const translatePath = useTranslatedPath(lang);
 
 type Msg = { sender: "bot" | "customer"; text: string };
 
@@ -377,11 +376,6 @@ const tabs: TabData[] =
   </Container>
 </section>
 
-<!-- Alpine.js for tabs (loaded once) -->
-<script
-  is:inline
-  src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-  defer></script>
 <style>
   [x-cloak] {
     display: none !important;

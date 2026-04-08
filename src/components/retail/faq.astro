@@ -77,9 +77,23 @@ const faqItems = [
   { q: p("faq.q7"), a: p("faq.a7") },
   { q: p("faq.q8"), a: p("faq.a8") },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a,
+    },
+  })),
+};
 ---
 
 <section class="py-16 sm:py-24 bg-white">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <Container>
     <Sectionhead>
       <Fragment slot="title">{p("faq.title")}</Fragment>

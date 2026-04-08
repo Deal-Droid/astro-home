@@ -1,5 +1,6 @@
 ---
 import Container from "@components/container.astro";
+import { Icon } from "astro-icon/components";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
 
@@ -58,12 +59,12 @@ const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
 
 const cards = [
-  { title: p("pain.card1_title"), desc: p("pain.card1_desc"), icon: "⏱️" },
-  { title: p("pain.card2_title"), desc: p("pain.card2_desc"), icon: "💬" },
-  { title: p("pain.card3_title"), desc: p("pain.card3_desc"), icon: "🌙" },
-  { title: p("pain.card4_title"), desc: p("pain.card4_desc"), icon: "🌏" },
-  { title: p("pain.card5_title"), desc: p("pain.card5_desc"), icon: "🔁" },
-  { title: p("pain.card6_title"), desc: p("pain.card6_desc"), icon: "📉" },
+  { title: p("pain.card1_title"), desc: p("pain.card1_desc"), icon: "solar:clock-circle-bold-duotone" },
+  { title: p("pain.card2_title"), desc: p("pain.card2_desc"), icon: "solar:chat-round-dots-bold-duotone" },
+  { title: p("pain.card3_title"), desc: p("pain.card3_desc"), icon: "solar:moon-bold-duotone" },
+  { title: p("pain.card4_title"), desc: p("pain.card4_desc"), icon: "solar:global-bold-duotone" },
+  { title: p("pain.card5_title"), desc: p("pain.card5_desc"), icon: "solar:refresh-bold-duotone" },
+  { title: p("pain.card6_title"), desc: p("pain.card6_desc"), icon: "solar:chart-2-bold-duotone" },
 ];
 ---
 
@@ -86,7 +87,9 @@ const cards = [
       {
         cards.map((card) => (
           <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
-            <div class="text-3xl mb-4">{card.icon}</div>
+            <div class="text-3xl mb-4 text-red-500">
+              <Icon name={card.icon} />
+            </div>
             <h3 class="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
             <p class="text-base text-slate-600">{card.desc}</p>
           </div>

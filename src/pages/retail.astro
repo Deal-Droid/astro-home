@@ -5,7 +5,6 @@ import Hero from "@components/retail/hero.astro";
 import ClientLogos from "@components/retail/client-logos.astro";
 import PainPoints from "@components/retail/pain-points.astro";
 import Bridge from "@components/retail/bridge.astro";
-import Solution from "@components/retail/solution.astro";
 import UseCases from "@components/retail/use-cases.astro";
 import CaseStudy from "@components/retail/case-study.astro";
 import FeaturesGrid from "@components/retail/features-grid.astro";
@@ -17,12 +16,15 @@ import RetailFaq from "@components/retail/faq.astro";
 import FinalCta from "@components/retail/final-cta.astro";
 ---
 
-<Layout title="AI Sales Agent for Retail | DealDroid" footerMargin={false} navbar={RetailNavbar}>
+<Layout
+  title="AI Sales Agent for Retail | DealDroid"
+  description="DealDroid AI replaces your chat team 24/7 — instant replies, product recommendations, and closes deals while you sleep. Free inbox audit for retail brands."
+  footerMargin={false}
+  navbar={RetailNavbar}>
   <Hero />
   <ClientLogos />
   <PainPoints />
   <Bridge />
-  <Solution />
   <UseCases />
   <CaseStudy />
   <FeaturesGrid />

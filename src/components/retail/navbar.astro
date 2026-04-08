@@ -1,7 +1,7 @@
 ---
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
-import { StickyHeader, Astronav } from "astro-navbar";
+import { StickyHeader } from "astro-navbar";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import logoImage from "../../assets/logo.svg";
@@ -13,11 +13,13 @@ const page_ui: UILanguages = {
   en: {
     "nav.cta_results": "See Results",
     "nav.cta_audit": "Get Free Inbox Audit",
+    "nav.cta_audit_short": "Get Audit",
     "nav.cta_link": config.retail.register.en,
   },
   th: {
     "nav.cta_results": "ดูผลลัพธ์จริง",
     "nav.cta_audit": "นัดคุยวิเคราะห์ Inbox ฟรี",
+    "nav.cta_audit_short": "นัดวิเคราะห์ฟรี",
     "nav.cta_link": config.retail.register.th,
   },
 } as const;
@@ -48,12 +50,12 @@ const translatePath = useTranslatedPath(lang);
           class="text-slate-600">Droid</span
         >
       </a>
-      <div class="hidden sm:flex items-center gap-3">
+      <div class="flex items-center gap-3">
         <Link
           href={`${translatePath("/retail")}#proof`}
           size="sm"
           style="outline"
-          class="inline-flex items-center group gap-px">
+          class="hidden sm:inline-flex items-center group gap-px">
           <span>{p("nav.cta_results")}</span>
           <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
         </Link>
@@ -61,7 +63,8 @@ const translatePath = useTranslatedPath(lang);
           href={p("nav.cta_link")}
           size="sm"
           class="inline-flex items-center group gap-px">
-          <span>{p("nav.cta_audit")}</span>
+          <span class="hidden sm:inline">{p("nav.cta_audit")}</span>
+          <span class="sm:hidden">{p("nav.cta_audit_short")}</span>
           <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
         </Link>
       </div>

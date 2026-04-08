@@ -9,6 +9,7 @@ import "@fontsource-variable/inter/index.css";
 
 export interface Props {
   title?: string;
+  description?: string;
   footerMargin?: boolean;
   navbar?: typeof Navbar;
 }
@@ -20,7 +21,7 @@ const resolvedImageWithDomain = new URL(
   Astro.site,
 ).toString();
 
-const { title, footerMargin = true, navbar: CustomNavbar } = Astro.props;
+const { title, description: customDescription, footerMargin = true, navbar: CustomNavbar } = Astro.props;
 const NavbarComponent = CustomNavbar || Navbar;
 
 const makeTitle = title
@@ -30,7 +31,11 @@ const makeTitle = title
 const lang = Astro.currentLocale || "en";
 
 const description =
+  customDescription ||
   "DealDroid - No-Code Chatbot for Quality Sellers. Engage visitors, capture leads, and boost conversions with our easy-to-use chatbot platform.";
+
+const enUrl = new URL(Astro.url.pathname.replace(/^\/th/, ""), Astro.site).toString();
+const thUrl = new URL("/th" + Astro.url.pathname.replace(/^\/th/, ""), Astro.site).toString();
 ---
 
 <!doctype html>
@@ -60,6 +65,9 @@ const description =
         },
       }}
     />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="th" href={thUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
     <style is:global>
       /* Improve Page speed */
       /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
@@ -102,6 +110,10 @@ const description =
       gtag("config", "G-Q8KNW432RV");
     </script>
     <ClientRouter />
+    <script
+      is:inline
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer></script>
     <link
       rel="stylesheet"
       href="https://happyhead.dealdroid.net/assets/index.css"
@@ -112,7 +124,7 @@ const description =
     <NavbarComponent />
     <slot />
     <Footer margin={footerMargin} />
-    <script>
+    <script is:inline>
       // @ts-ignore
       window.ChatHeadConfig = {
         scriptId: "script_xaugxgesi6a",
