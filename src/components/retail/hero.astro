@@ -21,14 +21,6 @@ const page_ui: UILanguages = {
       "DealDroid AI replaces your chat team 24/7 — instant replies, product recommendations, and closes deals while you sleep. No extra headcount needed.",
     "hero.cta_primary": "Get Free Inbox Audit",
     "hero.cta_secondary": "See Real Results",
-    "hero.stat1_value": "80%",
-    "hero.stat1_label": "Chats handled by AI — no human needed",
-    "hero.stat2_value": "24/7",
-    "hero.stat2_label": "Always selling, never sleeping",
-    "hero.stat3_value": "118+",
-    "hero.stat3_label": "Languages — serving international customers",
-    "hero.stat4_value": "↗ Peak",
-    "hero.stat4_label": "Handles campaign traffic surges",
     "hero.channels_label": "Connects with",
     "hero.store_name": "Mochi",
     "hero.chat_msg1": "How much is the Happy Pup Duck?",
@@ -40,17 +32,9 @@ const page_ui: UILanguages = {
     "hero.badge": "AI Sales Agent สำหรับ Brand ที่มียอดขายจริงจัง",
     "hero.h1": "ตอบแชทเร็วกว่า ลูกค้าไม่หาย ปิดการขายด้วย AI",
     "hero.subtitle":
-      "ให้ DealDroid AI ตอบแชทแทน Admin ของคุณ ตอบทันทีลูกค้าไม่รอ 24 ชั่วโมงไม่เว้นวันหยุด ปิดการขายให้ รองรับแชทพุ่งเมื่อยิง ads โดยไม่ต้องจ้างคนเพิ่ม",
-    "hero.cta_primary": "นัดคุยวิเคราะห์ Inbox ฟรี",
-    "hero.cta_secondary": "ดูผลลัพธ์จริง",
-    "hero.stat1_value": "80%",
-    "hero.stat1_label": "จบ Chat โดย bot เอง ไม่ต้องให้คนช่วย",
-    "hero.stat2_value": "24/7",
-    "hero.stat2_label": "ขายแบบไม่มีวันหยุด",
-    "hero.stat3_value": "118+",
-    "hero.stat3_label": "ภาษา รองรับลูกค้าต่างชาติ",
-    "hero.stat4_value": "↗ Peak",
-    "hero.stat4_label": "รองรับแชทพุ่งช่วงแคมเปญ",
+      "เราตอบแชท 24 ชั่วโมงไม่มีวันหยุด ให้คุณยิง ads ได้สะบายใจโดยไม่ต้องห่วงเรื่องการจ้างแอดมินเพิ่ม",
+    "hero.cta_primary": "นัดปรึกษา ฟรี",
+    "hero.cta_secondary": "ดูผลลัพธ์จริงจากลูกค้าจริง",
     "hero.channels_label": "เชื่อมต่อกับ",
     "hero.store_name": "Mochi",
     "hero.chat_msg1": "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ?",
@@ -70,13 +54,6 @@ const channels = [
   { name: "WhatsApp", icon: whatsappSvg.src },
   { name: "Instagram", icon: instagramSvg.src },
   { name: "Website", icon: websiteSvg.src },
-];
-
-const stats = [
-  { value: p("hero.stat1_value"), label: p("hero.stat1_label") },
-  { value: p("hero.stat2_value"), label: p("hero.stat2_label") },
-  { value: p("hero.stat3_value"), label: p("hero.stat3_label") },
-  { value: p("hero.stat4_value"), label: p("hero.stat4_label") },
 ];
 
 type Msg = { sender: "bot" | "customer"; text: string; image?: string };
@@ -302,21 +279,5 @@ const chatConversations: Msg[][] =
         />
       </div>
     </div>
-
-    <!-- Stats Strip — prominent, no card borders, with divider above -->
-    <div class="mt-14 pt-16 border-t border-slate-200">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-        {
-          stats.map((stat) => (
-            <div class="text-start">
-              <div class="text-3xl md:text-4xl font-bold text-indigo-600">
-                {stat.value}
-              </div>
-              <div class="text-base text-slate-500 mt-1.5">{stat.label}</div>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </Container>
+</Container>
 </section>

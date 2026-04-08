@@ -32,26 +32,26 @@ const page_ui: UILanguages = {
       '"Your inbox is your storefront now — whoever replies fastest, wins."',
   },
   th: {
-    "pain.badge": "ปัญหาของธุรกิจที่พึ่งพายอดขาย",
-    "pain.heading": "เพราะ Admin ยังตอบช้า และปิดขายไม่ได้",
-    "pain.subheading": "ลูกค้าคุณกำลังหายไปพร้อมกับงบ Marketing",
+    "pain.badge": "ปัญหาของโซเชียลคอมเมิร์ซ",
+    "pain.heading": "Admin ยังตอบช้า และปิดขายไม่ได้",
+    "pain.subheading": "ลูกค้าคุณกำลังหายไปพร้อมกับงบโฆษณาที่จ่ายไป",
     "pain.card1_title": "ตอบช้าจนลูกค้าหาย",
-    "pain.card1_desc": "ลูกค้าจาก ads รอเกิน 2 นาที = ไปซื้อที่อื่นแล้ว",
+    "pain.card1_desc": "ลูกค้าจาก Ads รอเกิน 2 นาที ก็ไปซื้อที่อื่นแล้ว",
     "pain.card2_title": "Admin ตอบแต่ปิดการขายไม่ได้",
-    "pain.card2_desc": "ตอบทั่วไปได้ แต่ไม่แนะนำ ไม่ upsell ไม่สร้าง urgency",
-    "pain.card3_title": "Run Ads ตอนดึก แต่คนตอบไม่อยู่",
-    "pain.card3_desc": "พอหลังเลิกงาน ค่า Ads คือเสียเปล่า",
+    "pain.card2_desc": "ตอบได้ก็จริง แต่ถามคำตอบคำ ไม่ดันยอด ไม่ upsell",
+    "pain.card3_title": "ลูกค้าทักหลังเลิกงาน",
+    "pain.card3_desc":
+      "ยิงแอ๊ด 24 ชั่วโมง แต่ทีมงานมีเวลาทำงานแค่ 8 ชั่วโมง — งบโฆษณาส่วนที่เหลือก็เสียเปล่า",
     "pain.card4_title": "เจอลูกค้าต่างชาติ ตอบได้แค่ Snakeๆ Fishๆ",
     "pain.card4_desc":
-      "Admin พูดได้แค่ภาษาไทย แต่ลูกค้ามาหลายภาษา — โอกาสที่จะได้ลูกค้ามีพลังซื้อหายเรียบ",
+      "Admin พูดได้แค่ภาษาไทย แต่ลูกค้ามาหลายภาษา — โอกาสที่จะได้ลูกค้ามีกำลังซื้อหายเรียบ",
     "pain.card5_title": "คำถามซ้ำๆ เผาเวลาทีมงาน",
     "pain.card5_desc":
-      "ราคา? ส่งฟรีไหม? สาขาอยู่ที่ไหน? — ทีมเหนื่อยโดยใช่เหตุ ถามเดิมๆทุกวี่ทุกวัน",
-    "pain.card6_title": "ROI ของ ads ถูกขโมยไป",
+      "ราคา? ส่งฟรีไหม? สาขาอยู่ที่ไหน? — ทีมเหนื่อยโดยใช่เหตุ ถามเดิมๆ ทุกวี่ทุกวัน",
+    "pain.card6_title": "คาดการจำนวลูกค้าล่วงหน้าไม่ได้",
     "pain.card6_desc":
-      "จ่ายให้คนคลิก แต่ปิดไม่ได้เพราะ inbox ไม่พร้อม — รายได้เงียบกริบ",
-    "pain.quote":
-      '"Inbox คือหน้าร้านของคุณในยุคนี้ — ใครตอบเร็ว ตอบดีกว่า ถือว่าชนะ"',
+      "ก็ไม่รู้ว่ายิงแอ๊ดไปแล้วจะโดนแค่ไหน จะจ้างแอดมินมารอก็ไม่คุ้มเสี่ยง",
+    "pain.quote": '"Inbox คือหน้าร้าน — ใครตอบเร็ว ตอบดีกว่า ถือว่าชนะ"',
   },
 } as const;
 
@@ -59,12 +59,36 @@ const lang = Astro.currentLocale || "en";
 const p = usePageTranslations(lang, page_ui);
 
 const cards = [
-  { title: p("pain.card1_title"), desc: p("pain.card1_desc"), icon: "solar:clock-circle-bold-duotone" },
-  { title: p("pain.card2_title"), desc: p("pain.card2_desc"), icon: "solar:chat-round-dots-bold-duotone" },
-  { title: p("pain.card3_title"), desc: p("pain.card3_desc"), icon: "solar:moon-bold-duotone" },
-  { title: p("pain.card4_title"), desc: p("pain.card4_desc"), icon: "solar:global-bold-duotone" },
-  { title: p("pain.card5_title"), desc: p("pain.card5_desc"), icon: "solar:refresh-bold-duotone" },
-  { title: p("pain.card6_title"), desc: p("pain.card6_desc"), icon: "solar:chart-2-bold-duotone" },
+  {
+    title: p("pain.card1_title"),
+    desc: p("pain.card1_desc"),
+    icon: "solar:clock-circle-bold-duotone",
+  },
+  {
+    title: p("pain.card2_title"),
+    desc: p("pain.card2_desc"),
+    icon: "solar:chat-round-dots-bold-duotone",
+  },
+  {
+    title: p("pain.card3_title"),
+    desc: p("pain.card3_desc"),
+    icon: "solar:moon-bold-duotone",
+  },
+  {
+    title: p("pain.card4_title"),
+    desc: p("pain.card4_desc"),
+    icon: "solar:global-bold-duotone",
+  },
+  {
+    title: p("pain.card5_title"),
+    desc: p("pain.card5_desc"),
+    icon: "solar:refresh-bold-duotone",
+  },
+  {
+    title: p("pain.card6_title"),
+    desc: p("pain.card6_desc"),
+    icon: "solar:chart-2-bold-duotone",
+  },
 ];
 ---
 
