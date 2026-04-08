@@ -14,8 +14,7 @@ import websiteSvg from "@assets/channels/website.svg";
 const page_ui: UILanguages = {
   en: {
     "cs.badge": "Real Results · Case Study",
-    "cs.heading": 'Not just "trying AI"',
-    "cs.subheading": "These are real results from month one",
+    "cs.heading": "These are real results from month one",
     "cs.store_desc":
       "A leading drone retailer used DealDroid to handle Facebook Ads traffic across Messenger, LINE, and web chat — here's what happened in 30 days.",
     "cs.store_type": "🏪 Authorized Drone Dealer",
@@ -38,14 +37,13 @@ const page_ui: UILanguages = {
   },
   th: {
     "cs.badge": "Real Results · Case Study",
-    "cs.heading": 'ไม่ใช่แค่ "ลองใช้ AI"',
-    "cs.subheading": "นี่คือผลลัพธ์จริงใน 1 เดือน",
+    "cs.heading": "นี่คือผลลัพธ์จริงใน 1 เดือน",
     "cs.store_desc":
-      "ร้านค้าขาย Drone ชั้นนำในไทย ระดับเดียวกับร้านที่คุณใช้ DealDroid รับมือ traffic จาก Facebook Ads ในเดือน พ.ย 2025",
+      "ร้านค้าขาย Drone ชั้นนำในไทย เลือกใช้ DealDroid รับมือ traffic จาก Facebook Ads และ Line ในเดือน พ.ย 2025",
     "cs.store_type": "Authorized DJI Drones Dealer in Thailand",
     "cs.store_detail": "",
     "cs.result_heading":
-      "เดือนแรกที่ใช้ DealDroid<br>AI ตอบลูกค้าแทน Admin ให้มากกว่า 90%",
+      "เดือนแรกที่ใช้ DealDroid<br>AI ตอบลูกค้าแทนแอดมินได้มากกว่า 90%",
     "cs.stat1_value": "2,930",
     "cs.stat1_label": "ลูกค้าที่ DealDroid AI ตอบให้ทั้งหมด",
     "cs.stat2_value": "80%",
@@ -55,7 +53,7 @@ const page_ui: UILanguages = {
     "cs.stat4_value": "24/7",
     "cs.stat4_label": "ดูแลลูกค้าให้ในเมื่อ admin ไม่อยู่",
     "cs.stat_summary": "ช่วยรับทราฟฟิกจากแอดได้ โดยไม่ต้องเพิ่มแอดมิน",
-    "cs.cta": "ขอดูรายละเอียด Full Case Study ใน ช่วงนัดคุยวิเคราะห์ Inbox",
+    "cs.cta": "นัดคุยเพื่อดูรายละเอียดของ Case Study",
     "cs.cta_link": config.retail.register.th,
     "cs.channels": "Messenger · LINE · Website",
   },
@@ -108,9 +106,6 @@ const stats = [
       <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2">
         {p("cs.heading")}
       </h2>
-      <p class="text-xl font-bold text-teal-100 mb-2">
-        {p("cs.subheading")}
-      </p>
       <p class="text-lg text-teal-200/90 max-w-2xl">
         {p("cs.store_desc")}
       </p>
@@ -122,9 +117,6 @@ const stats = [
       <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
         <!-- Left Column: Store Image + Channels -->
         <div class="lg:col-span-2">
-          <p class="text-sm font-medium text-slate-500 mb-3">
-            {p("cs.store_type")}
-          </p>
           <div
             class="rounded-xl overflow-hidden shadow-lg border border-slate-200/50">
             <Image
@@ -134,6 +126,9 @@ const stats = [
               loading="lazy"
             />
           </div>
+          <p class="text-sm font-medium text-slate-500 my-3">
+            {p("cs.store_type")}
+          </p>
           <div class="flex items-center gap-4 mt-3">
             {
               channels.map((ch) => (
@@ -179,8 +174,13 @@ const stats = [
     </div>
 
     <!-- CTA -->
-    <div class="mt-8">
-      <Link href={p("cs.cta_link")} size="lg" style="primary">
+    <div class="mt-10">
+      <Link
+        href={p("cs.cta_link")}
+        size="lg"
+        style="primary"
+        class="!bg-white !text-teal-700 hover:!bg-teal-50 !shadow-lg hover:!shadow-xl !border-white"
+      >
         {p("cs.cta")}
       </Link>
     </div>
