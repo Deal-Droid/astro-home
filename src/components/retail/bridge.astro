@@ -9,17 +9,15 @@ import { config } from "../../config";
 
 const page_ui: UILanguages = {
   en: {
-    "bridge.badge": "The Answer You've Been Looking For",
+    "bridge.badge": "The Answer You're Looking For",
     "bridge.heading": "DealDroid AI",
     "bridge.subtitle":
-      "Your always-online sales assistant — never on leave, never off-duty, never stops selling.",
-    "bridge.b1":
-      "An AI Sales Agent trained as a 'pro salesperson' for your specific business",
+      "A salesperson that never takes a day off — no sick leave, no days off, selling 24/7",
+    "bridge.b1": "An AI trained to sell like a pro — tailored to your business",
     "bridge.b2":
-      "Handles chat surges during campaign peaks — no lead left behind",
-    "bridge.b3": "Speaks in your brand voice, every single time",
-    "bridge.b4":
-      "Closes sales, not just answers questions — built for conversion",
+      "Handles chat spikes during campaigns — no customer left waiting",
+    "bridge.b3": "Always sounds like your brand — in every message",
+    "bridge.b4": "Closes sales, not just answers questions",
     "bridge.b5": "118+ languages supported, no extra headcount needed",
     "bridge.cta": "Request a Live Demo",
     "bridge.cta_link": config.retail.register.en,
@@ -184,7 +182,7 @@ const whatsappConversation: Msg[][] =
           {
             benefits.map((b) => (
               <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 shrink-0 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600">
+                <div class="w-10 h-10 shrink-0 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
                   <Icon name={b.icon} class="w-5 h-5" />
                 </div>
                 <p class="text-slate-700 pt-2 leading-relaxed">{b.text}</p>
