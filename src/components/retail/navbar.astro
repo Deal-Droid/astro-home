@@ -17,9 +17,9 @@ const page_ui: UILanguages = {
     "nav.cta_link": config.retail.register.en,
   },
   th: {
-    "nav.cta_results": "ดูผลลัพธ์จริง",
-    "nav.cta_audit": "นัดคุยวิเคราะห์ Inbox ฟรี",
-    "nav.cta_audit_short": "นัดวิเคราะห์ฟรี",
+    "nav.cta_results": "ดูผลลัพธ์จากลูกค้าจริง",
+    "nav.cta_audit": "นัดปรึกษา ฟรี",
+    "nav.cta_audit_short": "นัดคุย",
     "nav.cta_link": config.retail.register.th,
   },
 } as const;
@@ -57,7 +57,10 @@ const translatePath = useTranslatedPath(lang);
           style="outline"
           class="hidden sm:inline-flex items-center group gap-px">
           <span>{p("nav.cta_results")}</span>
-          <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
+          <Icon
+            name="mdi:chevron-right"
+            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform"
+          />
         </Link>
         <Link
           href={p("nav.cta_link")}
@@ -65,7 +68,10 @@ const translatePath = useTranslatedPath(lang);
           class="inline-flex items-center group gap-px">
           <span class="hidden sm:inline">{p("nav.cta_audit")}</span>
           <span class="sm:hidden">{p("nav.cta_audit_short")}</span>
-          <Icon name="mdi:chevron-right" class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform" />
+          <Icon
+            name="mdi:chevron-right"
+            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform"
+          />
         </Link>
       </div>
     </div>
@@ -85,7 +91,7 @@ const translatePath = useTranslatedPath(lang);
         "bg-white/80",
         "border-b",
         "border-gray-200",
-        "backdrop-blur-lg"
+        "backdrop-blur-lg",
       );
       header.setAttribute("active", "");
     } else if (scrollPos < 10) {
@@ -95,7 +101,7 @@ const translatePath = useTranslatedPath(lang);
         "bg-white/80",
         "border-b",
         "border-gray-200",
-        "backdrop-blur-lg"
+        "backdrop-blur-lg",
       );
       header.classList.add("py-4", "border-transparent");
       header.removeAttribute("active");
