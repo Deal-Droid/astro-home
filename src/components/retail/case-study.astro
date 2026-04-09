@@ -14,30 +14,30 @@ import websiteSvg from "@assets/channels/website.svg";
 const page_ui: UILanguages = {
   en: {
     "cs.badge": "Real Results · Case Study",
-    "cs.heading": "These are real results from month one",
+    "cs.heading": "These are real results from the very first month",
     "cs.store_desc":
-      "A leading drone retailer used DealDroid to handle Facebook Ads traffic across Messenger, LINE, and web chat — here's what happened in 30 days.",
+      "A leading drone retailer in Thailand chose DealDroid to handle their Facebook Ads traffic on Messenger, LINE, and web chat — here's what happened in 30 days.",
     "cs.store_type": "🏪 Authorized Drone Dealer",
     "cs.store_detail":
       "Multi-channel retail store selling premium electronics. Running significant Facebook & Google Ads with high daily chat volume across Messenger and website.",
     "cs.result_heading":
-      "In the first month with DealDroid, AI handled 90%+ of all customer chats",
+      "In the first month, AI replied to over 90% of customer chats — no admin needed",
     "cs.stat1_value": "2,930",
-    "cs.stat1_label": "Customers handled by DealDroid AI",
+    "cs.stat1_label": "Total customers DealDroid AI chatted with",
     "cs.stat2_value": "80%",
-    "cs.stat2_label": "Resolved by AI — no human needed",
+    "cs.stat2_label": "Resolved by AI alone — no human needed",
     "cs.stat3_value": "10%",
-    "cs.stat3_label": "Qualified & handed to team to close",
+    "cs.stat3_label": "Filtered and passed to your team to close",
     "cs.stat4_value": "24/7",
-    "cs.stat4_label": "Coverage when staff is offline",
-    "cs.stat_summary": "Handled all ad traffic without hiring additional staff",
-    "cs.cta": "See the Full Case Study in Your Free Inbox Audit",
+    "cs.stat4_label": "Covers for your team when they're offline",
+    "cs.stat_summary": "Handled all ad traffic — without hiring more admins",
+    "cs.cta": "Book a Chat to See the Full Case Study",
     "cs.cta_link": config.retail.register.en,
     "cs.channels": "Messenger · LINE · Website",
   },
   th: {
     "cs.badge": "Real Results · Case Study",
-    "cs.heading": "นี่คือผลลัพธ์จริงใน 1 เดือน",
+    "cs.heading": "นี่คือผลลัพธ์จริงในเดือนแรก",
     "cs.store_desc":
       "ร้านค้าขาย Drone ชั้นนำในไทย เลือกใช้ DealDroid รับมือ traffic จาก Facebook Ads และ Line ในเดือน พ.ย 2025",
     "cs.store_type": "Authorized DJI Drones Dealer in Thailand",
@@ -98,7 +98,7 @@ const stats = [
   style="background: linear-gradient(135deg, #0d9488 0%, #0e7490 50%, #1e3a5f 100%);">
   <Container>
     <!-- Header -->
-    <div class="max-w-3xl mb-10">
+    <div class="max-w-4xl mb-10">
       <span
         class="inline-block bg-white/15 border border-white/25 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
         {p("cs.badge")}
@@ -106,7 +106,7 @@ const stats = [
       <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2">
         {p("cs.heading")}
       </h2>
-      <p class="text-lg text-teal-200/90 max-w-2xl">
+      <p class="text-lg text-teal-200/90 max-w-3xl">
         {p("cs.store_desc")}
       </p>
     </div>
@@ -155,7 +155,7 @@ const stats = [
             {
               stats.map((stat) => (
                 <div class="flex flex-col items-start">
-                  <div class="text-gray-500 mb-2 bg-gray-100 p-1 rounded-md">
+                  <div class="text-teal-500 mb-2 bg-teal-50 p-1 rounded-md">
                     <Icon name={stat.icon} class="w-6 h-6" />
                   </div>
                   <div class="text-3xl md:text-4xl font-bold text-teal-600">
@@ -179,8 +179,7 @@ const stats = [
         href={p("cs.cta_link")}
         size="lg"
         style="primary"
-        class="!bg-white !text-teal-700 hover:!bg-teal-50 !shadow-lg hover:!shadow-xl !border-white"
-      >
+        class="!bg-white !text-teal-700 hover:!bg-teal-50 !shadow-lg hover:!shadow-xl !border-white">
         {p("cs.cta")}
       </Link>
     </div>
