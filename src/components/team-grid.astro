@@ -17,9 +17,13 @@ const page_ui: UILanguages = {
     "team.subtitle": "Make AI sell for you.",
     "team.why_title": "Why this team?",
     "team.why1":
-      "Engineering + Product + Sales + Customer Success under one roof",
-    "team.why2": "Built for the Thai market, ready for global scale",
-    "team.why3": "From Thoughtworks, startups, and enterprise — battle-tested",
+      "End-to-end — Engineers build the AI, Product sets direction, Sales knows what makes businesses buy",
+    "team.why2":
+      "Every skill in one team — from Thoughtworks-grade engineering to real customer conversations, no outsourcing needed",
+    "team.why3":
+      "We don't just build and ship — Customer Success ensures every client turns Dealdroid into real revenue",
+    "team.why4":
+      "Thai DNA, global standards — born in LINE commerce, engineered to scale anywhere",
   },
   th: {
     "team.badge": "ทีมของเรา",
@@ -27,10 +31,12 @@ const page_ui: UILanguages = {
     "team.subtitle": "ให้ AI ขายของแทนคุณ",
     "team.why_title": "ทำไมต้องทีมนี้?",
     "team.why1":
-      "Engineering + Product + Sales + Customer Success อยู่ในทีมเดียว",
-    "team.why2": "สร้างเพื่อตลาดไทย พร้อมขยายสู่สากล",
+      "ครบวงจร — Engineer สร้าง AI, Product กำหนดทิศทาง, Sales รู้ว่าอะไรทำให้ธุรกิจซื้อ",
+    "team.why2":
+      "ทุกทักษะอยู่ในทีม — จาก Thoughtworks-grade engineering ถึงการคุยกับลูกค้าจริง ไม่ต้องพึ่งคนนอก",
     "team.why3":
-      "จาก Thoughtworks, startup และ enterprise — ผ่านสนามจริงมาแล้ว",
+      "ไม่ใช่แค่สร้างแล้วปล่อย — Customer Success ดูแลให้ลูกค้าเปลี่ยน Dealdroid เป็นยอดขายจริง",
+    "team.why4": "DNA ไทย มาตรฐานโลก — เกิดในตลาด LINE commerce พร้อมขยายสากล",
   },
 } as const;
 
@@ -39,6 +45,7 @@ const p = usePageTranslations(lang, page_ui);
 
 interface TeamMember {
   name: string;
+  fullName: string;
   image: ImageMetadata;
   role: string;
   roleColor: string;
@@ -51,6 +58,7 @@ interface TeamMember {
 const team: TeamMember[] = [
   {
     name: "Bank",
+    fullName: "Apirak Panatkool",
     image: imgApirak,
     role: "Software Creative",
     roleColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
@@ -60,17 +68,8 @@ const team: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/apirak/",
   },
   {
-    name: "Pee",
-    image: imgPee,
-    role: "Software North Star",
-    roleColor: "text-blue-600 bg-blue-50 border-blue-200",
-    borderColor: "group-hover:border-blue-400",
-    bio: "Ex-Thoughtworks engineer who's seen how great software teams operate at scale. Sets the technical bar and keeps the codebase honest.",
-    superpower: "Knows exactly when to build vs. buy",
-    linkedin: "https://www.linkedin.com/in/ptankulrat/",
-  },
-  {
     name: "Pete",
+    fullName: "Pete Chemsripong",
     image: imgPete,
     role: "Product Driven",
     roleColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
@@ -80,7 +79,19 @@ const team: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/pete-chemsripong/",
   },
   {
+    name: "Pii",
+    fullName: "Pee Tankulrat",
+    image: imgPee,
+    role: "Software North Star",
+    roleColor: "text-blue-600 bg-blue-50 border-blue-200",
+    borderColor: "group-hover:border-blue-400",
+    bio: "Ex-Thoughtworks engineer who's seen how great software teams operate at scale. Sets the technical bar and keeps the codebase honest.",
+    superpower: "Knows exactly when to build vs. buy",
+    linkedin: "https://www.linkedin.com/in/ptankulrat/",
+  },
+  {
     name: "Dave",
+    fullName: "Dave Malhotra",
     image: imgDave,
     role: "Sale North Star",
     roleColor: "text-amber-600 bg-amber-50 border-amber-200",
@@ -91,6 +102,7 @@ const team: TeamMember[] = [
   },
   {
     name: "Pao",
+    fullName: "Sawetr Suchit-rattanant",
     image: imgPao,
     role: "Customer Success",
     roleColor: "text-rose-600 bg-rose-50 border-rose-200",
@@ -134,7 +146,8 @@ const team: TeamMember[] = [
           </span>
 
           {/* Name */}
-          <h3 class="text-xl font-bold text-slate-900 mb-2">{member.name}</h3>
+          <h3 class="text-xl font-bold text-slate-900">{member.name}</h3>
+          <p class="text-xs text-slate-400 mb-2">{member.fullName}</p>
 
           {/* Bio */}
           <p class="text-sm text-slate-600 leading-relaxed mb-4">
@@ -162,19 +175,32 @@ const team: TeamMember[] = [
 </div>
 
 {/* Why this team */}
-<div class="mt-20 max-w-2xl mx-auto text-center">
-  <h2 class="text-2xl font-bold text-slate-900 mb-6">{p("team.why_title")}</h2>
-  <div class="flex flex-col gap-4">
+<div class="mt-20 max-w-4xl mx-auto px-4">
+  <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">
+    {p("team.why_title")}
+  </h2>
+  <div class="grid md:grid-cols-2 gap-6">
     {
-      [p("team.why1"), p("team.why2"), p("team.why3")].map((item) => (
-        <div class="flex items-center gap-3 justify-center text-slate-600">
-          <Icon
-            name="fluent:checkmark-circle-24-regular"
-            class="text-indigo-600 flex-shrink-0 w-5 h-5"
-          />
-          <span>{item}</span>
-        </div>
-      ))
+      [p("team.why1"), p("team.why2"), p("team.why3"), p("team.why4")].map(
+        (item) => {
+          const [title, ...rest] = item.split(" — ");
+          const desc = rest.join(" — ");
+          return (
+            <div class="flex gap-3">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center translate-y-0.5">
+                <Icon
+                  name="fluent:checkmark-circle-24-regular"
+                  class="text-indigo-600 w-4 h-4"
+                />
+              </div>
+              <div>
+                <p class="pt-1 font-semibold text-slate-900">{title}</p>
+                {desc && <p class="text-sm text-slate-500 mt-1">{desc}</p>}
+              </div>
+            </div>
+          );
+        },
+      )
     }
   </div>
 </div>
