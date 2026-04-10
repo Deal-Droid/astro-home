@@ -1,0 +1,180 @@
+---
+import { Icon } from "astro-icon/components";
+import { Picture } from "astro:assets";
+import { usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+
+import imgApirak from "../assets/team/gemini_apirak.png";
+import imgPee from "../assets/team/gemini_pee.png";
+import imgPete from "../assets/team/gemini_pete.png";
+import imgDave from "../assets/team/gemini_dave.png";
+import imgPao from "../assets/team/gemini_pao.png";
+
+const page_ui: UILanguages = {
+  en: {
+    "team.badge": "THE TEAM",
+    "team.h1": "5 people. One mission.",
+    "team.subtitle": "Make AI sell for you.",
+    "team.why_title": "Why this team?",
+    "team.why1":
+      "Engineering + Product + Sales + Customer Success under one roof",
+    "team.why2": "Built for the Thai market, ready for global scale",
+    "team.why3": "From Thoughtworks, startups, and enterprise — battle-tested",
+  },
+  th: {
+    "team.badge": "ทีมของเรา",
+    "team.h1": "5 คน. หนึ่งเป้าหมาย.",
+    "team.subtitle": "ให้ AI ขายของแทนคุณ",
+    "team.why_title": "ทำไมต้องทีมนี้?",
+    "team.why1":
+      "Engineering + Product + Sales + Customer Success อยู่ในทีมเดียว",
+    "team.why2": "สร้างเพื่อตลาดไทย พร้อมขยายสู่สากล",
+    "team.why3":
+      "จาก Thoughtworks, startup และ enterprise — ผ่านสนามจริงมาแล้ว",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+interface TeamMember {
+  name: string;
+  image: ImageMetadata;
+  role: string;
+  roleColor: string;
+  borderColor: string;
+  bio: string;
+  superpower: string;
+  linkedin: string;
+}
+
+const team: TeamMember[] = [
+  {
+    name: "Bank",
+    image: imgApirak,
+    role: "Software Creative",
+    roleColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
+    borderColor: "group-hover:border-indigo-400",
+    bio: "Turns ambitious product visions into working software. Obsessed with developer experience, clean architecture, and making AI feel human.",
+    superpower: "Sees the elegant solution hiding in complexity",
+    linkedin: "https://www.linkedin.com/in/apirak/",
+  },
+  {
+    name: "Pee",
+    image: imgPee,
+    role: "Software North Star",
+    roleColor: "text-blue-600 bg-blue-50 border-blue-200",
+    borderColor: "group-hover:border-blue-400",
+    bio: "Ex-Thoughtworks engineer who's seen how great software teams operate at scale. Sets the technical bar and keeps the codebase honest.",
+    superpower: "Knows exactly when to build vs. buy",
+    linkedin: "https://www.linkedin.com/in/ptankulrat/",
+  },
+  {
+    name: "Pete",
+    image: imgPete,
+    role: "Product Driven",
+    roleColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
+    borderColor: "group-hover:border-emerald-400",
+    bio: "Bridges the gap between what users need and what we build. Relentless about shipping features that move the revenue needle, not just look good in demos.",
+    superpower: "Asks the uncomfortable 'but does anyone need this?' question",
+    linkedin: "https://www.linkedin.com/in/pete-chemsripong/",
+  },
+  {
+    name: "Dave",
+    image: imgDave,
+    role: "Sale North Star",
+    roleColor: "text-amber-600 bg-amber-50 border-amber-200",
+    borderColor: "group-hover:border-amber-400",
+    bio: "Understands what makes businesses say yes. Brings real-world sales intelligence that shapes how we position and price Dealdroid.",
+    superpower: "Turns a cold intro into a signed deal",
+    linkedin: "https://www.linkedin.com/in/dmalhotra/",
+  },
+  {
+    name: "Pao",
+    image: imgPao,
+    role: "Customer Success",
+    roleColor: "text-rose-600 bg-rose-50 border-rose-200",
+    borderColor: "group-hover:border-rose-400",
+    bio: "The voice of the customer inside the team. Makes sure every client gets real value from Dealdroid — not just a login.",
+    superpower: "Turns confused users into power users",
+    linkedin: "https://www.linkedin.com/in/sawetr/",
+  },
+];
+---
+
+<div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mt-16">
+  {
+    team.map((member) => (
+      <div class="group relative">
+        <div
+          class:list={[
+            "relative bg-white border border-slate-200 rounded-2xl p-6 transition-all duration-300",
+            "hover:shadow-xl hover:-translate-y-1",
+            member.borderColor,
+          ]}>
+          {/* Photo */}
+          <div class="w-16 h-16 rounded-xl overflow-hidden mb-5 shadow-lg">
+            <Picture
+              src={member.image}
+              alt={member.name}
+              formats={["avif", "webp"]}
+              width={128}
+              height={128}
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Role Tag */}
+          <span
+            class:list={[
+              "inline-block text-xs font-semibold px-2.5 py-1 rounded-full border mb-3",
+              member.roleColor,
+            ]}>
+            {member.role}
+          </span>
+
+          {/* Name */}
+          <h3 class="text-xl font-bold text-slate-900 mb-2">{member.name}</h3>
+
+          {/* Bio */}
+          <p class="text-sm text-slate-600 leading-relaxed mb-4">
+            {member.bio}
+          </p>
+
+          {/* Superpower */}
+          <p class="text-xs italic text-slate-400 mb-5">
+            "{member.superpower}"
+          </p>
+
+          {/* LinkedIn */}
+          <a
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 transition-colors">
+            <Icon name="mdi:linkedin" class="w-4 h-4" />
+            <span>LinkedIn</span>
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+{/* Why this team */}
+<div class="mt-20 max-w-2xl mx-auto text-center">
+  <h2 class="text-2xl font-bold text-slate-900 mb-6">{p("team.why_title")}</h2>
+  <div class="flex flex-col gap-4">
+    {
+      [p("team.why1"), p("team.why2"), p("team.why3")].map((item) => (
+        <div class="flex items-center gap-3 justify-center text-slate-600">
+          <Icon
+            name="fluent:checkmark-circle-24-regular"
+            class="text-indigo-600 flex-shrink-0 w-5 h-5"
+          />
+          <span>{item}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>

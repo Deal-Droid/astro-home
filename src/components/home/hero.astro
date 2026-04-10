@@ -343,19 +343,10 @@ const chatConversations: Msg[][] =
   function initAIParticles() {
     const container = document.querySelector(".ai-particles")!;
     const pool = document.querySelector(".ai-icon-pool");
-    console.log("[AI Particles] container:", container);
-    console.log("[AI Particles] pool:", pool);
-    if (!container || !pool) {
-      console.warn("[AI Particles] missing container or pool");
-      return;
-    }
+    if (!container || !pool) return;
 
     const svgs = Array.from(pool.querySelectorAll("svg"));
-    console.log("[AI Particles] found SVGs:", svgs.length);
-    if (svgs.length === 0) {
-      console.warn("[AI Particles] no SVGs in pool");
-      return;
-    }
+    if (svgs.length === 0) return;
 
     function pick3(): SVGElement[] {
       const shuffled = [...svgs].sort(() => Math.random() - 0.5);
@@ -365,14 +356,6 @@ const chatConversations: Msg[][] =
     function spawnBurst() {
       const rect = container.getBoundingClientRect();
       const icons = pick3();
-      console.log(
-        "[AI Particles] burst! rect:",
-        rect.width,
-        "x",
-        rect.height,
-        "icons:",
-        icons.length,
-      );
 
       // Start from the right edge of the chat card (behind it)
       const baseX = rect.width * 0.65;

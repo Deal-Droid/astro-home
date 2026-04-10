@@ -25,7 +25,7 @@ export const ui: UILanguages = {
     "general.privacy": "Privacy Policy",
     "general.blog": "Blog",
     "general.document": "Document",
-    "general.contact": "Contact",
+    "general.contact": "Team",
     "general.retail": "Retail AI",
   },
   th: {
@@ -36,7 +36,7 @@ export const ui: UILanguages = {
     "general.privacy": "นโยบายความเป็นส่วนตัว",
     "general.blog": "บล็อก",
     "general.document": "คู่มือ",
-    "general.contact": "ติดต่อเรา",
+    "general.contact": "ทีมงาน",
     "general.retail": "AI สำหรับร้านค้า",
   },
 } as const;
