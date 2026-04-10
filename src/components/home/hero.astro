@@ -215,7 +215,7 @@ const chatConversations: Msg[][] =
       ];
 ---
 
-<section class="bg-white pt-8 pb-16 overflow-hidden">
+<section class="bg-white pt-8 pb-16">
   <Container>
     <div class="py-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Left: Copy -->
@@ -266,13 +266,25 @@ const chatConversations: Msg[][] =
       </div>
 
       <!-- Right: Chat Mockup -->
-      <div class="flex justify-center lg:-ml-4">
-        <ChatSimulation
-          storeName={p("hero.store_name")}
-          conversations={chatConversations}
-          typingDelay={6000}
-          pauseBetween={8000}
-        />
+      <div
+        class="flex justify-center lg:-ml-4 relative"
+        style="perspective: 800px;">
+        <!-- AI glow behind the tilted edge -->
+        <div
+          class="absolute -right-8 top-1/4 w-64 h-64 bg-indigo-400/30 rounded-full blur-3xl animate-pulse pointer-events-none">
+        </div>
+        <div
+          class="absolute -right-4 bottom-1/4 w-48 h-48 bg-purple-400/20 rounded-full blur-3xl animate-pulse pointer-events-none"
+          style="animation-delay: 1.5s;">
+        </div>
+        <div style="transform: rotateY(-8deg); min-width: 380px;">
+          <ChatSimulation
+            storeName={p("hero.store_name")}
+            conversations={chatConversations}
+            typingDelay={6000}
+            pauseBetween={8000}
+          />
+        </div>
       </div>
     </div>
   </Container>
