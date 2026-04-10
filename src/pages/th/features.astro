@@ -1,137 +1,98 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
-import FeatureHero from "@components/feature-hero.astro";
-import FeatureOverviewGrid from "@components/feature-overview-grid.astro";
+import FeatureHero2 from "@components/feature-hero-2.astro";
+import FeaturesGrid from "@components/retail/features-grid.astro";
 import FeatureDetail from "@components/feature-detail.astro";
+import FeatureComparison from "@components/feature-comparison.astro";
 import DeveloperResources from "@components/developer-resources.astro";
 import Layout from "@layouts/Layout.astro";
 
-// Import feature images (using existing assets as placeholders)
-import FeatureImg1 from "../../assets/features/1.png";
+// Import feature images
 import FeatureImg8 from "../../assets/features/8.png";
 import FeatureImg9 from "../../assets/features/9.png";
-import FeatureImg12 from "../../assets/features/12.png";
-import FeatureImg11 from "../../assets/features/11.png";
 import FeatureImg14 from "../../assets/features/14.png";
-import FeatureImg15 from "../../assets/features/15.png";
 ---
 
 <Layout footerMargin={false}>
   <Container>
     <!-- Hero Section -->
-    <FeatureHero />
-
-    <!-- Overview Grid -->
-    <FeatureOverviewGrid />
+    <FeatureHero2 />
   </Container>
 
-  <!-- Detailed Features -->
-  <!-- Feature 1: Intelligent Message Handling -->
+  <!-- 8-Card Features Grid -->
+  <FeaturesGrid />
+
+  <!-- Detailed Features (3 key features) -->
+
+  <!-- Feature 1: Scale Product Catalog -->
   <FeatureDetail
-    id="message-handling"
-    badge="การสนทนาอัจฉริยะ"
-    title="หยุดการตอบกลับที่รบกวน"
-    description="เมื่อลูกค้าส่งข้อความหลายข้อความติดต่อกัน Dealdroid จะรอและตอบกลับข้อความสุดท้าย — เหมือนกับคนจริงๆ นั่นหมายความว่าไม่มีคำตอบซ้ำ แชทที่สะอาดขึ้น และลูกค้าสับสนน้อยลง"
+    id="product-intelligence"
+    badge="รองรับสินค้าจำนวนมาก"
+    title="รับสินค้าได้เป็นพันรายการ — นำเข้าผ่าน CSV, Shopify หรือ API"
+    description="Dealdroid นำเข้าแคตตาล็อกสินค้าขนาดใหญ่ได้ง่ายๆ อัปโหลดผ่าน CSV, เชื่อมต่อ Shopify หรือใช้ REST API — จากนั้น AI จะเข้าใจทุก SKU, จำแนกภาพสินค้า และแนะนำหรือเปรียบเทียบสินค้าได้ทันที"
     benefits={[
-      "ลดเสียงรบกวนในแชทและการขัดจังหวะของพนักงาน",
-      "รักษาบริบทการสนทนาสำหรับข้อความลูกค้าที่ยาวขึ้น",
-      "ปรับปรุงการรับรู้ถึงความเห็นอกเห็นใจ — ลูกค้ารู้สึกว่าถูกรับฟัง",
+      "ทำงานกับ SKU หลายพันรายการโดยไม่ช้าลง",
+      "นำเข้าผ่าน CSV, Shopify sync หรือ REST product API",
+      "ส่งภาพสินค้าที่ลูกค้าต้องการได้ทันที",
+      "เปรียบเทียบสินค้าแบบเคียงข้างกันได้ตามคำขอ",
     ]}
-    example="เมื่อผู้ใช้พิมพ์สามบรรทัดต่อเนื่อง Dealdroid จะตอบกลับครั้งเดียวด้วยคำตอบที่ทุกคำถามแล้ว"
-    image={FeatureImg1}
-    imageAlt="ไทม์ไลน์การจัดการข้อความอัจฉริยะ"
+    example="ลูกค้าถาม: 'มีเสื้อสีแดงไซส์ M ไหม' → บอทส่งภาพที่ตรงเป๊ะ + สถานะสินค้า"
+    image={FeatureImg8}
+    imageAlt="แคตตาล็อกสินค้าพร้อมระบบจำแนกภาพ"
     imagePosition="left"
-    docsLink="https://docs.dealdroid.net/th/tuning/when-ai-think/"
-    docsLinkText="เรียนรู้เกี่ยวกับการจับเวลาข้อความ"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-product/"
+    docsLinkText="ตั้งค่า Product feed"
+    devNote="รองรับ CSV feeds, Shopify integration และ REST product APIs ระบบจำแนกภาพทำงานกับภาพสินค้าและ metadata ที่เก็บไว้"
     background="white"
   />
 
-  <!-- Feature 2: Product Intelligence -->
+  <!-- Feature 2: Knowledge Base / Documents -->
   <FeatureDetail
-    id="product-intelligence"
-    badge="ความรู้เกี่ยวกับผลิตภัณฑ์"
-    title="รองรับแคตตาล็อกขนาดใหญ่ — เข้าใจภาพผลิตภัณฑ์"
-    description="Dealdroid สามารถนำเข้าข้อมูลผลิตภัณฑ์ขนาดใหญ่ได้ สามารถเข้าใจรายละเอียด และเข้าใจภาพของผลิตภัณฑ์ สามารถแนะนำรายการ เปรียบเทียบรุ่น และส่งภาพผลิตภัณฑ์ที่ตรงกับคำถามของลูกค้า"
+    id="knowledge-base"
+    badge="ฐานความรู้"
+    title="ใส่ความรู้ให้ Bot ของคุณได้เอง"
+    description="เพิ่มคู่มือ เอกสารรับประกัน คำถามที่พบบ่อย และรูปภาพเข้าไปในฐานความรู้ Dealdroid จะให้ความสำคัญกับเนื้อหาจากฐานความรู้เป็นอันดับแรก แนบรูปภาพหรือ PDF สนับสนุนเมื่อเหมาะสม ยิ่งสอนเยอะ Bot ยิ่งเก่ง"
     benefits={[
-      "ทำงานกับ SKU หลายพันรายการโดยไม่ช้าลง",
-      "ส่งภาพผลิตภัณฑ์ที่ถูกต้องตามที่ลูกค้าขอ",
-      "ทำการเปรียบเทียบสินค้าตามคำขอได้",
+      "คำตอบที่ถูกต้อง ตรงตาม Brand ทุกครั้ง",
+      "รองรับเนื้อหาหลากหลาย: รูปภาพ แผนภาพ ตารางสเปค",
+      "สามารถส่ง link หรือรูปภาพจากเอกสารให้ลูกค้าได้",
     ]}
-    example="ลูกค้าถาม: 'แสดงเสื้อสีแดงนั้นในไซส์ M' → บอทส่งคืนภาพที่แม่นยำ + สถานะความพร้อม"
-    image={FeatureImg8}
-    imageAlt="แคตตาล็อกผลิตภัณฑ์พร้อมการรู้จำภาพ"
+    example="ลูกค้า: 'รับประกันนานเท่าไร?' — Bot: '12 เดือน ดู PDF รับประกัน [ลิงก์ดาวน์โหลด]'"
+    image={FeatureImg9}
+    imageAlt="ฐานความรู้พร้อมเอกสารและรูปภาพ"
     imagePosition="right"
-    docsLink="https://docs.dealdroid.net/th/tuning/add-product/"
-    docsLinkText="การตั้งค่าฟีดผลิตภัณฑ์"
-    devNote="รองรับฟีด CSV, การผสานรวม Shopify และ REST product APIs การรู้จำภาพทำงานกับภาพผลิตภัณฑ์และข้อมูลเมตาที่เก็บไว้"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-knowledge/"
+    docsLinkText="คู่มือฐานความรู้"
+    devNote="KB รองรับ Markdown + ไฟล์แนบรูปภาพ + ประวัติเวอร์ชัน"
     background="slate"
   />
 
-  <!-- Feature 3: Knowledge Base -->
-  <FeatureDetail
-    id="knowledge-base"
-    badge="ระบบเก็บความรู้"
-    title="ฐานข้อมูลความรู้พร้อมรองรับเนื้อหาที่หลากหลาย สามารถให้คำตอบที่อ้างอิงจากเอกสารของคุณ"
-    description="ใส่เอกสารคู่มือ เอกสารการรับประกัน คำถามที่พบบ่อย และภาพไปยังฐานความรู้ Dealdroid จะให้ความสำคัญกับเนื้อหา KB สำหรับคำตอบ โดยแนบภาพหรือ PDF สนับสนุนเมื่อเหมาะสม"
-    benefits={[
-      "คำตอบที่ถูกต้องและได้รับอนุมัติจากแบรนด์ทุกครั้ง",
-      "การตอบกลับด้วยภาพ: แผนภาพ ตารางข้อมูลจำเพาะ หรือภาพวิธีการรวมอยู่ในบรรทัด",
-      "สามารถส่ง link หรือรูปภาพจากเอกสารให้กับลูกค้าได้",
-    ]}
-    example="ลูกค้า: 'การรับประกันนานเท่าไร?' — บอท: '12 เดือน ดู PDF การรับประกัน [ลิงก์ดาวน์โหลด]'"
-    image={FeatureImg9}
-    imageAlt="ฐานความรู้พร้อมเอกสารและภาพ"
-    imagePosition="left"
-    docsLink="https://docs.dealdroid.net/th/tuning/add-knowledge/"
-    docsLinkText="คู่มือฐานความรู้"
-    devNote="KB รองรับ Markdown + ไฟล์แนบภาพ + ประวัติเวอร์ชัน"
-    background="white"
-  />
-
-  <!-- Feature 6: Multi-language Support -->
+  <!-- Feature 3: Multi-language Support -->
   <FeatureDetail
     id="multi-language"
     badge="119 ภาษา"
-    title="พูดภาษาลูกค้าได้ทุกคน — อัตโนมัติ"
+    title="พูดภาษาลูกค้าได้ทุกภาษา — อัตโนมัติ"
     description="Dealdroid รองรับ 119 ภาษาและสำเนียงทั่วโลก ตรวจจับภาษาของลูกค้าอัตโนมัติและตอบกลับในภาษาเดียวกันทันที — ไม่ต้องตั้งค่าอะไร ลูกค้าทั่วโลกสามารถติดต่อได้ตลอดเวลา และ Dealdroid พร้อมรับมือ 24 ชั่วโมง"
     benefits={[
-      "รองรับ 119 ภาษา รวมถึงไทย อังกฤษ จีน ญี่ปุ่น และอื่นๆ อีกมากมาย",
-      "ใส่เอกสารภาษาอะไรก็ได้ — Dealdroid นำความรู้มาใช้และตอบกลับในภาษาของลูกค้าให้เอง",
+      "รองรับ 119 ภาษา รวมถึงไทย อังกฤษ จีน ญี่ปุ่น และอื่นๆ",
+      "ใส่เอกสารภาษาอะไรก็ได้ — Dealdroid นำความรู้มาใช้แล้วตอบในภาษาของลูกค้าให้เอง",
       "มีระบบตรวจจับ Language Hallucination ด้วย AI Supervisor เพื่อให้แน่ใจว่าตอบถูกภาษา",
     ]}
     example="ลูกค้าเขียนภาษาญี่ปุ่นตอนตี 3 → Dealdroid ตรวจจับภาษา ดึงข้อมูลสินค้าจากฐานความรู้ภาษาอังกฤษ และตอบกลับเป็นภาษาญี่ปุ่นอย่างสมบูรณ์ — ทันที"
     image={FeatureImg14}
-    imageAlt="ธงชาติแสดงถึง 30+ ประเทศและภาษาที่รองรับ"
-    imagePosition="right"
+    imageAlt="ธงชาติแสดงถึง 119 ประเทศและภาษาที่รองรับ"
+    imagePosition="left"
     docsLink="https://docs.dealdroid.net/th/faq/language-support/"
     docsLinkText="ดู 119 ภาษาที่รองรับทั้งหมด"
     devNote="การตรวจจับภาษาเป็นอัตโนมัติ ฐานความรู้ใส่ภาษาอะไรก็ได้ — คำตอบจะถูกแปลให้ตรงกับภาษาของลูกค้า AI Supervisor คอยตรวจสอบ Language Hallucination"
-    background="slate"
-  />
-
-  <!-- Feature 4: Smart Fallbacks & Intent Routing -->
-  <FeatureDetail
-    id="intent-routing"
-    badge="inteligent Routing"
-    title="ระบบไม่ได้ตอบคำถามไปเรื่อยๆ แต่จะพยายามให้ส่งผลต่อยอดขายจริงๆ"
-    description="เมื่อ Dealdroid ตรวจสอบเจตนาของลูกค้า มันจะวิเคราะห์ได้ว่าลูกค้าต้องการอะไร และการตอบแบบไหนที่จะส่งลูกค้าไปยังลำดับถัดไป เช่น จาก Awareness ไปยัง Consideration แล้วส่งไป Conversion เป็นต้น และที่สำคัญคือเจ้าของร้านสามารถเพิ่ม intent ที่จำเป็นอื่นๆ ได้ด้วยตนเอง รวมถึงส่งต่อให้มนุษย์ได้ด้วย"
-    benefits={[
-      "ช่วยเพิ่มยอดขายได้",
-      "ลดคำตอบที่ผิดที่ทำให้ลูกค้าหลุดจากการซื้อ",
-      "การส่งต่อที่ราบรื่นไปยังเจ้าหน้าที่มนุษย์เมื่อจำเป็น",
-    ]}
-    example="ผู้ใช้สามารถกำหนดเพิ่มเติมได้ว่าเมื่อเจอเจตนา Purchase ให้สอบถามผู้ใช้ว่าจะเลือกการจ่ายเงินแบบไหนระหว่าง เก็บเงินปลายทาง หรือ โอนเงิน"
-    image={FeatureImg15}
-    imageAlt="แสดงหน้าจอสิ่งที่สามารถกำหนดได้ในเจตนา"
-    imagePosition="left"
-    docsLink="https://docs.dealdroid.net/th/tuning/add-intent/"
-    docsLinkText="เพิ่มเจตนา"
-    devNote="สามารถกำหนดได้ด้วยว่าเมื่อผู้ใช้เข้าเจตนานี้แล้ว จะให้เรียก webhook อะไร"
     background="white"
   />
 
-  <!-- Developer Resources -->
+  <!-- Comparison Table -->
+  <FeatureComparison />
+
+  <!-- For Developers -->
   <DeveloperResources />
 
   <!-- Final CTA -->

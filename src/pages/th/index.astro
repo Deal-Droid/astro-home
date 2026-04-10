@@ -1,26 +1,23 @@
 ---
-import Container from '@components/container.astro';
-import Cta from '@components/cta.astro';
-import FeatureAlt from '@components/feature-alt.astro';
-import FeatureGrid from '@components/feature-grid.astro';
-import Features from '@components/features.astro';
-import Footer from '@components/footer.astro';
-import Hero from '@components/hero.astro';
-import Logos from '@components/logos.astro';
-import Testimonials from '@components/testimonials.astro';
-import Layout from '@layouts/Layout.astro';
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import Hero from "@components/home/hero.astro";
+import ClientLogos from "@components/retail/client-logos.astro";
+import PainToSolution from "@components/home/pain-to-solution.astro";
+import UseCases from "@components/home/use-cases.astro";
+import CaseStudy from "@components/home/case-study.astro";
+import FinalCta from "@components/retail/final-cta.astro";
 ---
 
-<Layout footerMargin={false}>
+<Layout
+  title="AI ตอบแชทแทน Admin สำหรับร้านค้า | DealDroid"
+  description="ให้ DealDroid AI ตอบแชทแทน Admin ของคุณ ตอบทันที 24 ชั่วโมง ปิดการขายให้ รองรับแชทพุ่ง วิเคราะห์ Inbox ฟรีสำหรับร้านค้าออนไลน์"
+  footerMargin={false}
+  navbar={Navbar}>
   <Hero />
-  <Container>
-    <Logos />
-    <FeatureAlt />
-  </Container>
-  <!-- <Testimonials /> -->
-  <Container>
-    <!-- <FeatureGrid /> -->
-    <Features />
-  </Container>
-  <Cta />
+  <ClientLogos />
+  <PainToSolution />
+  <UseCases />
+  <CaseStudy />
+  <FinalCta />
 </Layout>

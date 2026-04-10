@@ -11,13 +11,19 @@ const page_ui: UILanguages = {
     "cta.h1": "Ready to grow without more hiring?",
     "cta.description":
       "See how Dealdroid can handle your customer conversations and close more deals — without adding staff.",
-    "cta.cta": "Try for free",
+    "cta.primary": "Book a Demo",
+    "cta.primary_link": config.retail.register.en,
+    "cta.secondary": "Try it for free",
+    "cta.secondary_link": config.urls.register,
   },
   th: {
     "cta.h1": "พร้อมขยายธุรกิจโดยไม่ต้องจ้างคนเพิ่ม?",
     "cta.description":
       "ดูว่า Dealdroid จะช่วยจัดการการสนทนากับลูกค้าและปิดการขายได้มากขึ้นอย่างไร — โดยไม่ต้องเพิ่มพนักงาน",
-    "cta.cta": "ทดลองใช้งานฟรี",
+    "cta.primary": "นัดคุยปรึกษา ฟรี",
+    "cta.primary_link": config.retail.register.th,
+    "cta.secondary": "ทดลองใช้งานฟรี",
+    "cta.secondary_link": config.urls.register,
   },
 } as const;
 
@@ -34,7 +40,11 @@ const p = usePageTranslations(lang, page_ui);
   <p class="text-white/70 mt-4 text-lg md:text-xl">
     {p("cta.description")}
   </p>
-  <div class="flex mt-5">
-    <Link href={config.urls.register} style="inverted">{p("cta.cta")}</Link>
+  <div class="flex flex-col sm:flex-row gap-3 mt-5">
+    <Link href={p("cta.primary_link")} style="inverted">{p("cta.primary")}</Link
+    >
+    <Link href={p("cta.secondary_link")} style="ghost"
+      >{p("cta.secondary")}</Link
+    >
   </div>
 </div>

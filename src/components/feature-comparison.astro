@@ -22,13 +22,14 @@ const page_ui: UILanguages = {
     "compare.f9": "Waits for complete messages before replying",
     "compare.f10": "Knowledge base with document & image support",
     "compare.f11": "Detects buyer intent & drives sales funnel",
-    "compare.f12": "CSV / Shopify / API product import",
+    "compare.f12": "CSV product import — supports 1,000+ SKUs",
     "compare.f13": "Webhook integrations & Intent triggers",
     "compare.f14": "Regression testing tools",
   },
   th: {
     "compare.title": "DealDroid เทียบกับ Chatbot ทั่วไป",
-    "compare.subtitle": "ดูว่าทำไมร้านค้าเลือก DealDroid มากกว่า Chatbot ทั่วไป",
+    "compare.subtitle":
+      "ดูว่าทำไมร้านค้าเลือก DealDroid มากกว่า Chatbot ทั่วไป",
     "compare.header.feature": "ฟีเจอร์",
     "compare.header.dealdroid": "DealDroid",
     "compare.header.others": "Chatbot ทั่วไป",
@@ -43,7 +44,7 @@ const page_ui: UILanguages = {
     "compare.f9": "รอลูกค้าพิมพ์จบก่อนค่อยตอบ",
     "compare.f10": "ฐานความรู้ รองรับเอกสารและรูปภาพ",
     "compare.f11": "จับ Intent ลูกค้า & ขับเคลื่อน Sales Funnel",
-    "compare.f12": "นำเข้าสินค้าผ่าน CSV / Shopify / API",
+    "compare.f12": "นำเข้าสินค้าผ่าน CSV — รองรับ 1,000+ SKU",
     "compare.f13": "Webhook & Intent triggers",
     "compare.f14": "เครื่องมือทดสอบ Regression",
   },
@@ -83,7 +84,8 @@ const rows = [
       </p>
     </div>
 
-    <div class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
+    <div
+      class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
       <table class="w-full">
         <thead>
           <tr class="bg-slate-900 text-white">
@@ -101,7 +103,8 @@ const rows = [
         <tbody>
           {
             rows.map((row, i) => (
-              <tr class={`border-t border-slate-100 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}>
+              <tr
+                class={`border-t border-slate-100 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}>
                 <td class="py-4 px-6 text-slate-700">
                   {p(`compare.${row.key}`)}
                 </td>

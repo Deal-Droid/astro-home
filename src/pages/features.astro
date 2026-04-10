@@ -1,95 +1,73 @@
 ---
 import Container from "@components/container.astro";
 import Cta from "@components/cta.astro";
-import FeatureHero from "@components/feature-hero.astro";
-import FeatureOverviewGrid from "@components/feature-overview-grid.astro";
+import FeatureHero2 from "@components/feature-hero-2.astro";
+import FeaturesGrid from "@components/retail/features-grid.astro";
 import FeatureDetail from "@components/feature-detail.astro";
+import FeatureComparison from "@components/feature-comparison.astro";
 import DeveloperResources from "@components/developer-resources.astro";
 import Layout from "@layouts/Layout.astro";
 
-// Import feature images (using existing assets as placeholders)
-import FeatureImg1 from "../assets/features/1.png";
+// Import feature images
 import FeatureImg8 from "../assets/features/8.png";
 import FeatureImg9 from "../assets/features/9.png";
-import FeatureImg12 from "../assets/features/12.png";
-import FeatureImg11 from "../assets/features/11.png";
 import FeatureImg14 from "../assets/features/14.png";
-import FeatureImg15 from "../assets/features/15.png";
 ---
 
 <Layout footerMargin={false}>
   <Container>
     <!-- Hero Section -->
-    <FeatureHero />
-
-    <!-- Overview Grid -->
-    <FeatureOverviewGrid />
+    <FeatureHero2 />
   </Container>
 
-  <!-- Detailed Features -->
-  <!-- Feature 1: Intelligent Message Handling -->
+  <!-- 8-Card Features Grid -->
+  <FeaturesGrid />
+
+  <!-- Detailed Features (3 key features) -->
+
+  <!-- Feature 1: Scale Product Catalog -->
   <FeatureDetail
-    id="message-handling"
-    badge="Smart Conversations"
-    title="Stop disruptive replies"
-    description="When a customer sends multiple messages in a row, Dealdroid waits and replies to the final message — just like a real person. That means no duplicate answers, cleaner chats, and less confused customers."
+    id="product-intelligence"
+    badge="Product Scale"
+    title="Manage thousands of products"
+    description="The AI understands more than just product descriptions — it sees product images too. It picks the right photo to match the conversation and sends it in chat automatically."
     benefits={[
-      "Reduces chat noise and staff interruptions",
-      "Preserves conversational context for longer customer messages",
-      "Improves perceived empathy — customers feel heard",
+      "Store owners manage products directly — no AI training needed",
+      "Bulk import via CSV for large catalogs",
+      "Reads Thai text embedded in product images",
     ]}
-    example="When a user types three lines in a row, Dealdroid replies once with an answer that addresses all questions."
-    image={FeatureImg1}
-    imageAlt="Intelligent message handling timeline"
+    example="A customer asks for 'fresh garlic' → The AI recognizes from the product photo that this is fresh garlic, even though the description never says so."
+    image={FeatureImg8}
+    imageAlt="AI reads Thai text 'คัดพิเศษ' on a garlic product image and identifies it as fresh garlic"
     imagePosition="left"
-    docsLink="https://docs.dealdroid.net/tuning/when-ai-think/"
-    docsLinkText="Learn about message timing"
+    docsLink="https://docs.dealdroid.net/tuning/add-product/"
+    docsLinkText="Product feed setup"
+    devNote="Manual + CSV import. Vision AI reads product images including embedded Thai text."
     background="white"
   />
 
-  <!-- Feature 2: Product Intelligence -->
-  <FeatureDetail
-    id="product-intelligence"
-    badge="Product Aware"
-    title="Scales to large catalogs — understands product images"
-    description="Dealdroid can import large product catalogs, understand product details, and recognize product images. It can recommend items, compare models, and send product photos that match customer questions."
-    benefits={[
-      "Works with thousands of SKUs without slowdown",
-      "Sends the exact product image customers ask for",
-      "Performs side-by-side comparisons on request",
-    ]}
-    example="Customer asks: 'Show me that red shirt in size M' → Bot returns the precise photo + availability status."
-    image={FeatureImg8}
-    imageAlt="Product catalog with image recognition"
-    imagePosition="right"
-    docsLink="https://docs.dealdroid.net/tuning/add-product/"
-    docsLinkText="Product feed setup"
-    devNote="Supports CSV feeds, Shopify integration, and REST product APIs. Image recognition works against stored product images and metadata."
-    background="slate"
-  />
-
-  <!-- Feature 3: Knowledge Base -->
+  <!-- Feature 2: Knowledge Base / Documents -->
   <FeatureDetail
     id="knowledge-base"
     badge="Knowledge Driven"
-    title="Answers that reference your documents"
-    description="Add manuals, warranty documents, FAQs, and images to the knowledge base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate."
+    title="Feed your bot the knowledge it needs"
+    description="Add manuals, warranty documents, FAQs, and images to the knowledge base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate. The more you teach it, the smarter it gets."
     benefits={[
       "Accurate, brand-approved answers every time",
-      "Visual responses: diagrams, spec tables, or how-to images included inline",
-      "Can send links or images from documents to customers",
+      "Supports rich content: images, diagrams, spec tables",
+      "Can send links or images from documents to customers inline",
     ]}
     example="Customer: 'How long is the warranty?' — Bot: '12 months. See warranty PDF [download link]'"
     image={FeatureImg9}
     imageAlt="Knowledge base with documents and images"
-    imagePosition="left"
+    imagePosition="right"
     docsLink="https://docs.dealdroid.net/tuning/add-knowledge/"
     docsLinkText="Knowledge base guide"
     devNote="KB supports Markdown + image attachments + version history."
-    background="white"
+    background="slate"
   />
 
-  <!-- Feature 4: Multi-language Support -->
+  <!-- Feature 3: Multi-language Support -->
   <FeatureDetail
     id="multi-language"
     badge="119 Languages"
@@ -102,36 +80,18 @@ import FeatureImg15 from "../assets/features/15.png";
     ]}
     example="A customer writes in Japanese at 3 AM → Dealdroid detects the language, pulls product info from your English knowledge base, and replies in perfect Japanese — instantly."
     image={FeatureImg14}
-    imageAlt="Flags representing 30+ supported countries and languages"
-    imagePosition="right"
+    imageAlt="Flags representing 119 supported countries and languages"
+    imagePosition="left"
     docsLink="https://docs.dealdroid.net/faq/language-support/"
     docsLinkText="See all 119 supported languages"
     devNote="Language detection is automatic. Knowledge base can be in any language — responses are translated to match customer's language. AI Supervisor monitors for language hallucination."
-    background="slate"
-  />
-
-  <!-- Feature 5: Smart Intent Routing -->
-  <FeatureDetail
-    id="intent-routing"
-    badge="Intelligent Routing"
-    title="The system doesn't just keep answering questions — it actively drives real sales"
-    description="When Dealdroid detects customer intent, it analyzes what customers want and determines which responses will move customers to the next sale funnel — such as from Awareness to Consideration, then to Conversion, etc. Most importantly, store owners can manually add other necessary intents, including handoff to humans."
-    benefits={[
-      "Helps increase sales",
-      "Reduces wrong answers that cause customers to drop out of purchases",
-      "Smooth handoff to human agents when necessary",
-    ]}
-    example="Users can configure additional settings such as: when a Purchase intent is detected, ask the user to choose a payment method between cash on delivery or bank transfer."
-    image={FeatureImg15}
-    imageAlt="Intent configuration screen"
-    imagePosition="left"
-    docsLink="https://docs.dealdroid.net/tuning/add-intent/"
-    docsLinkText="Add intent"
-    devNote="You can also configure which webhook to call when users enter a specific intent."
     background="white"
   />
 
-  <!-- Developer Resources -->
+  <!-- Comparison Table -->
+  <FeatureComparison />
+
+  <!-- For Developers -->
   <DeveloperResources />
 
   <!-- Final CTA -->
