@@ -1,0 +1,279 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import ChatSimulation from "../retail/chat-simulation.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
+import messengerSvg from "@assets/channels/messenger.svg";
+import lineSvg from "@assets/channels/line.svg";
+import whatsappSvg from "@assets/channels/whatsapp.svg";
+import instagramSvg from "@assets/channels/instagram.svg";
+import websiteSvg from "@assets/channels/website.svg";
+import happyPupDuck from "@assets/brands/happy-pup-duck.jpg";
+import happyPupFish from "@assets/brands/happy-pup-fish.jpg";
+
+const page_ui: UILanguages = {
+  en: {
+    "hero.badge": "AI Sales Agent for Brands That Are Serious About Growth",
+    "hero.h1": "Reply Faster. Never Lose a Customer. Let AI Close the Sale.",
+    "hero.subtitle":
+      "Your AI handles every chat around the clock — so you can run ads without worrying about hiring more staff.",
+    "hero.cta_primary": "Book a Free Consultation",
+    "hero.cta_secondary": "See Real Results",
+    "hero.channels_label": "Connects with",
+    "hero.store_name": "Mochi",
+    "hero.chat_msg1": "How much is the Happy Pup Duck?",
+    "hero.chat_reply1": "Happy Pup Dog Food – Duck is 140 baht",
+    "hero.chat_msg2": "I'll take 2 bags",
+    "hero.cta_link": config.retail.register.en,
+  },
+  th: {
+    "hero.badge": "AI นักขาย ที่ช่วยเพิ่มยอดได้จริง",
+    "hero.h1": "ตอบแชทเร็วกว่า ลูกค้าไม่หาย ปิดการขายด้วย AI",
+    "hero.subtitle":
+      "เราตอบแชท 24 ชั่วโมงไม่มีวันหยุด ให้คุณยิง ads ได้สะบายใจโดยไม่ต้องห่วงเรื่องการจ้างแอดมินเพิ่ม",
+    "hero.cta_primary": "นัดปรึกษา ฟรี",
+    "hero.cta_secondary": "ดูผลลัพธ์จริงจากลูกค้าจริง",
+    "hero.channels_label": "เชื่อมต่อกับ",
+    "hero.store_name": "Mochi",
+    "hero.chat_msg1": "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ?",
+    "hero.chat_reply1": "อาหารสุนัข Happy Pup – Duck ราคา 140 บาท ครับ",
+    "hero.chat_msg2": "เอา 2 ถุง",
+    "hero.cta_link": config.retail.register.th,
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const channels = [
+  { name: "Messenger", icon: messengerSvg.src },
+  { name: "LINE", icon: lineSvg.src },
+  { name: "WhatsApp", icon: whatsappSvg.src },
+  { name: "Instagram", icon: instagramSvg.src },
+  { name: "Website", icon: websiteSvg.src },
+];
+
+type Msg = { sender: "bot" | "customer"; text: string; image?: string };
+
+const chatConversations: Msg[][] =
+  lang === "th"
+    ? [
+        // Set A - สั่งซื้ออาหารสุนัข
+        [
+          { sender: "customer", text: "Happy Pup ทำจากเป็ด ราคาเท่าไหร่คะ" },
+          {
+            sender: "bot",
+            text: "อาหารสุนัข Happy Pup – Duck ราคา 140 บาท ครับ",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupDuck.src,
+          },
+          {
+            sender: "bot",
+            text: "สนใจรับไปเลยมั๊ยคะ 😊",
+          },
+          { sender: "customer", text: "เอา 2 ถุง" },
+          {
+            sender: "bot",
+            text: "ยินดีเลยค่ะ 🎉\n\nใส่สินค้า Happy Pup Dog Food – Duck - 10kg จำนวน 2 ถุง ในตะกร้าแล้ว\nราคารวมอยู่ที่ 280 บาท\n\nคุณลูกค้าจะจ่ายเป็นโอนเงิน หรือเก็บเงินปลายทางดีคะ",
+          },
+          { sender: "customer", text: "เก็บเงินปลายทางค่ะ" },
+          {
+            sender: "bot",
+            text: "ได้เลยค่ะ คุณลูกค้าแจ้งชื่อ-ที่อยู่เพื่อจัดส่งให้ถูกต้องได้เลยค่ะ 📦",
+          },
+        ],
+        // Set B - ถามบริการอาบน้ำ (out of scope)
+        [
+          { sender: "customer", text: "อาบน้ำหมา ราคาเท่าไรคะ?" },
+          {
+            sender: "bot",
+            text: "ขออภัยค่ะ ทางร้านไม่มีบริการอาบน้ำสุนัข\n\nแต่มีอาหารสุนัขคุณภาพดี เช่น Happy Pup Dog Food – Ocean Fish และ Happy Pup Dog Food – Duck ซึ่งเป็นอาหารที่ดีต่อสุขภาพสุนัข\n\nคุณลูกค้าสนใจรับไปลองดูมั๊ยคะ? 😊",
+          },
+          { sender: "customer", text: "ขอคิดดูก่อนนะคะ" },
+          {
+            sender: "bot",
+            text: "ได้เลยค่ะ ถ้าคุณลูกค้าสนใจหรือมีคำถามเพิ่มเติมเกี่ยวกับอาหารสุนัข Happy Pup สามารถทักมาหาเราได้ตลอดเลยนะคะ",
+          },
+          { sender: "bot", text: "ยินดีให้คำแนะนำค่ะ 😊" },
+        ],
+        // Set C - อาหารสำหรับหมาแพ้ง่าย
+        [
+          {
+            sender: "customer",
+            text: "สนใจอาหารสำหรับน้องหมาแพ้ง่ายค่ะ",
+          },
+          {
+            sender: "bot",
+            text: "เรามีอาหารเม็ดสำหรับสุนัขแพ้ง่าย เช่น สูตรเนื้อปลาแซลมอนและปลาทูน่า สนใจลองดูมั๊ยคะ? 😊",
+          },
+          { sender: "customer", text: "มีอะไรบ้างคะ" },
+          {
+            sender: "bot",
+            text: "เรามีอาหารสุนัขสำหรับแพ้ง่าย 2 สูตรหลัก ได้แก่\n\n• สูตรเนื้อปลา (Ocean Fish) – ไม่มีข้าวและกลูเตน มีโอเมก้า 3 & 6 ช่วยบำรุงขนและผิว\n• สูตรเนื้อเป็ด (Duck) – ง่ายต่อการย่อย ไม่มีสารก่อภูมิแพ้ และเพิ่มผักเสริมโภชนาการ\n\nสนใจตัวไหนดีคะ?",
+          },
+          { sender: "customer", text: "ปลาค่ะ" },
+          {
+            sender: "bot",
+            text: "สูตรเนื้อปลา (Ocean Fish) นี้เหมาะสำหรับน้องหมาที่แพ้สัตว์ปีก มีโปรตีนจากปลาแซลมอนและปลาทูน่า ช่วยบำรุงขนให้นุ่มสวย และผิวหนังแข็งแรง ไม่มีข้าวหรือกลูเตน 🐾",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupFish.src,
+          },
+          { sender: "customer", text: "โอเคค่ะ เอา 1 ถุง" },
+          {
+            sender: "bot",
+            text: "เยี่ยมเลยค่ะ 🎉\n\nใส่สินค้า Happy Pup Dog Food – Ocean Fish - 10kg จำนวน 1 ถุง ในตะกร้าแล้ว\nราคารวมอยู่ที่ 150 บาท\n\nคุณลูกค้าจะจ่ายเป็นโอนเงิน หรือเก็บเงินปลายทางดีคะ",
+          },
+        ],
+      ]
+    : [
+        // Set A - Ordering dog food
+        [
+          {
+            sender: "customer",
+            text: "How much is the Happy Pup Duck?",
+          },
+          {
+            sender: "bot",
+            text: "Happy Pup Dog Food – Duck is 140 baht",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupDuck.src,
+          },
+          {
+            sender: "bot",
+            text: "Would you like to order? 😊",
+          },
+          { sender: "customer", text: "I'll take 2 bags" },
+          {
+            sender: "bot",
+            text: "Great! 🎉\n\nAdded Happy Pup Dog Food – Duck - 10kg x 2 bags to your cart\nTotal: 280 baht\n\nWould you prefer bank transfer or cash on delivery?",
+          },
+          { sender: "customer", text: "Cash on delivery please" },
+          {
+            sender: "bot",
+            text: "Sure thing! Please share your name and delivery address so we can ship it correctly 📦",
+          },
+        ],
+        // Set B - Out of scope (grooming)
+        [
+          {
+            sender: "customer",
+            text: "How much is dog grooming?",
+          },
+          {
+            sender: "bot",
+            text: "Sorry, we don't offer dog grooming services.\n\nBut we do have premium dog food like Happy Pup Dog Food – Ocean Fish and Happy Pup Dog Food – Duck, which are great for your dog's health.\n\nWould you like to try some? 😊",
+          },
+          { sender: "customer", text: "Let me think about it" },
+          {
+            sender: "bot",
+            text: "Of course! If you're interested or have any questions about Happy Pup dog food, feel free to message us anytime.",
+          },
+          { sender: "bot", text: "Happy to help! 😊" },
+        ],
+        // Set C - Food for sensitive dogs
+        [
+          {
+            sender: "customer",
+            text: "I'm looking for food for dogs with allergies",
+          },
+          {
+            sender: "bot",
+            text: "We have kibble specially formulated for sensitive dogs, like our salmon & tuna recipe. Want to take a look? 😊",
+          },
+          { sender: "customer", text: "What do you have?" },
+          {
+            sender: "bot",
+            text: "We have 2 main formulas for sensitive dogs:\n\n• Ocean Fish – grain-free & gluten-free, rich in Omega 3 & 6 for healthy coat and skin\n• Duck – easy to digest, hypoallergenic, with added veggies for nutrition\n\nWhich one interests you?",
+          },
+          { sender: "customer", text: "The fish one please" },
+          {
+            sender: "bot",
+            text: "The Ocean Fish formula is perfect for dogs with poultry allergies. Made with salmon and tuna protein, it promotes a soft, shiny coat and healthy skin. Grain-free and gluten-free 🐾",
+          },
+          {
+            sender: "bot",
+            text: "",
+            image: happyPupFish.src,
+          },
+          { sender: "customer", text: "OK, I'll take 1 bag" },
+          {
+            sender: "bot",
+            text: "Awesome! 🎉\n\nAdded Happy Pup Dog Food – Ocean Fish - 10kg x 1 bag to your cart\nTotal: 150 baht\n\nWould you prefer bank transfer or cash on delivery?",
+          },
+        ],
+      ];
+---
+
+<section class="bg-white pt-8 pb-16 overflow-hidden">
+  <Container>
+    <div class="py-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <!-- Left: Copy -->
+      <div class="text-center lg:text-left">
+        <!-- Badge -->
+        <div class="mb-6">
+          <span
+            class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+            {p("hero.badge")}
+          </span>
+        </div>
+        <h1
+          class="text-4xl md:text-5xl font-bold leading-[1.2] md:leading-[1.2] text-slate-900">
+          {p("hero.h1")}
+        </h1>
+        <p class="mt-6 text-lg text-slate-600 max-w-xl mx-auto lg:mx-0">
+          {p("hero.subtitle")}
+        </p>
+        <div
+          class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <Link href={p("hero.cta_link")} size="lg" style="primary">
+            {p("hero.cta_primary")}
+          </Link>
+          <Link href="#proof" size="lg" style="outline">
+            {p("hero.cta_secondary")}
+          </Link>
+        </div>
+
+        <!-- Channel Icons -->
+        <div
+          class="mt-6 flex flex-wrap items-center gap-3 justify-center lg:justify-start">
+          <span class="text-sm text-slate-400 font-medium"
+            >{p("hero.channels_label")}</span
+          >
+          <div class="flex flex-wrap items-center gap-3">
+            {
+              channels.map((ch) => (
+                <div class="flex items-center gap-1.5">
+                  <img src={ch.icon} alt={ch.name} class="w-5 h-5 shrink-0" />
+                  <span class="text-xs font-medium text-slate-400">
+                    {ch.name}
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Chat Mockup -->
+      <div class="flex justify-center lg:-ml-4">
+        <ChatSimulation
+          storeName={p("hero.store_name")}
+          conversations={chatConversations}
+          typingDelay={6000}
+          pauseBetween={8000}
+        />
+      </div>
+    </div>
+  </Container>
+</section>

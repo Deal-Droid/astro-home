@@ -1,0 +1,23 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Navbar from "@components/navbar/navbar.astro";
+import Hero from "@components/home/hero.astro";
+import ClientLogos from "@components/retail/client-logos.astro";
+import PainToSolution from "@components/home/pain-to-solution.astro";
+import UseCases from "@components/home/use-cases.astro";
+import CaseStudy from "@components/home/case-study.astro";
+import FinalCta from "@components/retail/final-cta.astro";
+---
+
+<Layout
+  title="AI Sales Agent for Retail | DealDroid"
+  description="DealDroid AI replaces your chat team 24/7 — instant replies, product recommendations, and closes deals while you sleep. Free inbox audit for retail brands."
+  footerMargin={false}
+  navbar={Navbar}>
+  <Hero />
+  <ClientLogos />
+  <PainToSolution />
+  <UseCases />
+  <CaseStudy />
+  <FinalCta />
+</Layout>

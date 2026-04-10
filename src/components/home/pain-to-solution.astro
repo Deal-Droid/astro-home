@@ -1,0 +1,255 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import ChatSimulation from "../retail/chat-simulation.astro";
+import { Icon } from "astro-icon/components";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
+
+const page_ui: UILanguages = {
+  en: {
+    // Pain
+    "pain.badge": "Where Social Commerce Goes Wrong",
+    "pain.subheading":
+      "Your customers are slipping away — along with every baht you spend on ads",
+    "pain.heading": "Ad customers won't wait more than 2 minutes",
+    "pain.card1_title": "Ads run 24/7, your team doesn't",
+    "pain.card1_desc":
+      "Every after-hours message is a missed sale — your competitor replies first and takes the customer",
+    "pain.card2_title": "Admins Reply But Can't Close",
+    "pain.card2_desc":
+      "They answer questions, sure — but they never push for the sale or upsell",
+    "pain.card3_title": "Can't Predict Customer Volume",
+    "pain.card3_desc":
+      "You never know when ads will spike. Hire more admins just to wait around? Not worth the risk.",
+    "pain.quote":
+      '"Your inbox is your storefront now — whoever replies fastest, wins."',
+    // Solution
+    "sol.badge": "The Answer You're Looking For",
+    "sol.heading": "DealDroid AI",
+    "sol.subtitle":
+      "A salesperson that never takes a day off — no sick leave, no days off, selling 24/7",
+    "sol.b1": "An AI trained to sell like a pro — tailored to your business",
+    "sol.b2": "Handles chat spikes during campaigns — no customer left waiting",
+    "sol.b3": "Always sounds like your brand — in every message",
+    "sol.b4": "Closes sales, not just answers questions",
+    "sol.b5": "118+ languages supported, no extra headcount needed",
+    "sol.cta": "Request a Live Demo",
+    "sol.cta_link": config.retail.register.en,
+    "sol.store_name": "TechGear SG",
+  },
+  th: {
+    // Pain
+    "pain.badge": "ปัญหาของโซเชียลคอมเมิร์ซ",
+    "pain.subheading": "ลูกค้าคุณกำลังหายไปพร้อมกับงบโฆษณาที่จ่ายไป",
+    "pain.heading": "ลูกค้าจาก Ads ไม่รอเกิน 2 นาที",
+    "pain.card1_title": "ลูกค้าทักหลังเลิกงาน",
+    "pain.card1_desc":
+      "ยิงแอ๊ด 24 ชั่วโมง แต่ทีมงานมีเวลาทำงานแค่ 8 ชั่วโมง — งบโฆษณาส่วนที่เหลือก็เสียเปล่า",
+    "pain.card2_title": "Admin ตอบได้ แต่ปิดการขายไม่เป็น",
+    "pain.card2_desc": "ตอบได้ก็จริง แต่ถามคำตอบคำ ไม่ดันยอด ไม่ upsell",
+    "pain.card3_title": "คาดการจำนวนลูกค้าล่วงหน้าไม่ได้",
+    "pain.card3_desc":
+      "ก็ไม่รู้ว่ายิงแอ๊ดไปแล้วจะโดนแค่ไหน จะจ้างแอดมินมารอก็ไม่คุ้มเสี่ยง",
+    "pain.quote": '"Inbox คือหน้าร้าน — ใครตอบเร็ว ตอบดีกว่า ถือว่าชนะ"',
+    // Solution
+    "sol.badge": "คำตอบที่คุณมองหา",
+    "sol.heading": "DealDroid AI",
+    "sol.subtitle":
+      "พนักงานขาย ที่ไม่มีวันหยุด — ไม่เคยลา ขายให้ตลอด 24 ชั่วโมง",
+    "sol.b1":
+      "AI Sales Agent ที่ถูกฝึกมาเป็น 'พนักงานขายมืออาชีพ' เฉพาะธุรกิจคุณ",
+    "sol.b2": "รองรับแชทจำนวนมากในช่วงแคมเปญ",
+    "sol.b3": "สร้างแบรนด์ของร้านในทุกข้อความที่ตอบ",
+    "sol.b4": "ช่วยปิดการขาย ไม่ใช่แค่ตอบคำถาม",
+    "sol.b5": "รองรับ 118+ ภาษา ไม่ต้องจ้างคนเพิ่ม",
+    "sol.cta": "นัดสาธิตการใช้งานจริง",
+    "sol.cta_link": config.retail.register.th,
+    "sol.store_name": "TechGear SG",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const painCards = [
+  {
+    title: p("pain.card1_title"),
+    desc: p("pain.card1_desc"),
+    icon: "solar:moon-bold-duotone",
+  },
+  {
+    title: p("pain.card2_title"),
+    desc: p("pain.card2_desc"),
+    icon: "solar:chat-round-dots-bold-duotone",
+  },
+  {
+    title: p("pain.card3_title"),
+    desc: p("pain.card3_desc"),
+    icon: "solar:chart-2-bold-duotone",
+  },
+];
+
+const benefits = [
+  { icon: "fluent:bot-24-regular", text: p("sol.b1") },
+  { icon: "fluent:clipboard-checkmark-24-regular", text: p("sol.b2") },
+  { icon: "fluent:chat-24-regular", text: p("sol.b3") },
+  { icon: "fluent:chart-multiple-24-regular", text: p("sol.b4") },
+  { icon: "fluent:globe-24-regular", text: p("sol.b5") },
+];
+
+type Msg = { sender: "bot" | "customer"; text: string };
+
+const whatsappConversation: Msg[][] =
+  lang === "th"
+    ? [
+        [
+          { sender: "customer", text: "สวัสดีค่ะ" },
+          {
+            sender: "bot",
+            text: "สวัสดีค่ะ! ยินดีต้อนรับสู่ TechGear SG 😊\nเราเป็นตัวแทนจำหน่ายอย่างเป็นทางการ สินค้าแท้ 100% รับประกัน จัดส่งฟรีทั่วไทย\n\nวันนี้หาอะไรดีคะ?\n🎧 หูฟัง & เครื่องเสียง\n📷 กล้อง & โดรน\n🎮 อุปกรณ์เกมมิ่ง",
+          },
+          {
+            sender: "customer",
+            text: "อยากได้หูฟัง noise-cancelling ดีๆ งบประมาณ 15,000 บาท",
+          },
+          {
+            sender: "bot",
+            text: "เลือกดีมากค่ะ! แนะนำ Sony WH-1000XM5:\n✅ Noise Cancelling อันดับ 1\n✅ แบตเตอรี่ 30 ชม.\n✅ เชื่อมต่อหลายเครื่องพร้อมกัน\n\nราคา 14,990 บาท — อยู่ในงบเลยค่ะ! 👌",
+          },
+          { sender: "customer", text: "ดูดีมาก! สั่งได้เลยไหมคะ?" },
+          {
+            sender: "bot",
+            text: "ได้เลยค่ะ! จัดส่งฟรีวันต่อไป 🚚\nขอชื่อและเบอร์โทรศัพท์หน่อยค่ะ",
+          },
+        ],
+      ]
+    : [
+        [
+          { sender: "customer", text: "Hi there!" },
+          {
+            sender: "bot",
+            text: "Hello! Welcome to TechGear SG 😊\nWe're an authorized dealer with 100% genuine products, manufacturer warranty, and free delivery across Singapore.\n\nWhat are you looking for today?\n🎧 Headphones & Audio\n📷 Cameras & Drones\n🎮 Gaming Accessories",
+          },
+          {
+            sender: "customer",
+            text: "I need good noise-cancelling headphones, budget around S$500",
+          },
+          {
+            sender: "bot",
+            text: "Great choice! I'd recommend the Sony WH-1000XM5:\n✅ Industry-leading ANC\n✅ 30-hour battery life\n✅ Multipoint connection\n\nPrice: S$449 — well within your budget! 👌",
+          },
+          { sender: "customer", text: "Looks perfect! Can I order now?" },
+          {
+            sender: "bot",
+            text: "Absolutely! Free next-day delivery within Singapore 🚚\nCould I get your full name and contact number please?",
+          },
+        ],
+      ];
+---
+
+<!-- Pain Points -->
+<section class="py-16 bg-slate-50">
+  <Container>
+    <div class="text-center max-w-4xl mx-auto mb-12">
+      <span
+        class="inline-block bg-red-100 border border-red-200 text-red-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+        {p("pain.badge")}
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+        {p("pain.heading")}
+      </h2>
+      <p class="text-lg text-slate-500">{p("pain.subheading")}</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      {
+        painCards.map((card) => (
+          <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="text-3xl mb-4 text-red-500">
+              <Icon name={card.icon} />
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">{card.title}</h3>
+            <p class="text-base text-slate-600">{card.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 text-center">
+      <blockquote
+        class="text-lg md:text-xl font-medium text-slate-700 italic max-w-2xl mx-auto">
+        {p("pain.quote")}
+      </blockquote>
+    </div>
+  </Container>
+</section>
+
+<!-- Solution / Bridge -->
+<section class="py-16 lg:py-24 bg-[#f5f5f7]">
+  <Container>
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <!-- Left: Benefits List -->
+      <div>
+        <div class="mb-4">
+          <span
+            class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full">
+            {p("sol.badge")}
+          </span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+          {p("sol.heading")}
+        </h2>
+        <p class="text-lg text-slate-600 mb-8 max-w-lg">
+          {p("sol.subtitle")}
+        </p>
+
+        <div class="space-y-4 mb-8">
+          {
+            benefits.map((b) => (
+              <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 shrink-0 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600">
+                  <Icon name={b.icon} class="w-5 h-5" />
+                </div>
+                <p class="text-slate-700 pt-2 leading-relaxed">{b.text}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <Link
+          href={p("sol.cta_link")}
+          size="lg"
+          style="primary"
+          class="inline-flex items-center gap-2">
+          {p("sol.cta")}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+              points="12 5 19 12 12 19"></polyline></svg
+          >
+        </Link>
+      </div>
+
+      <!-- Right: WhatsApp Chat Simulation -->
+      <div class="flex justify-center">
+        <ChatSimulation
+          storeName={p("sol.store_name")}
+          conversations={whatsappConversation}
+          theme="whatsapp"
+          typingDelay={2000}
+          pauseBetween={10000}
+        />
+      </div>
+    </div>
+  </Container>
+</section>

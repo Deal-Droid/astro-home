@@ -1,0 +1,51 @@
+---
+import Badge from "./ui/badge.astro";
+import Link from "./ui/link.astro";
+import { usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+import { config } from "../config";
+
+const page_ui: UILanguages = {
+  en: {
+    "hero.badge": "Product Showcase",
+    "hero.h1": "Built for stores that sell, not just chat",
+    "hero.subtitle":
+      "Every feature is designed to turn conversations into revenue — from smart message handling to 119-language support.",
+    "hero.cta.primary": "Try it for free",
+    "hero.cta.secondary": "Book a consultation",
+  },
+  th: {
+    "hero.badge": "ฟีเจอร์ทั้งหมด",
+    "hero.h1": "สร้างมาเพื่อร้านค้าที่ขายของจริง ไม่ใช่แค่แชท",
+    "hero.subtitle":
+      "ทุกฟีเจอร์ถูกออกแบบมาเพื่อเปลี่ยนการสนทนาเป็นรายได้ — ตั้งแต่การจัดการข้อความอัจฉริยะ ไปจนถึงการรองรับ 119 ภาษา",
+    "hero.cta.primary": "ทดลองใช้งาน",
+    "hero.cta.secondary": "นัดปรึกษาฟรี",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+---
+
+<div class="text-center max-w-4xl mx-auto mt-16 mb-20">
+  <Badge color="purple">{p("hero.badge")}</Badge>
+  <h1 class="text-4xl lg:text-5xl font-bold lg:tracking-tight mt-4">
+    {p("hero.h1")}
+  </h1>
+  <p class="text-xl lg:text-2xl mt-4 text-slate-600 font-medium max-w-3xl mx-auto">
+    {p("hero.subtitle")}
+  </p>
+  <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+    <Link href={config.urls.register} size="lg">
+      {p("hero.cta.primary")}
+    </Link>
+    <Link
+      href={lang === "th" ? config.retail.register.th : config.retail.register.en}
+      size="lg"
+      style="outline"
+    >
+      {p("hero.cta.secondary")}
+    </Link>
+  </div>
+</div>

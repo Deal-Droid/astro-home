@@ -1,0 +1,115 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { StickyHeader } from "astro-navbar";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import logoImage from "../../assets/logo.svg";
+import { usePageTranslations, useTranslatedPath } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
+
+const page_ui: UILanguages = {
+  en: {
+    "nav.cta_results": "See Results",
+    "nav.cta_audit": "Book a Free Consultation",
+    "nav.cta_audit_short": "Get Audit",
+    "nav.cta_link": config.retail.register.en,
+  },
+  th: {
+    "nav.cta_results": "ดูผลลัพธ์จากลูกค้าจริง",
+    "nav.cta_audit": "นัดปรึกษา ฟรี",
+    "nav.cta_audit_short": "นัดคุย",
+    "nav.cta_link": config.retail.register.th,
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+const translatePath = useTranslatedPath(lang);
+---
+
+<StickyHeader
+  class="sticky top-0 z-20 transition-all"
+  scrollY={50}
+  defaultClass="py-4 border-transparent"
+  activeClass="py-2 bg-white/80 border-b border-gray-200 backdrop-blur-lg">
+  <Container>
+    <div class="flex justify-between items-center">
+      <a
+        href={translatePath("/")}
+        class="text-lg flex items-center transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 focus-visible:outline-none rounded-full px-2 -ml-2">
+        <Image
+          src={logoImage}
+          alt="Dealdroid logo"
+          class="w-8 h-8 mr-1"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <span class="font-bold text-indigo-600">Deal</span><span
+          class="text-slate-600">Droid</span
+        >
+      </a>
+      <div class="flex items-center gap-3">
+        <Link
+          href="#proof"
+          size="sm"
+          style="outline"
+          class="hidden sm:inline-flex items-center group gap-px">
+          <span>{p("nav.cta_results")}</span>
+          <Icon
+            name="mdi:chevron-right"
+            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform"
+          />
+        </Link>
+        <Link
+          href={p("nav.cta_link")}
+          size="sm"
+          class="inline-flex items-center group gap-px">
+          <span class="hidden sm:inline">{p("nav.cta_audit")}</span>
+          <span class="sm:hidden">{p("nav.cta_audit_short")}</span>
+          <Icon
+            name="mdi:chevron-right"
+            class="w-4 h-4 mt-px group-hover:translate-x-1 transition-transform"
+          />
+        </Link>
+      </div>
+    </div>
+  </Container>
+</StickyHeader>
+
+<script>
+  function updateHeaderOnScroll() {
+    const header = document.querySelector(".astronav-sticky-header");
+    if (!header) return;
+    const scrollPos = window.scrollY;
+    if (scrollPos > 50) {
+      header.classList.remove("py-4", "border-transparent");
+      header.classList.add(
+        "is-active",
+        "py-2",
+        "bg-white/80",
+        "border-b",
+        "border-gray-200",
+        "backdrop-blur-lg",
+      );
+      header.setAttribute("active", "");
+    } else if (scrollPos < 10) {
+      header.classList.remove(
+        "is-active",
+        "py-2",
+        "bg-white/80",
+        "border-b",
+        "border-gray-200",
+        "backdrop-blur-lg",
+      );
+      header.classList.add("py-4", "border-transparent");
+      header.removeAttribute("active");
+    }
+  }
+  document.addEventListener("DOMContentLoaded", updateHeaderOnScroll);
+  document.addEventListener("astro:page-load", updateHeaderOnScroll);
+  window.addEventListener("scroll", () => {
+    requestAnimationFrame(updateHeaderOnScroll);
+  });
+</script>

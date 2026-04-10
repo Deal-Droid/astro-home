@@ -1,0 +1,131 @@
+---
+import Container from "@components/container.astro";
+import { Icon } from "astro-icon/components";
+import { usePageTranslations } from "../i18n/utils";
+import type { UILanguages } from "../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "compare.title": "How DealDroid compares",
+    "compare.subtitle": "See why stores choose DealDroid over generic chatbots",
+    "compare.header.feature": "Feature",
+    "compare.header.dealdroid": "DealDroid",
+    "compare.header.others": "General Chatbots",
+    "compare.f1": "Instant replies, 24/7 — weekends, holidays, 3 AM",
+    "compare.f2": "Understands product images & recommends from catalog",
+    "compare.f3": "Auto-answers FAQs — pricing, delivery, warranty",
+    "compare.f4": "Your brand voice — replies in your tone and personality",
+    "compare.f5": "Filters ready-to-buy customers & alerts your team",
+    "compare.f6": "119 languages with auto-detection",
+    "compare.f7": "Pass to human when needed — smooth handoff",
+    "compare.f8": "All your channels — Facebook, LINE, WhatsApp, Instagram",
+    "compare.f9": "Waits for complete messages before replying",
+    "compare.f10": "Knowledge base with document & image support",
+    "compare.f11": "Detects buyer intent & drives sales funnel",
+    "compare.f12": "CSV / Shopify / API product import",
+    "compare.f13": "Webhook integrations & Intent triggers",
+    "compare.f14": "Regression testing tools",
+  },
+  th: {
+    "compare.title": "DealDroid เทียบกับ Chatbot ทั่วไป",
+    "compare.subtitle": "ดูว่าทำไมร้านค้าเลือก DealDroid มากกว่า Chatbot ทั่วไป",
+    "compare.header.feature": "ฟีเจอร์",
+    "compare.header.dealdroid": "DealDroid",
+    "compare.header.others": "Chatbot ทั่วไป",
+    "compare.f1": "ตอบทันที 24/7 — วันหยุด นอกเวลา ตี 3 ก็ตอบ",
+    "compare.f2": "เข้าใจภาพสินค้า & แนะนำจากแคตตาล็อกได้",
+    "compare.f3": "ตอบ FAQ อัตโนมัติ — ราคา ค่าจัดส่ง ประกัน",
+    "compare.f4": "Brand Voice ของคุณเอง — ตอบในน้ำเสียงที่คุณต้องการ",
+    "compare.f5": "กรองลูกค้าตัวจริงพร้อมจ่าย แล้วแจ้งทีมทันที",
+    "compare.f6": "119 ภาษา ตรวจจับอัตโนมัติ",
+    "compare.f7": "ส่งให้มนุษย์เมื่อต้องส่ง — ส่งต่ออย่างราบรื่น",
+    "compare.f8": "ทุกช่องทาง — Facebook, LINE, WhatsApp, Instagram",
+    "compare.f9": "รอลูกค้าพิมพ์จบก่อนค่อยตอบ",
+    "compare.f10": "ฐานความรู้ รองรับเอกสารและรูปภาพ",
+    "compare.f11": "จับ Intent ลูกค้า & ขับเคลื่อน Sales Funnel",
+    "compare.f12": "นำเข้าสินค้าผ่าน CSV / Shopify / API",
+    "compare.f13": "Webhook & Intent triggers",
+    "compare.f14": "เครื่องมือทดสอบ Regression",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const rows = [
+  // From FeaturesGrid (8 cards)
+  { key: "f1", dealdroid: true, others: true },
+  { key: "f2", dealdroid: true, others: false },
+  { key: "f3", dealdroid: true, others: true },
+  { key: "f4", dealdroid: true, others: true },
+  { key: "f5", dealdroid: true, others: false },
+  { key: "f6", dealdroid: true, others: false },
+  { key: "f7", dealdroid: true, others: true },
+  { key: "f8", dealdroid: true, others: true },
+  // Additional technical features
+  { key: "f9", dealdroid: true, others: false },
+  { key: "f10", dealdroid: true, others: false },
+  { key: "f11", dealdroid: true, others: false },
+  { key: "f12", dealdroid: true, others: false },
+  { key: "f13", dealdroid: true, others: false },
+  { key: "f14", dealdroid: true, others: false },
+];
+---
+
+<section class="py-16 sm:py-20 bg-slate-50">
+  <Container>
+    <div class="text-center mb-12">
+      <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+        {p("compare.title")}
+      </h2>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+        {p("compare.subtitle")}
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-slate-900 text-white">
+            <th class="text-left py-4 px-6 font-semibold">
+              {p("compare.header.feature")}
+            </th>
+            <th class="text-center py-4 px-6 font-semibold w-28">
+              {p("compare.header.dealdroid")}
+            </th>
+            <th class="text-center py-4 px-6 font-semibold w-28">
+              {p("compare.header.others")}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((row, i) => (
+              <tr class={`border-t border-slate-100 ${i % 2 === 0 ? "bg-white" : "bg-slate-50"}`}>
+                <td class="py-4 px-6 text-slate-700">
+                  {p(`compare.${row.key}`)}
+                </td>
+                <td class="text-center py-4 px-6">
+                  <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-100 text-green-600">
+                    <Icon name="fluent:checkmark-24-filled" size="16" />
+                  </span>
+                </td>
+                <td class="text-center py-4 px-6">
+                  {row.others ? (
+                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-green-100 text-green-600">
+                      <Icon name="fluent:checkmark-24-filled" size="16" />
+                    </span>
+                  ) : (
+                    <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-slate-100 text-slate-400">
+                      <Icon name="fluent:dismiss-24-filled" size="16" />
+                    </span>
+                  )}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </Container>
+</section>

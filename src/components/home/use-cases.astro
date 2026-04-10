@@ -1,0 +1,306 @@
+---
+import Container from "@components/container.astro";
+import ChatSimulation from "../retail/chat-simulation.astro";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+
+const page_ui: UILanguages = {
+  en: {
+    "uc.badge": "See It in Action",
+    "uc.heading": "From first hello to closed deal",
+    "uc.subheading": "Real scenarios DealDroid AI handles every day",
+    "uc.store_name": "DJI 13 Store",
+  },
+  th: {
+    "uc.badge": "ดูตัวอย่างการใช้งาน",
+    "uc.heading": "ตอบดีตั้งแต่ทักทาย จนปิดการขาย",
+    "uc.subheading": "สถานการณ์จริงที่ DealDroid AI พร้อมรับมือ",
+    "uc.store_name": "DJI 13 Store",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+type Msg = { sender: "bot" | "customer"; text: string };
+
+interface TabData {
+  key: string;
+  title: string;
+  desc: string;
+  conversation: Msg[];
+}
+
+const storeName = p("uc.store_name");
+
+const tabs: TabData[] =
+  lang === "th"
+    ? [
+        {
+          key: "tab1",
+          title: "แนะนำสินค้า",
+          desc: "จับความต้องการ + แนะนำตัวเลือกที่ใช่",
+          conversation: [
+            {
+              sender: "customer",
+              text: "หูฟังไร้สาย งบประมาณ 3,000 บาท มีอะไรแนะนำมั้ยคะ",
+            },
+            {
+              sender: "bot",
+              text: "งบ 3,000 บาท แนะนำ 2 รุ่นนี้เลยครับ:\n\n🎧 Sony WF-C700N — 2,990 บาท\n✅ Noise Cancelling ดี\n✅ กันน้ำ IPX4\n✅ แบต 15 ชั่วโมง\n\n🎧 JBL Tune 230NC — 2,490 บาท\n✅ เบสหนัก\n✅ Active Noise Cancelling\n✅ แบต 10 ชั่วโมง\n\nชอบรุ่นไหนเป็นพิเศษครับ? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab2",
+          title: "ช่วยโน้มน้าวเมื่อลูกค้าลังเล",
+          desc: "แก้ข้อกังวล ชี้ความคุ้มค่า เปลี่ยนลังเลเป็นพร้อมจ่าย",
+          conversation: [
+            {
+              sender: "customer",
+              text: "ราคาแพงกว่าร้านอื่นนะคะ ทำไมถึงควรซื้อกับร้านนี้",
+            },
+            {
+              sender: "bot",
+              text: "เข้าใจค่ะ! ราคาอาจสูงกว่านิดหน่อย แต่คุณได้มากกว่าค่ะ:\n\n✅ รับประกันศูนย์ 1 ปีเต็ม\n✅ อุปกรณ์เสริมฟรี กระเป๋าหูฟัง + สติกเกอร์\n✅ ส่งฟรีทั่วไทย 1-2 วันถึง\n✅ มีเซอร์วิสหลังขายตลอดอายุการใช้งาน\n\nร้านอื่นอาจถูกกว่า 200-300 บาท แต่ไม่มีบริการพวกนี้ค่ะ\n\nสนใจสั่งวันนี้มั๊ยคะ? 🎁",
+            },
+          ],
+        },
+        {
+          key: "tab3",
+          title: "ปิดการขาย",
+          desc: "สรุปออเดอร์ ถามข้อมูลจัดส่ง คำนวณค่าจัดส่ง และแจ้งวิธีชำระเงิน",
+          conversation: [
+            {
+              sender: "customer",
+              text: "เอา Sony WF-C700N ค่ะ",
+            },
+            {
+              sender: "bot",
+              text: "ดีมากครับ! สรุปออเดอร์ให้ครับ:\n\n🎧 Sony WF-C700N — 2,990 บาท\n📦 ส่งฟรี\n🎁 กระเป๋าหูฟังฟรี\n\n💰 รวม 2,990 บาท\n\nขอชื่อ-ที่อยู่จัดส่งหน่อยครับ 📦",
+            },
+            {
+              sender: "customer",
+              text: "ส่งที่ 123 ถ.สุขุมวิท แขวงคลองเตย เขตคลองเตย กรุงเทพฯ 10110",
+            },
+            {
+              sender: "bot",
+              text: "บันทึกแล้วครับ! 📝\n\nชำระเงินได้เลยที่:\n💳 PromptPay: 08X-XXX-XXXX\nหรือ\n🏦 โอนเข้าบัญชี กสิกรไทย\nชื่อบัญชี: DJI 13 Store\n\nส่งหลักฐานการโอนมาได้เลยครับ จะจัดส่งให้วันนี้เลย 🚀",
+            },
+          ],
+        },
+        {
+          key: "tab4",
+          title: "ตอบคำถามหลังการขาย",
+          desc: "ตอบคำถามซ้ำๆ ที่ลูกค้าถามบ่อย",
+          conversation: [
+            {
+              sender: "customer",
+              text: "สินค้ามีปัญหา ขอเปลี่ยนได้มั้ยคะ",
+            },
+            {
+              sender: "bot",
+              text: "ขออภัยที่สินค้ามีปัญหานะคะ 🙏\n\nเปลี่ยนคืนได้ภายใน 7 วันค่ะ!\n📸 ถ่ายรูปสินค้า+กล่องส่งมาได้เลย\n📦 ทางร้านรับผิดชอบค่าจัดส่งเต็มจำนวน\n\nแจ้งหมายเลขคำสั่งซื้อให้หน่อยได้มั้ยคะ เดี๋ยวจัดการให้เลยค่ะ 😊",
+            },
+          ],
+        },
+        {
+          key: "tab5",
+          title: "เคสนอกขอบเขต → ส่งต่อ Admin",
+          desc: "รู้ขีดจำกัดตัวเอง ส่งต่อให้ Supervisor",
+          conversation: [
+            {
+              sender: "customer",
+              text: "ทำความสะอาดหูฟัง Apple ทำยังไงคะ",
+            },
+            {
+              sender: "bot",
+              text: "แนะนำเบื้องต้นนะคะ!\n\n🧹 ใช้ผ้านุ่มสะอาดเช็ดเบาๆ\n💧 เช็ดหูฟังด้วยผ้าชื้นนิดหน่อย (ห้ามแฉะ)\ncotton swab เช็ดร่องตะเกียบเบาๆ\n❌ ห้ามใช้แอลกอฮอล์หรือน้ำยาทำความสะอาดแรงๆ\n\nแนะนำดูวิธีจาก Apple โดยตรงได้ครบถ้วนกว่าค่ะ 🔗\nลองดูที่เว็บ support.apple.com ได้เลย 😊",
+            },
+          ],
+        },
+      ]
+    : [
+        {
+          key: "tab1",
+          title: "Product Recommendation",
+          desc: "Understands needs + suggests the right fit",
+          conversation: [
+            {
+              sender: "customer",
+              text: "Looking for wireless earbuds around 3,000 baht, any recommendations?",
+            },
+            {
+              sender: "bot",
+              text: "At 3,000 baht, I'd recommend these 2:\n\n🎧 Sony WF-C700N — 2,990 baht\n✅ Great noise cancelling\n✅ IPX4 water resistant\n✅ 15hr battery life\n\n🎧 JBL Tune 230NC — 2,490 baht\n✅ Punchy bass\n✅ Active Noise Cancelling\n✅ 10hr battery life\n\nWhich one catches your eye? 😊",
+            },
+          ],
+        },
+        {
+          key: "tab2",
+          title: "Rejection Handler",
+          desc: "Addresses doubts, shows value, turns hesitation into a sale",
+          conversation: [
+            {
+              sender: "customer",
+              text: "That's more expensive than other stores. Why should I buy here?",
+            },
+            {
+              sender: "bot",
+              text: "I understand! The price might be slightly higher, but you get much more:\n\n✅ Full 1-year official warranty\n✅ Free accessories (headphone case + sticker)\n✅ Free shipping nationwide, 1-2 day delivery\n✅ Lifetime after-sales support\n\nOther stores may be 200-300 baht cheaper, but without these services.\n\nWant to place an order today? 🎁",
+            },
+          ],
+        },
+        {
+          key: "tab3",
+          title: "Closing the Sale",
+          desc: "Summarizes order, collects delivery info, sends payment",
+          conversation: [
+            {
+              sender: "customer",
+              text: "I'll take the Sony WF-C700N",
+            },
+            {
+              sender: "bot",
+              text: "Great choice! Here's your order summary:\n\n🎧 Sony WF-C700N — 2,990 baht\n📦 Free shipping\n🎁 Free headphone case\n\n💰 Total: 2,990 baht\n\nPlease share your name and delivery address 📦",
+            },
+            {
+              sender: "customer",
+              text: "123 Sukhumvit Road, Khlong Toei, Bangkok 10110",
+            },
+            {
+              sender: "bot",
+              text: "Got it! 📝\n\nPayment options:\n💳 PromptPay: 08X-XXX-XXXX\nor\n🏦 Bank Transfer: Kasikornbank\nAccount: DJI 13 Store\n\nSend us the payment slip and we'll ship it out today! 🚀",
+            },
+          ],
+        },
+        {
+          key: "tab4",
+          title: "After-Sales Support",
+          desc: "Answers common customer questions instantly",
+          conversation: [
+            {
+              sender: "customer",
+              text: "My product is defective, can I get a replacement?",
+            },
+            {
+              sender: "bot",
+              text: "I'm sorry to hear that! 🙏\n\nYou can exchange it within 7 days.\n📸 Send us a photo of the product + packaging\n📦 We'll cover the return shipping in full\n\nCould you share your order number? We'll take care of it right away 😊",
+            },
+          ],
+        },
+        {
+          key: "tab5",
+          title: "Hand Over to Admin",
+          desc: "Knows when to step back and pass to your team with full context",
+          conversation: [
+            {
+              sender: "customer",
+              text: "How do I clean my Apple earphones?",
+            },
+            {
+              sender: "bot",
+              text: "Here are some quick tips!\n\n🧹 Use a soft, dry cloth to wipe gently\n💧 Slightly damp cloth for the earbuds (not soaking wet)\nCotton swab for the mesh areas, lightly\n❌ Avoid alcohol or harsh cleaners\n\nFor the full guide, I'd recommend checking Apple's official support page 🔗\nYou can find it at support.apple.com 😊",
+            },
+          ],
+        },
+      ];
+---
+
+<section class="py-16 bg-white">
+  <Container>
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span
+        class="inline-block bg-indigo-100 border border-indigo-200 text-indigo-700 text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+        {p("uc.badge")}
+      </span>
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+        {p("uc.heading")}
+      </h2>
+      <p class="text-lg text-slate-600">{p("uc.subheading")}</p>
+    </div>
+
+    <div
+      class="max-w-6xl mx-auto"
+      x-data="{
+        activeTab: 'tab1',
+        autoPlay: true,
+        tabKeys: ['tab1','tab2','tab3','tab4','tab5'],
+        nextTab() {
+          const i = this.tabKeys.indexOf(this.activeTab);
+          this.activeTab = this.tabKeys[(i + 1) % this.tabKeys.length];
+        },
+        handleComplete(tabKey) {
+          if (this.autoPlay && this.activeTab === tabKey) {
+            setTimeout(() => this.nextTab(), 2000);
+          }
+        }
+      }"
+      x-effect="
+        $nextTick(() => {
+          const el = $el.querySelector(`[data-tab-key='${activeTab}'] .chat-simulation`);
+          if (el) el.dispatchEvent(new CustomEvent('chat-reset'));
+        });
+      ">
+      <div class="grid lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+        <!-- Left: Tabs -->
+        <div class="lg:col-span-5 lg:col-start-2">
+          <div class="grid grid-cols-1 gap-1">
+            {
+              tabs.map((tab, i) => (
+                <button
+                  x-on:click={`autoPlay = false; activeTab = '${tab.key}'`}
+                  x-bind:class={`activeTab === '${tab.key}' ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-slate-700 hover:bg-slate-50 border border-slate-200'`}
+                  class="w-full text-left p-3 md:p-4 rounded-xl transition-all flex items-start gap-3">
+                  <span
+                    x-bind:class={`activeTab === '${tab.key}' ? 'bg-white/20 text-white' : 'bg-indigo-100 text-indigo-600'`}
+                    class="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center text-xs md:text-sm font-bold shrink-0 transition-colors">
+                    {i + 1}
+                  </span>
+                  <div class="min-w-0">
+                    <div class="font-semibold text-sm md:text-base leading-tight">
+                      {tab.title}
+                    </div>
+                    <div
+                      x-bind:class={`activeTab === '${tab.key}' ? 'text-white/80' : 'text-slate-500'`}
+                      class="hidden md:block text-xs md:text-sm mt-1 transition-colors">
+                      {tab.desc}
+                    </div>
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Right: Chat Simulations -->
+        <div class="lg:col-span-6 flex justify-center lg:sticky lg:top-24">
+          {
+            tabs.map((tab) => (
+              <div
+                x-show={`activeTab === '${tab.key}'`}
+                x-cloak
+                data-tab-key={tab.key}
+                x-on:chat-complete={`handleComplete('${tab.key}')`}
+                class="w-full max-w-md">
+                <ChatSimulation
+                  storeName={storeName}
+                  conversations={[tab.conversation]}
+                  typingDelay={1200}
+                  pauseBetween={8000}
+                  loop={false}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

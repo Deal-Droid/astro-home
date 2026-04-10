@@ -1,0 +1,100 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import FeatureHero2 from "@components/feature-hero-2.astro";
+import FeaturesGrid from "@components/retail/features-grid.astro";
+import FeatureDetail from "@components/feature-detail.astro";
+import FeatureComparison from "@components/feature-comparison.astro";
+import DeveloperResources from "@components/developer-resources.astro";
+import Layout from "@layouts/Layout.astro";
+
+// Import feature images
+import FeatureImg8 from "../../assets/features/8.png";
+import FeatureImg9 from "../../assets/features/9.png";
+import FeatureImg14 from "../../assets/features/14.png";
+---
+
+<Layout footerMargin={false}>
+  <Container>
+    <!-- Hero Section -->
+    <FeatureHero2 />
+  </Container>
+
+  <!-- 8-Card Features Grid -->
+  <FeaturesGrid />
+
+  <!-- Detailed Features (3 key features) -->
+
+  <!-- Feature 1: Scale Product Catalog -->
+  <FeatureDetail
+    id="product-intelligence"
+    badge="รองรับสินค้าจำนวนมาก"
+    title="รับสินค้าได้เป็นพันรายการ — นำเข้าผ่าน CSV, Shopify หรือ API"
+    description="Dealdroid นำเข้าแคตตาล็อกสินค้าขนาดใหญ่ได้ง่ายๆ อัปโหลดผ่าน CSV, เชื่อมต่อ Shopify หรือใช้ REST API — จากนั้น AI จะเข้าใจทุก SKU, จำแนกภาพสินค้า และแนะนำหรือเปรียบเทียบสินค้าได้ทันที"
+    benefits={[
+      "ทำงานกับ SKU หลายพันรายการโดยไม่ช้าลง",
+      "นำเข้าผ่าน CSV, Shopify sync หรือ REST product API",
+      "ส่งภาพสินค้าที่ลูกค้าต้องการได้ทันที",
+      "เปรียบเทียบสินค้าแบบเคียงข้างกันได้ตามคำขอ",
+    ]}
+    example="ลูกค้าถาม: 'มีเสื้อสีแดงไซส์ M ไหม' → บอทส่งภาพที่ตรงเป๊ะ + สถานะสินค้า"
+    image={FeatureImg8}
+    imageAlt="แคตตาล็อกสินค้าพร้อมระบบจำแนกภาพ"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-product/"
+    docsLinkText="ตั้งค่า Product feed"
+    devNote="รองรับ CSV feeds, Shopify integration และ REST product APIs ระบบจำแนกภาพทำงานกับภาพสินค้าและ metadata ที่เก็บไว้"
+    background="white"
+  />
+
+  <!-- Feature 2: Knowledge Base / Documents -->
+  <FeatureDetail
+    id="knowledge-base"
+    badge="ฐานความรู้"
+    title="ใส่ความรู้ให้ Bot ของคุณได้เอง"
+    description="เพิ่มคู่มือ เอกสารรับประกัน คำถามที่พบบ่อย และรูปภาพเข้าไปในฐานความรู้ Dealdroid จะให้ความสำคัญกับเนื้อหาจากฐานความรู้เป็นอันดับแรก แนบรูปภาพหรือ PDF สนับสนุนเมื่อเหมาะสม ยิ่งสอนเยอะ Bot ยิ่งเก่ง"
+    benefits={[
+      "คำตอบที่ถูกต้อง ตรงตาม Brand ทุกครั้ง",
+      "รองรับเนื้อหาหลากหลาย: รูปภาพ แผนภาพ ตารางสเปค",
+      "สามารถส่ง link หรือรูปภาพจากเอกสารให้ลูกค้าได้",
+    ]}
+    example="ลูกค้า: 'รับประกันนานเท่าไร?' — Bot: '12 เดือน ดู PDF รับประกัน [ลิงก์ดาวน์โหลด]'"
+    image={FeatureImg9}
+    imageAlt="ฐานความรู้พร้อมเอกสารและรูปภาพ"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/th/tuning/add-knowledge/"
+    docsLinkText="คู่มือฐานความรู้"
+    devNote="KB รองรับ Markdown + ไฟล์แนบรูปภาพ + ประวัติเวอร์ชัน"
+    background="slate"
+  />
+
+  <!-- Feature 3: Multi-language Support -->
+  <FeatureDetail
+    id="multi-language"
+    badge="119 ภาษา"
+    title="พูดภาษาลูกค้าได้ทุกภาษา — อัตโนมัติ"
+    description="Dealdroid รองรับ 119 ภาษาและสำเนียงทั่วโลก ตรวจจับภาษาของลูกค้าอัตโนมัติและตอบกลับในภาษาเดียวกันทันที — ไม่ต้องตั้งค่าอะไร ลูกค้าทั่วโลกสามารถติดต่อได้ตลอดเวลา และ Dealdroid พร้อมรับมือ 24 ชั่วโมง"
+    benefits={[
+      "รองรับ 119 ภาษา รวมถึงไทย อังกฤษ จีน ญี่ปุ่น และอื่นๆ",
+      "ใส่เอกสารภาษาอะไรก็ได้ — Dealdroid นำความรู้มาใช้แล้วตอบในภาษาของลูกค้าให้เอง",
+      "มีระบบตรวจจับ Language Hallucination ด้วย AI Supervisor เพื่อให้แน่ใจว่าตอบถูกภาษา",
+    ]}
+    example="ลูกค้าเขียนภาษาญี่ปุ่นตอนตี 3 → Dealdroid ตรวจจับภาษา ดึงข้อมูลสินค้าจากฐานความรู้ภาษาอังกฤษ และตอบกลับเป็นภาษาญี่ปุ่นอย่างสมบูรณ์ — ทันที"
+    image={FeatureImg14}
+    imageAlt="ธงชาติแสดงถึง 119 ประเทศและภาษาที่รองรับ"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/th/faq/language-support/"
+    docsLinkText="ดู 119 ภาษาที่รองรับทั้งหมด"
+    devNote="การตรวจจับภาษาเป็นอัตโนมัติ ฐานความรู้ใส่ภาษาอะไรก็ได้ — คำตอบจะถูกแปลให้ตรงกับภาษาของลูกค้า AI Supervisor คอยตรวจสอบ Language Hallucination"
+    background="white"
+  />
+
+  <!-- Comparison Table -->
+  <FeatureComparison />
+
+  <!-- For Developers -->
+  <DeveloperResources />
+
+  <!-- Final CTA -->
+  <Cta />
+</Layout>

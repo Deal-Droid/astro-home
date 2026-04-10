@@ -1,0 +1,100 @@
+---
+import Container from "@components/container.astro";
+import Cta from "@components/cta.astro";
+import FeatureHero2 from "@components/feature-hero-2.astro";
+import FeaturesGrid from "@components/retail/features-grid.astro";
+import FeatureDetail from "@components/feature-detail.astro";
+import FeatureComparison from "@components/feature-comparison.astro";
+import DeveloperResources from "@components/developer-resources.astro";
+import Layout from "@layouts/Layout.astro";
+
+// Import feature images
+import FeatureImg8 from "../assets/features/8.png";
+import FeatureImg9 from "../assets/features/9.png";
+import FeatureImg14 from "../assets/features/14.png";
+---
+
+<Layout footerMargin={false}>
+  <Container>
+    <!-- Hero Section -->
+    <FeatureHero2 />
+  </Container>
+
+  <!-- 8-Card Features Grid -->
+  <FeaturesGrid />
+
+  <!-- Detailed Features (3 key features) -->
+
+  <!-- Feature 1: Scale Product Catalog -->
+  <FeatureDetail
+    id="product-intelligence"
+    badge="Product Scale"
+    title="Handles thousands of products — import via CSV, Shopify, or API"
+    description="Dealdroid imports large product catalogs effortlessly. Upload via CSV, connect Shopify, or use the REST API — then the AI understands every SKU, recognizes product images, and recommends or compares items on the spot."
+    benefits={[
+      "Works with thousands of SKUs without slowdown",
+      "Import via CSV, Shopify sync, or REST product API",
+      "Sends the exact product image customers ask for",
+      "Performs side-by-side product comparisons on request",
+    ]}
+    example="Customer asks: 'Show me that red shirt in size M' → Bot returns the precise photo + availability status."
+    image={FeatureImg8}
+    imageAlt="Product catalog with image recognition"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/tuning/add-product/"
+    docsLinkText="Product feed setup"
+    devNote="Supports CSV feeds, Shopify integration, and REST product APIs. Image recognition works against stored product images and metadata."
+    background="white"
+  />
+
+  <!-- Feature 2: Knowledge Base / Documents -->
+  <FeatureDetail
+    id="knowledge-base"
+    badge="Knowledge Driven"
+    title="Feed your bot the knowledge it needs"
+    description="Add manuals, warranty documents, FAQs, and images to the knowledge base. Dealdroid prioritizes KB content for answers, attaching supporting images or PDFs when appropriate. The more you teach it, the smarter it gets."
+    benefits={[
+      "Accurate, brand-approved answers every time",
+      "Supports rich content: images, diagrams, spec tables",
+      "Can send links or images from documents to customers inline",
+    ]}
+    example="Customer: 'How long is the warranty?' — Bot: '12 months. See warranty PDF [download link]'"
+    image={FeatureImg9}
+    imageAlt="Knowledge base with documents and images"
+    imagePosition="right"
+    docsLink="https://docs.dealdroid.net/tuning/add-knowledge/"
+    docsLinkText="Knowledge base guide"
+    devNote="KB supports Markdown + image attachments + version history."
+    background="slate"
+  />
+
+  <!-- Feature 3: Multi-language Support -->
+  <FeatureDetail
+    id="multi-language"
+    badge="119 Languages"
+    title="Speak every customer's language — automatically"
+    description="Dealdroid supports 119 languages and dialects worldwide. It automatically detects your customer's language and responds naturally in the same language — no setup required. Your customers around the globe can reach out anytime, and Dealdroid handles conversations 24/7."
+    benefits={[
+      "Supports 119 languages including Thai, English, Chinese, Japanese, and more",
+      "Add documents in any language — Dealdroid uses the knowledge and replies in the customer's language",
+      "Built-in language hallucination detection with AI Supervisor to ensure correct language responses",
+    ]}
+    example="A customer writes in Japanese at 3 AM → Dealdroid detects the language, pulls product info from your English knowledge base, and replies in perfect Japanese — instantly."
+    image={FeatureImg14}
+    imageAlt="Flags representing 119 supported countries and languages"
+    imagePosition="left"
+    docsLink="https://docs.dealdroid.net/faq/language-support/"
+    docsLinkText="See all 119 supported languages"
+    devNote="Language detection is automatic. Knowledge base can be in any language — responses are translated to match customer's language. AI Supervisor monitors for language hallucination."
+    background="white"
+  />
+
+  <!-- Comparison Table -->
+  <FeatureComparison />
+
+  <!-- For Developers -->
+  <DeveloperResources />
+
+  <!-- Final CTA -->
+  <Cta />
+</Layout>

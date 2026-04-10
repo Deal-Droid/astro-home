@@ -27,7 +27,7 @@ const page_ui: UILanguages = {
     "hero.register": "Try for free",
   },
   th: {
-    "hero.h1": "เพิ่มยอดขาย — โดยไม่ต้องจ้างคนเพิ่ม",
+    "hero.h1": "เพิ่มยอดขาย โดยไม่ต้องจ้างคนเพิ่ม",
     "hero.description":
       "ผู้ช่วย AI ที่จัดการลูกค้า 100+ คนต่อวัน ตอบคำถามพร้อมรูปสินค้า และปิดออเดอร์ได้ตลอด 24 ชม.",
     "hero.cta": "นัดปรึกษาฟรี",
@@ -39,7 +39,7 @@ const lang = Astro.currentLocale || "en";
 const t = useTranslations(lang);
 const p = usePageTranslations(lang, page_ui);
 const translatedPath = useTranslatedPath(lang);
-const heroImage = heroImages[lang];
+const heroImage = heroImages[lang as keyof typeof heroImages];
 ---
 
 <div class="overflow-x-clip">
@@ -76,7 +76,9 @@ const heroImage = heroImages[lang];
             size="lg"
             style="outline"
             rel="noopener"
-            href={lang === "th" ? config.retail.register.th : config.retail.register.en}
+            href={lang === "th"
+              ? config.retail.register.th
+              : config.retail.register.en}
             class="flex gap-1 items-center justify-center"
             target="_blank">
             {p("hero.cta")}

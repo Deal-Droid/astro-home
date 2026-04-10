@@ -1,0 +1,220 @@
+---
+import Container from "@components/container.astro";
+import Link from "@components/ui/link.astro";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+import { usePageTranslations } from "../../i18n/utils";
+import type { UILanguages } from "../../i18n/ui";
+import { config } from "../../config";
+import djiScreenshot from "@assets/customer/dji13store-facebook.png";
+import ownerImg from "@assets/customer/dji13store-owner.png";
+import messengerSvg from "@assets/channels/messenger.svg";
+import lineSvg from "@assets/channels/line.svg";
+import websiteSvg from "@assets/channels/website.svg";
+
+const page_ui: UILanguages = {
+  en: {
+    "cs.badge": "Real Results · Case Study",
+    "cs.heading": "These are real results from the very first month",
+    "cs.store_desc":
+      "A leading drone retailer in Thailand chose DealDroid to handle their Facebook Ads traffic on Messenger, LINE, and web chat — here's what happened in 30 days.",
+    "cs.store_type": "🏪 Authorized Drone Dealer",
+    "cs.result_heading":
+      "In the first month, AI replied to over 90% of customer chats — no admin needed",
+    "cs.stat1_value": "2,930",
+    "cs.stat1_label": "Total customers DealDroid AI chatted with",
+    "cs.stat2_value": "80%",
+    "cs.stat2_label": "Resolved by AI alone — no human needed",
+    "cs.stat3_value": "10%",
+    "cs.stat3_label": "Filtered and passed to your team to close",
+    "cs.stat4_value": "24/7",
+    "cs.stat4_label": "Covers for your team when they're offline",
+    "cs.stat_summary": "Handled all ad traffic — without hiring more admins",
+    "cs.cta": "Book a Chat to See the Full Case Study",
+    "cs.cta_link": config.retail.register.en,
+    "cs.channels": "Messenger · LINE · Website",
+    // Testimonial
+    "test.quote":
+      '"DealDroid AI handled nearly 3,000 customers in one month. 80% were resolved by AI alone — no human needed — even during our heaviest ad campaigns."',
+    "test.name": "CEO, Authorized Electronics Dealer",
+    "test.title": "Premium drone & electronics retail brand",
+  },
+  th: {
+    "cs.badge": "Real Results · Case Study",
+    "cs.heading": "นี่คือผลลัพธ์จริงในเดือนแรก",
+    "cs.store_desc":
+      "ร้านค้าขาย Drone ชั้นนำในไทย เลือกใช้ DealDroid รับมือ traffic จาก Facebook Ads และ Line ในเดือน พ.ย 2025",
+    "cs.store_type": "Authorized DJI Drones Dealer in Thailand",
+    "cs.result_heading":
+      "เดือนแรกที่ใช้ DealDroid<br>AI ตอบลูกค้าแทนแอดมินได้มากกว่า 90%",
+    "cs.stat1_value": "2,930",
+    "cs.stat1_label": "ลูกค้าที่ DealDroid AI ตอบให้ทั้งหมด",
+    "cs.stat2_value": "80%",
+    "cs.stat2_label": "AI จบให้แบบไม่ต้องให้คนช่วย",
+    "cs.stat3_value": "10%",
+    "cs.stat3_label": "AI กรองแล้วส่งต่อให้คนช่วยปิด",
+    "cs.stat4_value": "24/7",
+    "cs.stat4_label": "ดูแลลูกค้าให้ในเมื่อ admin ไม่อยู่",
+    "cs.stat_summary": "ช่วยรับทราฟฟิกจากแอดได้ โดยไม่ต้องเพิ่มแอดมิน",
+    "cs.cta": "นัดคุยเพื่อดูรายละเอียดของ Case Study",
+    "cs.cta_link": config.retail.register.th,
+    "cs.channels": "Messenger · LINE · Website",
+    // Testimonial
+    "test.quote":
+      '"DealDroid AI รับลูกค้าเกือบ 3,000 รายใน 1 เดือน และกว่า 80% AI จบได้เอง โดยน้องแอดมินไม่ต้องเข้ามาช่วย แม้ช่วงที่รัน ad campaign ที่ traffic หนักสุดๆ"',
+    "test.name": "ณัฐชนน ชีวะวัฒนากร (นัท)",
+    "test.title": "CEO, DJI 13 Store — Authorized DJI Drone Dealer in Thailand",
+  },
+} as const;
+
+const lang = Astro.currentLocale || "en";
+const p = usePageTranslations(lang, page_ui);
+
+const channels = [
+  { name: "Messenger", icon: messengerSvg.src },
+  { name: "LINE", icon: lineSvg.src },
+  { name: "Website", icon: websiteSvg.src },
+];
+
+const stats = [
+  {
+    value: p("cs.stat1_value"),
+    label: p("cs.stat1_label"),
+    icon: "solar:users-group-rounded-bold-duotone",
+  },
+  {
+    value: p("cs.stat2_value"),
+    label: p("cs.stat2_label"),
+    icon: "solar:chat-round-dots-bold-duotone",
+  },
+  {
+    value: p("cs.stat3_value"),
+    label: p("cs.stat3_label"),
+    icon: "solar:hand-money-bold-duotone",
+  },
+  {
+    value: p("cs.stat4_value"),
+    label: p("cs.stat4_label"),
+    icon: "solar:clock-circle-bold-duotone",
+  },
+];
+---
+
+<section
+  id="proof"
+  class="py-16 sm:py-24"
+  style="background: linear-gradient(135deg, #0d9488 0%, #0e7490 50%, #1e3a5f 100%);">
+  <Container>
+    <!-- Header -->
+    <div class="max-w-4xl mb-10">
+      <span
+        class="inline-block bg-white/15 border border-white/25 text-white text-xs font-semibold px-4 py-1.5 rounded-full mb-4">
+        {p("cs.badge")}
+      </span>
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-2">
+        {p("cs.heading")}
+      </h2>
+      <p class="text-lg text-teal-200/90 max-w-3xl">
+        {p("cs.store_desc")}
+      </p>
+    </div>
+
+    <!-- Main Card -->
+    <div
+      class="rounded-2xl border border-slate-200 bg-white p-6 sm:p-10 shadow-xl">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+        <!-- Left Column: Store Image + Channels -->
+        <div class="lg:col-span-2">
+          <div
+            class="rounded-xl overflow-hidden shadow-lg border border-slate-200/50">
+            <Image
+              src={djiScreenshot}
+              alt="DJI 13 Store Facebook Page"
+              class="w-full"
+              loading="lazy"
+            />
+          </div>
+          <p class="text-sm font-medium text-slate-500 my-3">
+            {p("cs.store_type")}
+          </p>
+          <div class="flex items-center gap-4 mt-3">
+            {
+              channels.map((ch) => (
+                <div class="flex items-center gap-1.5">
+                  <img
+                    src={ch.icon}
+                    alt={ch.name}
+                    class="w-4 h-4 shrink-0 object-contain"
+                  />
+                  <span class="text-sm text-slate-500">{ch.name}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Right Column: Results + Stats -->
+        <div class="lg:col-span-3">
+          <h3
+            class="text-xl md:text-2xl font-bold text-slate-900 mb-8"
+            set:html={p("cs.result_heading")}
+          />
+          <div class="grid grid-cols-2 gap-6">
+            {
+              stats.map((stat) => (
+                <div class="flex flex-col items-start">
+                  <div class="text-teal-500 mb-2 bg-teal-50 p-1 rounded-md">
+                    <Icon name={stat.icon} class="w-6 h-6" />
+                  </div>
+                  <div class="text-3xl md:text-4xl font-bold text-teal-600">
+                    {stat.value}
+                  </div>
+                  <div class="text-base text-slate-500 mt-1">{stat.label}</div>
+                </div>
+              ))
+            }
+          </div>
+          <p class="mt-6 text-lg font-medium text-slate-600">
+            {p("cs.stat_summary")}
+          </p>
+        </div>
+      </div>
+
+      <!-- Testimonial -->
+      <div class="mt-10 pt-8 border-t border-slate-100">
+        <div class="max-w-3xl mx-auto text-center">
+          <blockquote
+            class="text-lg md:text-xl font-bold text-slate-900 mb-6">
+            {p("test.quote")}
+          </blockquote>
+          <div class="flex items-center justify-center gap-4">
+            <Image
+              src={ownerImg}
+              alt={p("test.name")}
+              width={96}
+              height={96}
+              class="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover shadow-md border-3 border-slate-100"
+            />
+            <div class="text-left">
+              <div class="font-semibold text-slate-900">
+                {p("test.name")}
+              </div>
+              <div class="text-sm text-slate-500">{p("test.title")}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-10">
+      <Link
+        href={p("cs.cta_link")}
+        size="lg"
+        style="primary"
+        class="!bg-white !text-teal-700 hover:!bg-teal-50 !shadow-lg hover:!shadow-xl !border-white">
+        {p("cs.cta")}
+      </Link>
+    </div>
+  </Container>
+</section>
