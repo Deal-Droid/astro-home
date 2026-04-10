@@ -1,6 +1,7 @@
 ---
 import Container from "@components/container.astro";
 import Link from "@components/ui/link.astro";
+import { Icon } from "astro-icon/components";
 import ChatSimulation from "../retail/chat-simulation.astro";
 import { usePageTranslations } from "../../i18n/utils";
 import type { UILanguages } from "../../i18n/ui";
@@ -269,15 +270,31 @@ const chatConversations: Msg[][] =
       <div
         class="flex justify-center lg:-ml-4 relative"
         style="perspective: 800px;">
-        <!-- AI glow behind the tilted edge -->
+        <!-- Hidden SVG icon pool for JS to clone -->
+        <div class="ai-icon-pool hidden">
+          <Icon name="solar:cart-large-2-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:chat-round-dots-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:tag-price-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:box-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:hand-money-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:star-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:bag-heart-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:delivery-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:clipboard-check-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:chart-2-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:users-group-rounded-bold-duotone" class="w-5 h-5" />
+          <Icon name="solar:gift-bold-duotone" class="w-5 h-5" />
+        </div>
+        <!-- AI particle container -->
         <div
-          class="absolute -right-8 top-1/4 w-64 h-64 bg-indigo-400/30 rounded-full blur-3xl animate-pulse pointer-events-none">
+          class="ai-particles absolute inset-0 pointer-events-none overflow-visible z-0">
+        </div>
+        <!-- Soft glow -->
+        <div
+          class="absolute -right-8 top-1/4 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl animate-pulse pointer-events-none z-0">
         </div>
         <div
-          class="absolute -right-4 bottom-1/4 w-48 h-48 bg-purple-400/20 rounded-full blur-3xl animate-pulse pointer-events-none"
-          style="animation-delay: 1.5s;">
-        </div>
-        <div style="transform: rotateY(-8deg); min-width: 380px;">
+          style="transform: rotateY(-12deg); min-width: 380px; position: relative; z-index: 1;">
           <ChatSimulation
             storeName={p("hero.store_name")}
             conversations={chatConversations}
@@ -289,3 +306,114 @@ const chatConversations: Msg[][] =
     </div>
   </Container>
 </section>
+
+<style is:global>
+  @keyframes ai-particle-burst {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.5);
+    }
+    20% {
+      opacity: 0.6;
+      transform: translate(calc(var(--dx) * 0.3), calc(var(--dy) * 0.3))
+        scale(0.9);
+    }
+    60% {
+      opacity: 0.35;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--dx), var(--dy)) scale(1.2);
+    }
+  }
+  .ai-particle {
+    position: absolute;
+    animation: ai-particle-burst 2.8s ease-out forwards;
+    user-select: none;
+    z-index: 9999;
+  }
+  .ai-particle svg {
+    width: 32px;
+    height: 32px;
+    fill: rgba(61, 64, 224, 0.12);
+  }
+</style>
+
+<script>
+  function initAIParticles() {
+    const container = document.querySelector(".ai-particles")!;
+    const pool = document.querySelector(".ai-icon-pool");
+    console.log("[AI Particles] container:", container);
+    console.log("[AI Particles] pool:", pool);
+    if (!container || !pool) {
+      console.warn("[AI Particles] missing container or pool");
+      return;
+    }
+
+    const svgs = Array.from(pool.querySelectorAll("svg"));
+    console.log("[AI Particles] found SVGs:", svgs.length);
+    if (svgs.length === 0) {
+      console.warn("[AI Particles] no SVGs in pool");
+      return;
+    }
+
+    function pick3(): SVGElement[] {
+      const shuffled = [...svgs].sort(() => Math.random() - 0.5);
+      return shuffled.slice(0, 3);
+    }
+
+    function spawnBurst() {
+      const rect = container.getBoundingClientRect();
+      const icons = pick3();
+      console.log(
+        "[AI Particles] burst! rect:",
+        rect.width,
+        "x",
+        rect.height,
+        "icons:",
+        icons.length,
+      );
+
+      // Start from the right edge of the chat card (behind it)
+      const baseX = rect.width * 0.65;
+      const baseY = rect.height * 0.2 + Math.random() * rect.height * 0.6;
+
+      icons.forEach((svg, i) => {
+        const el = document.createElement("span");
+        el.className = "ai-particle";
+        el.appendChild(svg.cloneNode(true));
+
+        // Spread vertically, all drift rightward
+        const spreadY = (i - 1) * (30 + Math.random() * 20);
+        const x = baseX + Math.random() * 20;
+        const y = baseY + spreadY;
+
+        // Drift to the right with slight vertical variation
+        const dx = 80 + Math.random() * 60;
+        const dy = (Math.random() - 0.5) * 50;
+
+        el.style.left = `${x}px`;
+        el.style.top = `${y}px`;
+        el.style.setProperty("--dx", `${dx}px`);
+        el.style.setProperty("--dy", `${dy}px`);
+        // Stagger each icon slightly
+        el.style.animationDelay = `${i * 0.15}s`;
+
+        container.appendChild(el);
+        el.addEventListener("animationend", () => el.remove());
+      });
+    }
+
+    function scheduleNext() {
+      const delay = 2500 + Math.random() * 2000;
+      setTimeout(() => {
+        spawnBurst();
+        scheduleNext();
+      }, delay);
+    }
+
+    setTimeout(scheduleNext, 1200);
+  }
+
+  document.addEventListener("DOMContentLoaded", initAIParticles);
+</script>
