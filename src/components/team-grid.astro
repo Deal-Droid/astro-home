@@ -24,6 +24,9 @@ const page_ui: UILanguages = {
       "We don't just build and ship — Customer Success ensures every client turns Dealdroid into real revenue",
     "team.why4":
       "Thai DNA, global standards — born in LINE commerce, engineered to scale anywhere",
+    "team.if_not": "If not Dealdroid...",
+    "team.fun_fact": "Fun fact",
+    "team.flip_back": "Click to flip back →",
   },
   th: {
     "team.badge": "ทีมของเรา",
@@ -37,22 +40,27 @@ const page_ui: UILanguages = {
     "team.why3":
       "ไม่ใช่แค่สร้างแล้วปล่อย — Customer Success ดูแลให้ลูกค้าเปลี่ยน Dealdroid เป็นยอดขายจริง",
     "team.why4": "DNA ไทย มาตรฐานโลก — เกิดในตลาด LINE commerce พร้อมขยายสากล",
+    "team.if_not": "ถ้าไม่ใช่ Dealdroid...",
+    "team.fun_fact": "Fun fact",
+    "team.flip_back": "กดเพื่อกลับ →",
   },
 } as const;
 
-const lang = Astro.currentLocale || "en";
+const lang = (Astro.currentLocale || "en") as "en" | "th";
 const p = usePageTranslations(lang, page_ui);
 
 interface TeamMember {
   name: string;
   fullName: string;
   image: ImageMetadata;
-  role: string;
+  role: { en: string; th: string };
   roleColor: string;
   borderColor: string;
-  bio: string;
-  superpower: string;
+  bio: { en: string; th: string };
+  superpower: { en: string; th: string };
   linkedin: string;
+  whatIf: { en: string; th: string };
+  funFact: { en: string; th: string };
 }
 
 const team: TeamMember[] = [
@@ -60,119 +68,266 @@ const team: TeamMember[] = [
     name: "Bank",
     fullName: "Apirak Panatkool",
     image: imgApirak,
-    role: "Software Creative",
+    role: {
+      en: "Software Creative",
+      th: "Software Creative",
+    },
     roleColor: "text-indigo-600 bg-indigo-50 border-indigo-200",
     borderColor: "group-hover:border-indigo-400",
-    bio: "Turns ambitious product visions into working software. Obsessed with developer experience, clean architecture, and making AI feel human.",
-    superpower: "Sees the elegant solution hiding in complexity",
+    bio: {
+      en: "Turns ambitious product visions into working software. Obsessed with developer experience, clean architecture, and making AI feel human.",
+      th: "เปลี่ยน product vision ให้กลายเป็น software ที่ใช้งานได้จริง หลงใหลใน developer experience, clean architecture และการทำให้ AI รู้สึกเป็นมนุษย์",
+    },
+    superpower: {
+      en: "Sees the elegant solution hiding in complexity",
+      th: "มองเห็น solution ที่สวยงามซ่อนอยู่ในความซับซ้อน",
+    },
     linkedin: "https://www.linkedin.com/in/apirak/",
+    whatIf: {
+      en: "Go back to being a UX designer at Opendream",
+      th: "กลับไปขอเป็น UX ที่ Opendream",
+    },
+    funFact: {
+      en: "Once awake, won't go back to sleep — so sleeps early out of fear of waking up",
+      th: "ถ้าตื่นแล้วจะไม่ชอบนอนต่อ เลยต้องนอนเร็วกลัวตื่น",
+    },
   },
   {
     name: "Pete",
     fullName: "Pete Chemsripong",
     image: imgPete,
-    role: "Product Driver",
+    role: {
+      en: "Product Driver",
+      th: "Product Driver",
+    },
     roleColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
     borderColor: "group-hover:border-emerald-400",
-    bio: "Bridges the gap between what users need and what we build. Relentless about shipping features that move the revenue needle, not just look good in demos.",
-    superpower: "Asks the uncomfortable 'but does anyone need this?' question",
+    bio: {
+      en: "Bridges the gap between what users need and what we build. Relentless about shipping features that move the revenue needle, not just look good in demos.",
+      th: "เชื่อมช่องว่างระหว่างสิ่งที่ user ต้องการกับสิ่งที่เราสร้าง มุ่งมั่นส่งมอบ feature ที่ขับเคลื่อนรายได้ ไม่ใช่แค่ดูดีใน demo",
+    },
+    superpower: {
+      en: "Asks the uncomfortable 'but does anyone need this?' question",
+      th: "ถามคำถามยากที่ทุกคนหลีกเลี่ยง 'แล้วมีคนอยากได้จริงไหม?'",
+    },
     linkedin: "https://www.linkedin.com/in/pete-chemsripong/",
+    whatIf: {
+      en: "Open a school for kids",
+      th: "ไปเปิดโรงเรียนสอนเด็กๆ",
+    },
+    funFact: {
+      en: "Coffee culture addict — 3 cups a day",
+      th: "ติด coffee culture มาก วันละ 3 แก้ว",
+    },
   },
   {
     name: "Pii",
     fullName: "Pee Tankulrat",
     image: imgPee,
-    role: "Software North Star",
+    role: {
+      en: "Software North Star",
+      th: "Software North Star",
+    },
     roleColor: "text-blue-600 bg-blue-50 border-blue-200",
     borderColor: "group-hover:border-blue-400",
-    bio: "Ex-Thoughtworks engineer who's seen how great software teams operate at scale. Sets the technical bar and keeps the codebase honest.",
-    superpower: "Knows exactly when to build vs. buy",
+    bio: {
+      en: "Ex-Thoughtworks engineer who's seen how great software teams operate at scale. Sets the technical bar and keeps the codebase honest.",
+      th: "วิศวกรจาก Thoughtworks ที่เคยเห็นทีม software ที่ยอดเยี่ยมทำงานกันอย่างไร กำหนดมาตรฐานทางเทคนิคและดูแล codebase ให้มีคุณภาพ",
+    },
+    superpower: {
+      en: "Knows exactly when to build vs. buy",
+      th: "รู้ดีว่าเมื่อไหร่ควรสร้างเอง เมื่อไหร่ควรซื้อ",
+    },
     linkedin: "https://www.linkedin.com/in/ptankulrat/",
+    whatIf: {
+      en: "Become an open source maintainer",
+      th: "ไปเป็น open source maintainer",
+    },
+    funFact: {
+      en: "Built an automated plant watering system for personal use",
+      th: "ทำระบบรดน้ำต้นไม้อัตโนมัติใช้เอง",
+    },
   },
   {
     name: "Dave",
     fullName: "Dave Malhotra",
     image: imgDave,
-    role: "Sale North Star",
+    role: {
+      en: "Sale North Star",
+      th: "Sale North Star",
+    },
     roleColor: "text-amber-600 bg-amber-50 border-amber-200",
     borderColor: "group-hover:border-amber-400",
-    bio: "Understands what makes businesses say yes. Brings real-world sales intelligence that shapes how we position and price Dealdroid.",
-    superpower: "Turns a cold intro into a signed deal",
+    bio: {
+      en: "Understands what makes businesses say yes. Brings real-world sales intelligence that shapes how we position and price Dealdroid.",
+      th: "เข้าใจสิ่งที่ทำให้ธุรกิจพูดว่าตกลง นำ sales intelligence จากโลกจริงมาช่วยกำหนดการวางตำแหน่งและราคาของ Dealdroid",
+    },
+    superpower: {
+      en: "Turns a cold intro into a signed deal",
+      th: "เปลี่ยนการแนะนำตัวครั้งแรกเป็นสัญญาที่ลงนามแล้ว",
+    },
     linkedin: "https://www.linkedin.com/in/dmalhotra/",
+    whatIf: {
+      en: "Become a startup mentor / angel investor",
+      th: "ไปเป็น startup mentor / angel investor",
+    },
+    funFact: {
+      en: "Tried golf just once — instantly hooked",
+      th: "เคยเล่น golf แค่ครั้งเดียว แล้วติดใจ",
+    },
   },
   {
     name: "Pao",
     fullName: "Sawetr Suchit-rattanant",
     image: imgPao,
-    role: "Customer Success",
+    role: {
+      en: "Customer Success",
+      th: "Customer Success",
+    },
     roleColor: "text-rose-600 bg-rose-50 border-rose-200",
     borderColor: "group-hover:border-rose-400",
-    bio: "The voice of the customer inside the team. Makes sure every client gets real value from Dealdroid — not just a login.",
-    superpower: "Turns confused users into power users",
+    bio: {
+      en: "The voice of the customer inside the team. Makes sure every client gets real value from Dealdroid — not just a login.",
+      th: "เสียงของลูกค้าภายในทีม ดูแลให้ลูกค้าทุกคนได้รับคุณค่าจริงจาก Dealdroid ไม่ใช่แค่ได้ account สำหรับเข้าระบบ",
+    },
+    superpower: {
+      en: "Turns confused users into power users",
+      th: "เปลี่ยน user ที่สับสนเป็น power user",
+    },
     linkedin: "https://www.linkedin.com/in/sawetr/",
+    whatIf: {
+      en: "Open an Indian restaurant in Thailand",
+      th: "กลับไปเปิดร้านอาหารอินเดีย ที่เมืองไทย",
+    },
+    funFact: {
+      en: "Studying abroad turned me into a great cook",
+      th: "การไปเรียนที่ต่างประเทศ ทำให้ทำอาหารเก่ง",
+    },
   },
 ];
 ---
 
+<script>
+  function handleCardClick(e: Event) {
+    const card = (e.target as HTMLElement).closest('.team-card');
+    if (card) {
+      card.classList.toggle('flipped');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.team-card').forEach(card => {
+      card.addEventListener('click', handleCardClick);
+    });
+  });
+</script>
+
 <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mt-16">
   {
     team.map((member) => (
-      <div class="group relative">
-        <div
-          class:list={[
-            "relative bg-white border border-slate-200 rounded-2xl p-6 transition-all duration-300",
-            "hover:shadow-xl hover:-translate-y-1",
-            member.borderColor,
-          ]}>
-          {/* Photo */}
-          <div class="w-16 h-16 rounded-xl overflow-hidden mb-5 shadow-lg">
-            <Picture
-              src={member.image}
-              alt={member.name}
-              formats={["avif", "webp"]}
-              width={128}
-              height={128}
-              class="w-full h-full object-cover"
-            />
+      <div class="team-card group relative cursor-pointer perspective-1000" data-member={member.name} style="min-height: 480px;">
+        <div class="relative preserve-3d transition-transform duration-500 transform-style-3d hover:shadow-xl hover:-translate-y-1 rounded-2xl h-full">
+          {/* Front Side */}
+          <div
+            class:list={[
+              "absolute inset-0 backface-hidden bg-white border border-slate-200 rounded-2xl p-6 transition-all duration-300",
+              member.borderColor,
+            ]}>
+            {/* Photo */}
+            <div class="w-16 h-16 rounded-xl overflow-hidden mb-5 shadow-lg">
+              <Picture
+                src={member.image}
+                alt={member.name}
+                formats={["avif", "webp"]}
+                width={128}
+                height={128}
+                class="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Role Tag */}
+            <span
+              class:list={[
+                "inline-block text-xs font-semibold px-2.5 py-1 rounded-full border mb-3",
+                member.roleColor,
+              ]}>
+              {member.role[lang]}
+            </span>
+
+            {/* Name */}
+            <h3 class="text-xl font-bold text-slate-900">{member.name}</h3>
+            <p class="text-xs text-slate-400 mb-2">{member.fullName}</p>
+
+            {/* Bio */}
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+              {member.bio[lang]}
+            </p>
+
+            {/* Superpower */}
+            <p class="text-xs italic text-slate-400 mb-5">
+              "{member.superpower[lang]}"
+            </p>
+
+            {/* LinkedIn */}
+            <a
+              href={member.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 transition-colors">
+              <Icon name="mdi:linkedin" class="w-4 h-4" />
+              <span>LinkedIn</span>
+            </a>
           </div>
 
-          {/* Role Tag */}
-          <span
+          {/* Back Side */}
+          <div
             class:list={[
-              "inline-block text-xs font-semibold px-2.5 py-1 rounded-full border mb-3",
-              member.roleColor,
+              "absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6 text-white flex flex-col",
             ]}>
-            {member.role}
-          </span>
+            {/* What if */}
+            <div class="mb-6">
+              <span class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-500/30 border border-indigo-400/50 text-indigo-300 mb-3">
+                {p("team.if_not")}
+              </span>
+              <p class="text-lg font-bold leading-tight">{member.whatIf[lang]}</p>
+            </div>
 
-          {/* Name */}
-          <h3 class="text-xl font-bold text-slate-900">{member.name}</h3>
-          <p class="text-xs text-slate-400 mb-2">{member.fullName}</p>
+            {/* Fun fact */}
+            <div class="mb-6">
+              <span class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/30 border border-amber-400/50 text-amber-300 mb-3">
+                {p("team.fun_fact")}
+              </span>
+              <p class="text-sm text-slate-300 leading-relaxed">{member.funFact[lang]}</p>
+            </div>
 
-          {/* Bio */}
-          <p class="text-sm text-slate-600 leading-relaxed mb-4">
-            {member.bio}
-          </p>
-
-          {/* Superpower */}
-          <p class="text-xs italic text-slate-400 mb-5">
-            "{member.superpower}"
-          </p>
-
-          {/* LinkedIn */}
-          <a
-            href={member.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-indigo-600 transition-colors">
-            <Icon name="mdi:linkedin" class="w-4 h-4" />
-            <span>LinkedIn</span>
-          </a>
+            {/* Click to flip back */}
+            <p class="text-xs text-slate-500 mt-auto">
+              {p("team.flip_back")}
+            </p>
+          </div>
         </div>
       </div>
     ))
   }
 </div>
+
+<style is:global>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .team-card.flipped .preserve-3d {
+    transform: rotateY(180deg);
+  }
+</style>
 
 {/* Why this team */}
 <div class="mt-20 max-w-4xl mx-auto px-4">

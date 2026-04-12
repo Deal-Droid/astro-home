@@ -1,0 +1,21 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Container from "@components/container.astro";
+import Sectionhead from "@components/sectionhead.astro";
+import TeamGrid from "@components/team-grid.astro";
+import Cta from "@components/cta.astro";
+---
+
+<Layout title="ทีมของเรา" footerMargin={false}>
+  <Container>
+    <Sectionhead>
+      <Fragment slot="badge">ทีมของเรา</Fragment>
+      <Fragment slot="title">5 คน. หนึ่งเป้าหมาย.</Fragment>
+      <Fragment slot="desc">ให้ AI ขายของแทนคุณ</Fragment>
+    </Sectionhead>
+
+    <TeamGrid />
+  </Container>
+
+  <Cta />
+</Layout>
