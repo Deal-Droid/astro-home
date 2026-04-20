@@ -69,6 +69,17 @@ const thUrl = new URL("/th" + Astro.url.pathname.replace(/^\/th/, ""), Astro.sit
     <link rel="alternate" hreflang="th" href={thUrl} />
     <link rel="alternate" hreflang="x-default" href={enUrl} />
     <style is:global>
+      html {
+        overflow-y: scroll;
+        scrollbar-gutter: stable;
+      }
+
+      /* Force overlay scrollbar on WebKit (iOS/macOS) */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+
       /* Improve Page speed */
       /* https://css-tricks.com/almanac/properties/c/content-visibility/ */
       img {
