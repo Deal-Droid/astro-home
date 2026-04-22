@@ -216,7 +216,7 @@ const chatConversations: Msg[][] =
       ];
 ---
 
-<section class="bg-white pt-8 pb-16">
+<section class="bg-white pt-8 pb-16 overflow-x-hidden">
   <Container>
     <div class="py-4 grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <!-- Left: Copy -->
@@ -294,7 +294,9 @@ const chatConversations: Msg[][] =
           class="absolute -right-8 top-1/4 w-64 h-64 bg-indigo-400/20 rounded-full blur-3xl animate-pulse pointer-events-none z-0">
         </div>
         <div
-          style="transform: rotateY(-12deg); min-width: 380px; position: relative; z-index: 1;">
+          class="w-full max-w-sm lg:max-w-none lg:[min-width:380px]"
+          style="transform: rotateY(0deg); position: relative; z-index: 1;"
+          id="chat-perspective">
           <ChatSimulation
             storeName={p("hero.store_name")}
             conversations={chatConversations}
@@ -344,6 +346,12 @@ const chatConversations: Msg[][] =
     const container = document.querySelector(".ai-particles")!;
     const pool = document.querySelector(".ai-icon-pool");
     if (!container || !pool) return;
+
+    // Apply 3D perspective only on desktop
+    const wrapper = document.getElementById("chat-perspective");
+    if (wrapper && window.innerWidth >= 1024) {
+      wrapper.style.transform = "rotateY(-12deg)";
+    }
 
     const svgs = Array.from(pool.querySelectorAll("svg"));
     if (svgs.length === 0) return;
