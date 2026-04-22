@@ -310,33 +310,30 @@ const chatConversations: Msg[][] =
 </section>
 
 <style is:global>
-  @keyframes ai-particle-burst {
+  @keyframes ai-particle-float {
     0% {
-      opacity: 0;
+      opacity: 0.6;
       transform: translate(0, 0) scale(0.5);
     }
-    20% {
-      opacity: 0.6;
-      transform: translate(calc(var(--dx) * 0.3), calc(var(--dy) * 0.3))
-        scale(0.9);
-    }
-    60% {
-      opacity: 0.35;
+    40% {
+      opacity: 0.55;
     }
     100% {
       opacity: 0;
-      transform: translate(var(--dx), var(--dy)) scale(1.2);
+      transform: translate(var(--dx), var(--dy)) scale(1);
     }
   }
   .ai-particle {
     position: absolute;
-    animation: ai-particle-burst 2.8s ease-out forwards;
+    will-change: transform, opacity;
+    animation: ai-particle-float var(--duration)
+      cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
     user-select: none;
     z-index: 9999;
   }
   .ai-particle svg {
-    width: 32px;
-    height: 32px;
+    width: var(--size);
+    height: var(--size);
     fill: rgba(61, 64, 224, 0.12);
   }
 </style>
@@ -356,54 +353,51 @@ const chatConversations: Msg[][] =
     const svgs = Array.from(pool.querySelectorAll("svg"));
     if (svgs.length === 0) return;
 
-    function pick3(): SVGElement[] {
-      const shuffled = [...svgs].sort(() => Math.random() - 0.5);
-      return shuffled.slice(0, 3);
+    function pick(): SVGElement {
+      return svgs[Math.floor(Math.random() * svgs.length)];
     }
 
-    function spawnBurst() {
-      const rect = container.getBoundingClientRect();
-      const icons = pick3();
+    function spawn() {
+      const card = document.getElementById("chat-perspective");
+      if (!card) return;
+      const containerRect = container.getBoundingClientRect();
+      const cardRect = card.getBoundingClientRect();
 
-      // Start from the right edge of the chat card (behind it)
-      const baseX = rect.width * 0.65;
-      const baseY = rect.height * 0.2 + Math.random() * rect.height * 0.6;
+      const el = document.createElement("span");
+      el.className = "ai-particle";
+      el.appendChild(pick().cloneNode(true));
 
-      icons.forEach((svg, i) => {
-        const el = document.createElement("span");
-        el.className = "ai-particle";
-        el.appendChild(svg.cloneNode(true));
+      // Spawn deep inside card (20-60% of card width) — hidden by card's solid bg + z-index
+      const cardLeft = cardRect.left - containerRect.left;
+      const cardTop = cardRect.top - containerRect.top;
+      const baseX = cardLeft + cardRect.width * (0.2 + Math.random() * 0.4);
+      const baseY = cardTop + cardRect.height * (0.1 + Math.random() * 0.75);
 
-        // Spread vertically, all drift rightward
-        const spreadY = (i - 1) * (30 + Math.random() * 20);
-        const x = baseX + Math.random() * 20;
-        const y = baseY + spreadY;
+      // Travel far enough to clearly emerge past the card's right edge
+      const dx = cardRect.width * 0.3 + 40 + Math.random() * 60;
+      const dy = (Math.random() - 0.5) * 100;
+      const size = 20 + Math.random() * 24;
+      const duration = 3 + Math.random() * 2;
 
-        // Drift to the right with slight vertical variation
-        const dx = 80 + Math.random() * 60;
-        const dy = (Math.random() - 0.5) * 50;
+      el.style.left = `${baseX}px`;
+      el.style.top = `${baseY}px`;
+      el.style.setProperty("--dx", `${dx}px`);
+      el.style.setProperty("--dy", `${dy}px`);
+      el.style.setProperty("--size", `${size}px`);
+      el.style.setProperty("--duration", `${duration}s`);
 
-        el.style.left = `${x}px`;
-        el.style.top = `${y}px`;
-        el.style.setProperty("--dx", `${dx}px`);
-        el.style.setProperty("--dy", `${dy}px`);
-        // Stagger each icon slightly
-        el.style.animationDelay = `${i * 0.15}s`;
-
-        container.appendChild(el);
-        el.addEventListener("animationend", () => el.remove());
-      });
+      container.appendChild(el);
+      el.addEventListener("animationend", () => el.remove());
     }
 
-    function scheduleNext() {
-      const delay = 2500 + Math.random() * 2000;
-      setTimeout(() => {
-        spawnBurst();
-        scheduleNext();
-      }, delay);
+    function loop() {
+      spawn();
+      setTimeout(loop, 200 + Math.random() * 600);
     }
 
-    setTimeout(scheduleNext, 1200);
+    // Seed a few immediately for first impression
+    for (let i = 0; i < 5; i++) setTimeout(spawn, i * 200);
+    setTimeout(loop, 1200);
   }
 
   document.addEventListener("DOMContentLoaded", initAIParticles);
